@@ -1,0 +1,13 @@
+{
+  "title": "About | Almondcove",
+  "description": "A digital santuary by Jass",
+  "keywords": "portfolio,website,blogs,apps,webspace",
+  "og:title": "About Us - Your App Name",
+  "og:description": "Learn more about Your App Name and what we do.",
+  "og:image": "URL_to_about_image",
+  "og:url": "https://almondcove.in/about",
+  "twitter:card": "summary_large_image",
+  "twitter:title": "About Us - Your App Name",
+  "twitter:description": "Learn more about Your App Name and what we do.",
+  "twitter:image": "URL_to_about_image"
+}

@@ -1,0 +1,13 @@
+{
+  "title": "Home - Almondcove",
+  "description": "Welcome to the home page of Your App Name.",
+  "keywords": "home, your app, landing,almondcove,bootleg,remixes, music ,portfolio,jsm33t",
+  "og:title": "Home - Your App Name",
+  "og:description": "Welcome to the home page of Your App Name.",
+  "og:image": "URL_to_home_image",
+  "og:url": "https://almondcove.in/home",
+  "twitter:card": "summary_large_image",
+  "twitter:title": "Home - Almondcove",
+  "twitter:description": "Welcome to the home page of Your App Name.",
+  "twitter:image": "URL_to_home_image"
+}
