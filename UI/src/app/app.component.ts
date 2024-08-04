@@ -7,6 +7,7 @@ import { FooterComponent } from './components/shared/footer/footer.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { BackToTopComponent } from './components/shared/back-to-top/back-to-top.component';
 import { inject } from "@vercel/analytics"
+import { injectSpeedInsights } from '@vercel/speed-insights';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +23,7 @@ export class AppComponent implements OnInit{
     this.completeLoading();
     initBackToTop();
     inject();
+    injectSpeedInsights();
   }
 
   completeLoading()
