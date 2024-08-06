@@ -8,26 +8,25 @@
     "net8.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Administrator\\.nuget\\packages\\": {}
+    "C:\\Users\\jskai\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Live\\Learning\\Practice\\Almondcove\\API\\Almondcove.Entities\\Almondcove.Entities.csproj",
+      "projectUniqueName": "C:\\almondcove_megaproject\\almondcove.in\\API\\Almondcove.Entities\\Almondcove.Entities.csproj",
       "projectName": "Almondcove.Entities",
-      "projectPath": "D:\\Live\\Learning\\Practice\\Almondcove\\API\\Almondcove.Entities\\Almondcove.Entities.csproj",
-      "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-      "outputPath": "D:\\Live\\Learning\\Practice\\Almondcove\\API\\Almondcove.Entities\\obj\\",
+      "projectPath": "C:\\almondcove_megaproject\\almondcove.in\\API\\Almondcove.Entities\\Almondcove.Entities.csproj",
+      "packagesPath": "C:\\Users\\jskai\\.nuget\\packages\\",
+      "outputPath": "C:\\almondcove_megaproject\\almondcove.in\\API\\Almondcove.Entities\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\jskai\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
