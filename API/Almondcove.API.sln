@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35122.118
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Almondcove.API", "Almondcove.API\Almondcove.API.csproj", "{BB17FE60-7500-41A9-A5CC-22AEE6615390}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Almondcove.API", "Almondcove.API\Almondcove.API.csproj", "{BB17FE60-7500-41A9-A5CC-22AEE6615390}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Almondcove.Entities", "Almondcove.Entities\Almondcove.Entities.csproj", "{748BEFD7-BA5E-4B14-809F-15AC84AF47EF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{BB17FE60-7500-41A9-A5CC-22AEE6615390}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB17FE60-7500-41A9-A5CC-22AEE6615390}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB17FE60-7500-41A9-A5CC-22AEE6615390}.Release|Any CPU.Build.0 = Release|Any CPU
+		{748BEFD7-BA5E-4B14-809F-15AC84AF47EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{748BEFD7-BA5E-4B14-809F-15AC84AF47EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{748BEFD7-BA5E-4B14-809F-15AC84AF47EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{748BEFD7-BA5E-4B14-809F-15AC84AF47EF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
