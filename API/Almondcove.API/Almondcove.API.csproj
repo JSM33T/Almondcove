@@ -7,6 +7,13 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Middlewares\**" />
+	  <Content Remove="Middlewares\**" />
+	  <EmbeddedResource Remove="Middlewares\**" />
+	  <None Remove="Middlewares\**" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.7" />
 		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
 		<PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
@@ -22,14 +29,6 @@
 		<PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
 		<PackageReference Include="Serilog.Sinks.Telegram" Version="0.2.1" />
 		<PackageReference Include="Telegram.Bot" Version="19.0.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Folder Include="Middlewares\" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\Almondcove.Entities\Almondcove.Entities.csproj" />
 	</ItemGroup>
 
 </Project>
