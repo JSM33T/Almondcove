@@ -1,13 +1,13 @@
-//using Almondcove.API.Middlewares;
+
+using Almondcove.API.Middlewares;
 using Almondcove.Entities.Shared;
-//using Almondcove.Repositories;
-//using Almondcove.Services;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Reflection;
 using System.Security.Claims;
@@ -33,6 +33,16 @@ builder.Services.AddValidatorsFromAssembly(Assembly.Load("Almondcove.Validators"
 #endregion
 
 builder.Services.AddControllers();
+
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "AlmondcoveAPI",
+        Description = "Apis for almondcove.in"
+    });
+});
 
 if (builder.Environment.IsDevelopment())
 {
@@ -92,39 +102,39 @@ builder.Services.AddDataProtection()
     .SetApplicationName("AlmondcoveApp");
 
 
-//var rateLimitingOptions = new RateLimitingOptions();
-//builder.Configuration.GetSection("RateLimiting").Bind(rateLimitingOptions);
+var rateLimitingOptions = new RateLimitingConfig();
+builder.Configuration.GetSection("RateLimiting").Bind(rateLimitingOptions);
 
 
 #region rateLimiter
-//builder.Services.AddRateLimiter(options =>
-//{
-//    // Apply global rate limiting
-//    options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
-//    {
-//        return RateLimitPartition.GetFixedWindowLimiter(
-//            partitionKey: httpContext.User.Identity?.Name ?? httpContext.Request.Headers.Host.ToString(),
-//            factory: partition => new FixedWindowRateLimiterOptions
-//            {
-//                PermitLimit = rateLimitingOptions.Global.PermitLimit,
-//                Window = rateLimitingOptions.Global.Window,
-//                QueueLimit = rateLimitingOptions.Global.QueueLimit,
-//            });
-//    });
+builder.Services.AddRateLimiter(options =>
+{
+    // Apply global rate limiting
+    options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
+    {
+        return RateLimitPartition.GetFixedWindowLimiter(
+            partitionKey: httpContext.User.Identity?.Name ?? httpContext.Request.Headers.Host.ToString(),
+            factory: partition => new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = rateLimitingOptions.Global.PermitLimit,
+                Window = rateLimitingOptions.Global.Window,
+                QueueLimit = rateLimitingOptions.Global.QueueLimit,
+            });
+    });
 
-//    // Apply rate limiting for specific routes
-//    foreach (var route in rateLimitingOptions.Routes)
-//    {
-//        options.AddFixedWindowLimiter(route.Key, opt =>
-//        {
-//            opt.PermitLimit = route.Value.PermitLimit;
-//            opt.Window = route.Value.Window;
-//            opt.QueueLimit = route.Value.QueueLimit;
-//        });
-//    }
+    // Apply rate limiting for specific routes
+    foreach (var route in rateLimitingOptions.Routes)
+    {
+        options.AddFixedWindowLimiter(route.Key, opt =>
+        {
+            opt.PermitLimit = route.Value.PermitLimit;
+            opt.Window = route.Value.Window;
+            opt.QueueLimit = route.Value.QueueLimit;
+        });
+    }
 
-//    options.RejectionStatusCode = 429; // Too Many Requests
-//});
+    options.RejectionStatusCode = 429;
+});
 
 #endregion
 
@@ -142,7 +152,12 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-
+    app.UseDeveloperExceptionPage();
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+    });
 }
 else
 {
@@ -151,7 +166,7 @@ else
 
 app.UseCors("OpenPolicy");
 app.UseHttpsRedirection();
-//app.UseMiddleware<AcValidationMiddleware>();
+app.UseMiddleware<AcValidationMiddleware>();
 app.UseStaticFiles();
 app.UseRateLimiter();
 

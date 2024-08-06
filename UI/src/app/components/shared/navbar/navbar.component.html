@@ -24,11 +24,6 @@
         </label>
       </div>
 
-      <a class="btn btn-primary btn-sm fs-sm order-lg-3 d-none d-sm-inline-flex" href="https://themes.getbootstrap.com/product/around-multipurpose-template-ui-kit/" target="_blank" rel="noopener">
-        <i class="ai-cart fs-xl me-2 ms-n1"></i>
-        Buy now
-      </a>
-
       <!-- Mobile menu toggler (Hamburger) -->
       <button class="navbar-toggler ms-sm-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -37,7 +32,7 @@
       <!-- Navbar collapse (Main navigation) -->
       <nav class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav navbar-nav-scroll me-auto" style="--ar-scroll-height: 520px;">
-          <li class="nav-item dropdown">
+          <!-- <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Landings</a>
             <div class="dropdown-menu overflow-hidden p-0">
               <div class="d-lg-flex">
@@ -141,8 +136,8 @@
                 <div class="mega-dropdown-column position-relative border-start z-3"></div>
               </div>
             </div>
-          </li>
-          <li class="nav-item dropdown">
+          </li> -->
+          <!-- <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle active" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">Pages</a>
             <ul class="dropdown-menu">
               <li class="dropdown">
@@ -212,14 +207,14 @@
                 </ul>
               </li>
             </ul>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">Account</a>
+          </li> -->
+          <!-- <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">Studio</a>
             <ul class="dropdown-menu">
               <li class="dropdown">
                 <a class="dropdown-item dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">Auth pages</a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="account-signin.html">Sign In</a></li>
+                  <li><a class="dropdown-item disabled" (click)="toggler()" routerLink="/">Music Prod.</a></li>
                   <li><a class="dropdown-item" href="account-signup.html">Sign Up</a></li>
                   <li><a class="dropdown-item" href="account-signinup.html">Sign In / Up</a></li>
                   <li><a class="dropdown-item" href="account-password-recovery.html">Password Recovery</a></li>
@@ -233,20 +228,16 @@
               <li><a class="dropdown-item" href="account-chat.html">Chat (Messages)</a></li>
               <li><a class="dropdown-item" href="account-favorites.html">Favorites (Wishlist)</a></li>
             </ul>
+          </li> -->
+          <li class="nav-item">
+            <a class="nav-link" (click)="toggler()" routerLink="/" >{{ 'NAVBAR.HOME' | translate }}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/about">About</a>
+            <a class="nav-link" (click)="toggler()" routerLink="/about">{{ 'NAVBAR.CONTACT' | translate }}</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="/">Test</a>
-          </li>
+        
         </ul>
-        <div class="d-sm-none p-3 mt-n3">
-          <a class="btn btn-primary w-100 mb-1" href="https://themes.getbootstrap.com/product/around-multipurpose-template-ui-kit/" target="_blank" rel="noopener">
-            <i class="ai-cart fs-xl me-2 ms-n1"></i>
-            Buy now
-          </a>
-        </div>
+        
       </nav>
     </div>
   </header>

@@ -2,16 +2,9 @@
 
 	<PropertyGroup>
 		<TargetFramework>net8.0</TargetFramework>
-		<Nullable>enable</Nullable>
+		<Nullable>disable</Nullable>
 		<ImplicitUsings>enable</ImplicitUsings>
 	</PropertyGroup>
-
-	<ItemGroup>
-	  <Compile Remove="Middlewares\**" />
-	  <Content Remove="Middlewares\**" />
-	  <EmbeddedResource Remove="Middlewares\**" />
-	  <None Remove="Middlewares\**" />
-	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.7" />
@@ -29,6 +22,17 @@
 		<PackageReference Include="Serilog.Sinks.File" Version="6.0.0" />
 		<PackageReference Include="Serilog.Sinks.Telegram" Version="0.2.1" />
 		<PackageReference Include="Telegram.Bot" Version="19.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\Almondcove.Entities\Almondcove.Entities.csproj" />
+	  <ProjectReference Include="..\Almondcove.Repositories\Almondcove.Repositories.csproj" />
+	  <ProjectReference Include="..\Almondcove.Validators\Almondcove.Validators.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Database\" />
+	  <Folder Include="wwwroot\" />
 	</ItemGroup>
 
 </Project>

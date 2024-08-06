@@ -34,13 +34,13 @@ namespace Almondcove.API.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "An error occurred in {MethodName}. User: {User}. URL: {Url}. Query: {Query} UserAgent {UserAgent}", methodName, user, request.Path, request.QueryString, request.Headers.UserAgent);
-                return AcResponse(500, "An error occurred while processing your request.", default(T), ["Something went wrong", "Error has ben logged"]);
+                _logger.LogError(ex, "An error occurred in {MethodName}. User: {User}. URL: {Url}. Query: {Query} UserAgent: {UserAgent}", methodName, user, request.Path, request.QueryString, request.Headers.UserAgent);
+                return AcResponse(500, "An error occurred while processing your request.", default(T), new List<string> { "Something went wrong", "Error has been logged" });
             }
             finally
             {
                 stopwatch.Stop();
-                _logger.LogInformation("{MethodName} executed in {Duration} ms. User: {User}. URL: {Url}. Query: {Query} UserAgent {UserAgent}", methodName, stopwatch.ElapsedMilliseconds, user, request.Path, request.QueryString, request.Headers.UserAgent);
+                _logger.LogInformation("{MethodName} executed in {Duration} ms. User: {User}. URL: {Url}. Query: {Query} UserAgent: {UserAgent}", methodName, stopwatch.ElapsedMilliseconds, user, request.Path, request.QueryString, request.Headers.UserAgent);
             }
         }
 
