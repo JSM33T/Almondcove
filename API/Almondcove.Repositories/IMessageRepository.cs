@@ -5,6 +5,12 @@ namespace Almondcove.Repositories
 {
     public interface IMessageRepository
     {
-        Task<DBResponse<int>> AddMessageAsync(Message_Add messageRequest);
+        Task CreateMessageAsync(MessageRequest messageRequest);
+        Task<IEnumerable<Message>> GetAllMessagesAsync();
+        Task<Message> GetMessageByContentAsync(string content); // Add this method
+        Task<Message> GetMessageByIdAsync(int id);
+        Task UpdateMessageAsync(Message message);
+        Task DeleteMessageAsync(Message message);
     }
+
 }

@@ -3,6 +3,7 @@
 ##
 ## Get latest from `dotnet new gitignore`
 appsettings.json
+Migrations/
 # dotenv files
 .env
 wwwroot/keys/

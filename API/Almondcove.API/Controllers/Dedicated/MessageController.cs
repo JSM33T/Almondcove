@@ -4,62 +4,57 @@ using Almondcove.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using System.Collections.Generic;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace Almondcove.API.Controllers.Dedicated
 {
     [Route("api/message")]
     [ApiController]
-    public class MessageController : FoundationController
+    [Authorize(Roles = "admin")]
+    public class MessageController(IOptionsMonitor<AlmondcoveConfig> config, ILogger<FoundationController> logger, IHttpContextAccessor httpContextAccessor, IMessageRepository messageRepository) : FoundationController(config, logger, httpContextAccessor)
     {
-        private readonly IMessageRepository _messageRepo;
-
-        public MessageController(IOptionsMonitor<AlmondcoveConfig> config, ILogger<FoundationController> logger, IHttpContextAccessor httpContextAccessor, IMessageRepository messageRepository)
-            : base(config, logger, httpContextAccessor)
-        {
-            _messageRepo = messageRepository;
-        }
+        private readonly IMessageRepository _messageRepo = messageRepository;
 
         [HttpPost("add")]
         [AllowAnonymous]
-        public async Task<IActionResult> Post([FromBody] Message_Add request)
+        public async Task<IActionResult> Post([FromBody] MessageRequest messageRequest)
         {
+            int statusCode = 200;
+            string message = "Message Sent";
+            List<string> hints = new List<string>();
+
             return await ExecuteActionAsync(async () =>
             {
-                #region Logic
-                // Add your logic here
-                var response = await _messageRepo.AddMessageAsync(request);
-                int statusCode;
-                string message = response.Message;
-                List<string> errors = new List<string>();
-
-                switch (response.Status)
+                var existingMessage = await _messageRepo.GetMessageByContentAsync(messageRequest.Content);
+                if (existingMessage != null)
                 {
-                    case DbOperationStatus.Success:
-                        statusCode = StatusCodes.Status200OK;
-                        break;
-                    case DbOperationStatus.Conflict:
-                        statusCode = StatusCodes.Status409Conflict;
-                        errors.Add(response.Message);
-                        break;
-                    case DbOperationStatus.ValidationFailed:
-                        statusCode = StatusCodes.Status400BadRequest;
-                        errors.Add(response.Message);
-                        break;
-                    case DbOperationStatus.NotFound:
-                        statusCode = StatusCodes.Status404NotFound;
-                        errors.Add(response.Message);
-                        break;
-                    default:
-                        statusCode = StatusCodes.Status500InternalServerError;
-                        errors.Add("An unexpected error occurred.");
-                        break;
+                    statusCode = StatusCodes.Status409Conflict;
+                    message = "A message with the same content already exists.";
+                    hints.Add("Please use a different content for the message.");
+                    return (statusCode, 0, message, hints);
                 }
 
-                return (statusCode, response.Data, message, errors);
+                await _messageRepo.CreateMessageAsync(messageRequest);
 
-                #endregion
 
+                return (statusCode, 0, message, hints);
+            }, MethodBase.GetCurrentMethod().Name);
+        }
+
+        [HttpGet("getAll")]
+        public async Task<IActionResult> GetAll()
+        {
+            int statusCode = 200;
+            string message = "Success";
+            List<string> hints = [];
+
+            return await ExecuteActionAsync(async () =>
+            {
+                var messages = await _messageRepo.GetAllMessagesAsync();
+
+                return (statusCode, messages, message, hints);
             }, MethodBase.GetCurrentMethod().Name);
         }
     }

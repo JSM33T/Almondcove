@@ -1,46 +1,59 @@
 ﻿using Almondcove.Entities;
 using Almondcove.Entities.Dedicated;
-using Almondcove.Entities.Shared;
 using Microsoft.EntityFrameworkCore;
 
 namespace Almondcove.Repositories
 {
     public class MessageRepository : IMessageRepository
     {
-        private readonly AcDbContext _context;
+        private readonly AppDbContext _context;
 
-        public MessageRepository(AcDbContext context)
+        public MessageRepository(AppDbContext context)
         {
             _context = context;
         }
 
-        public async Task<DBResponse<int>> AddMessageAsync(Message_Add messageRequest)
+        public async Task CreateMessageAsync(MessageRequest messageRequest)
         {
-            
-            var existingMessage = await _context.Messages
-                .FirstOrDefaultAsync(m => m.MessageText == messageRequest.MessageText);
-
-            if (existingMessage != null)
+            var message = new Message
             {
-                return new DBResponse<int>(existingMessage.Id, DbOperationStatus.Conflict, "Message already exists.");
-            }
-
-            // Check for some other condition (example condition)
-            //if ()
-            //{
-            //    return new DBResponse<int>(0, DbOperationStatus.ValidationFailed, "Some validation condition failed.");
-            //}
-
-            var newMessage = new Message
-            {
-                MessageText = messageRequest.MessageText,
-                DateAdded = DateTime.UtcNow
+                Content = messageRequest.Content,
+                DateAdded = DateTime.UtcNow,
+                Origin = messageRequest.Origin,
+                Topic = messageRequest.Topic
             };
-
-            _context.Messages.Add(newMessage);
+            _context.Messages.Add(message);
             await _context.SaveChangesAsync();
+        }
 
-            return new DBResponse<int>(newMessage.Id, DbOperationStatus.Success, "Message added successfully.");
+        public async Task<Message> GetMessageByContentAsync(string content)
+        {
+            return await _context.Messages.FirstOrDefaultAsync(m => m.Content == content);
+        }
+
+
+        public async Task<IEnumerable<Message>> GetAllMessagesAsync()
+        {
+            return await _context.Messages.ToListAsync();
+        }
+
+        public async Task<Message> GetMessageByIdAsync(int id)
+        {
+            return await _context.Messages.FindAsync(id);
+        }
+
+        public async Task UpdateMessageAsync(Message message)
+        {
+            _context.Entry(message).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteMessageAsync(Message message)
+        {
+            _context.Messages.Remove(message);
+            await _context.SaveChangesAsync();
         }
     }
+
+
 }
