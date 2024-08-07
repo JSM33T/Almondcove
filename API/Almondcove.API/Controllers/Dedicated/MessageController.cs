@@ -12,12 +12,12 @@ namespace Almondcove.API.Controllers.Dedicated
     [ApiController]
     public class MessageController : FoundationController
     {
-        private readonly IMessageRepository _mailRepo;
+        private readonly IMessageRepository _messageRepo;
 
         public MessageController(IOptionsMonitor<AlmondcoveConfig> config, ILogger<FoundationController> logger, IHttpContextAccessor httpContextAccessor, IMessageRepository messageRepository)
             : base(config, logger, httpContextAccessor)
         {
-            _mailRepo = messageRepository;
+            _messageRepo = messageRepository;
         }
 
         [HttpPost("add")]
@@ -27,14 +27,36 @@ namespace Almondcove.API.Controllers.Dedicated
             return await ExecuteActionAsync(async () =>
             {
                 #region Logic
+                // Add your logic here
+                var response = await _messageRepo.AddMessageAsync(request);
+                int statusCode;
+                string message = response.Message;
+                List<string> errors = new List<string>();
 
-                int statCode = StatusCodes.Status400BadRequest;
-                string message = "Request is invalid.";
-                List<string> hints = [];
+                switch (response.Status)
+                {
+                    case DbOperationStatus.Success:
+                        statusCode = StatusCodes.Status200OK;
+                        break;
+                    case DbOperationStatus.Conflict:
+                        statusCode = StatusCodes.Status409Conflict;
+                        errors.Add(response.Message);
+                        break;
+                    case DbOperationStatus.ValidationFailed:
+                        statusCode = StatusCodes.Status400BadRequest;
+                        errors.Add(response.Message);
+                        break;
+                    case DbOperationStatus.NotFound:
+                        statusCode = StatusCodes.Status404NotFound;
+                        errors.Add(response.Message);
+                        break;
+                    default:
+                        statusCode = StatusCodes.Status500InternalServerError;
+                        errors.Add("An unexpected error occurred.");
+                        break;
+                }
 
-                // Add your logic here and set statCode, message, errors, and result accordingly
-
-                return (statCode, 0, message, hints);
+                return (statusCode, response.Data, message, errors);
 
                 #endregion
 

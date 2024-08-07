@@ -1,6 +1,7 @@
 
 using Almondcove.API.Middlewares;
 using Almondcove.Entities.Shared;
+using Almondcove.Repositories;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -58,7 +59,7 @@ var almondcoveConfig = builder.Configuration.GetSection("AlmondcoveConfig").Get<
 
 builder.Services.Configure<AlmondcoveConfig>(almondcoveConfigSection);
 
-//builder.Services.AddScoped<IMessageRepository, MessageRepository>();
+builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 //builder.Services.AddScoped<IUserRepository, UserRepository>();
 //builder.Services.AddScoped<IUserService, UserService>();
 //builder.Services.AddScoped<IBlogRepository, BlogRepository>();
