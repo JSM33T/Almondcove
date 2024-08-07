@@ -1,14 +1,19 @@
 
 using Almondcove.API.Middlewares;
+using Almondcove.Entities;
 using Almondcove.Entities.Shared;
+using Almondcove.Repositories;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.RateLimiting;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using System.Data;
 using System.Reflection;
 using System.Security.Claims;
 using System.Text;
@@ -56,9 +61,13 @@ else
 var almondcoveConfigSection = builder.Configuration.GetSection("AlmondcoveConfig");
 var almondcoveConfig = builder.Configuration.GetSection("AlmondcoveConfig").Get<AlmondcoveConfig>();
 
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer("Data Source=localhost;Initial Catalog=almondcove_db;Trusted_Connection=True;Integrated Security=SSPI;TrustServerCertificate=True",
+        sqlOptions => sqlOptions.MigrationsAssembly("Almondcove.API")));
+
 builder.Services.Configure<AlmondcoveConfig>(almondcoveConfigSection);
 
-//builder.Services.AddScoped<IMessageRepository, MessageRepository>();
+builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 //builder.Services.AddScoped<IUserRepository, UserRepository>();
 //builder.Services.AddScoped<IUserService, UserService>();
 //builder.Services.AddScoped<IBlogRepository, BlogRepository>();
@@ -89,10 +98,10 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddMemoryCache();
 
-builder.Services.AddResponseCompression(options =>
-{
-    options.EnableForHttps = true;
-});
+//builder.Services.AddResponseCompression(options =>
+//{
+//    options.EnableForHttps = true;
+//});
 
 
 builder.Services.AddHttpClient();
@@ -100,7 +109,6 @@ builder.Services.AddHttpClient();
 builder.Services.AddDataProtection()
     .PersistKeysToFileSystem(new DirectoryInfo(Path.Combine(builder.Environment.WebRootPath, "keys")))
     .SetApplicationName("AlmondcoveApp");
-
 
 var rateLimitingOptions = new RateLimitingConfig();
 builder.Configuration.GetSection("RateLimiting").Bind(rateLimitingOptions);
@@ -144,7 +152,6 @@ builder.Services.AddCors(o => o.AddPolicy("OpenPolicy", builder =>
            .AllowAnyMethod()
            .AllowAnyHeader();
 }));
-
 
 builder.Services.AddEndpointsApiExplorer();
 

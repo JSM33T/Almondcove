@@ -71,7 +71,7 @@ namespace Almondcove.API.Middlewares
                     status: StatusCodes.Status429TooManyRequests,
                     message: "Rate limit exceeded",
                     data: 0,
-                    errors: errorMessages
+                    hints: errorMessages
                 );
 
                 var customResponseText = JsonConvert.SerializeObject(customResponse, new JsonSerializerSettings
@@ -94,7 +94,7 @@ namespace Almondcove.API.Middlewares
                     status: StatusCodes.Status415UnsupportedMediaType,
                     message: "Invalid Request",
                     data: 0,
-                    errors: errorMessages
+                    hints: errorMessages
                 );
 
                 var customResponseText = JsonConvert.SerializeObject(customResponse, new JsonSerializerSettings
@@ -117,7 +117,7 @@ namespace Almondcove.API.Middlewares
                     status: StatusCodes.Status401Unauthorized,
                     message: "Unauthorized request",
                     data: 0,
-                    errors: errorMessages
+                    hints: errorMessages
                 );
 
                 var customResponseText = JsonConvert.SerializeObject(customResponse, new JsonSerializerSettings
