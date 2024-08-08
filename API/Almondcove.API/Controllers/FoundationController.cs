@@ -1,4 +1,6 @@
 ﻿using Almondcove.Entities.Shared;
+using Almondcove.Services;
+using Flurl;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Diagnostics;
@@ -11,11 +13,13 @@ namespace Almondcove.API.Controllers
         protected readonly IOptionsMonitor<AlmondcoveConfig> _config;
         protected readonly ILogger _logger;
         protected readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly ITelegramService _telegramService;
 
-        public FoundationController(IOptionsMonitor<AlmondcoveConfig> config, ILogger<FoundationController> logger, IHttpContextAccessor httpContextAccessor)
+        public FoundationController(IOptionsMonitor<AlmondcoveConfig> config, ILogger<FoundationController> logger, IHttpContextAccessor httpContextAccessor, ITelegramService telegramService)
         {
             _config = config;
             _logger = logger;
+            _telegramService = telegramService;
             _httpContextAccessor = httpContextAccessor;
         }
 
@@ -35,7 +39,16 @@ namespace Almondcove.API.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "An error occurred in {MethodName}. User: {User}. URL: {Url}. Query: {Query} UserAgent: {UserAgent}", methodName, user, request.Path, request.QueryString, request.Headers.UserAgent);
-                return AcResponse(500, "An error occurred while processing your request.", default(T), new List<string> { "Something went wrong", "Error has been logged" });
+
+                await _telegramService.SendMessageAsync(
+                           $"<b>An error occurred in:</b> {methodName}\n" +
+                           $"<b>User:</b> {user}\n" +
+                           $"<b>URL:</b> {request.Path}\n" +
+                           $"<b>Query:</b> {request.QueryString}\n" +
+                           $"<b>UserAgent:</b> {request.Headers.UserAgent}\n" +
+                           $"<b>Exception:</b> {ex.Message}"
+                       );
+                return AcResponse(500, "An error occurred while processing your request.", default(T), ["Something went wrong", "Error has been logged"]);
             }
             finally
             {

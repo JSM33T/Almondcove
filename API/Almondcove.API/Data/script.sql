@@ -1,9 +1,9 @@
-CREATE TABLE tblMessage
+CREATE TABLE tblMessages
 (
     Id              INT 
                     NOT NULL,
 
-    MessageContent  NVARCHAR(MAX) 
+    Content  NVARCHAR(512) 
                     NOT NULL,
 
     Topic           NVARCHAR(128) 
@@ -22,7 +22,7 @@ CREATE TABLE tblMessage
                     PRIMARY KEY (Id),
 
     CONSTRAINT      UQ_MessageContent 
-                    UNIQUE (MessageContent)
+                    UNIQUE (Content)
 );
 GO
 
@@ -36,8 +36,6 @@ CREATE TABLE tblParameters
     DateAdded       DATETIME 
                     NOT NULL 
                     DEFAULT GETDATE(),
-
-    CONSTRAINT UQ_MessageContent UNIQUE (MessageContent)
 );
 
 CREATE TABLE tblRoles
@@ -103,3 +101,28 @@ CREATE TABLE tblUsers
                 NOT NULL 
                 DEFAULT(10),
 );
+GO
+
+CREATE OR ALTER PROCEDURE sprocInsertMessage
+    @Content NVARCHAR(MAX),
+    @Origin NVARCHAR(50),
+    @Topic NVARCHAR(50)
+AS
+BEGIN
+    DECLARE @MaxId INT;
+    SELECT @MaxId = ISNULL(MAX(Id), 0) FROM tblMessages;
+
+    INSERT INTO tblMessages (Id, Content, DateAdded, Origin, Topic)
+    VALUES (@MaxId + 1, @Content, GETDATE(), @Origin, @Topic);
+
+    SELECT @MaxId;
+END
+
+Go
+
+CREATE PROCEDURE sprocGetMessageByContent
+    @Content NVARCHAR(MAX)
+AS
+BEGIN
+    SELECT * FROM tblMessages WHERE Content = @Content;
+END

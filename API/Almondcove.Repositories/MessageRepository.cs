@@ -1,59 +1,88 @@
 ﻿using Almondcove.Entities;
 using Almondcove.Entities.Dedicated;
-using Microsoft.EntityFrameworkCore;
+using Almondcove.Entities.Shared;
+using Dapper;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using System.Data;
 
 namespace Almondcove.Repositories
 {
     public class MessageRepository : IMessageRepository
     {
-        private readonly AppDbContext _context;
+        protected readonly IOptionsMonitor<AlmondcoveConfig> _config;
+        protected readonly ILogger _logger;
+        private string _conStr;
 
-        public MessageRepository(AppDbContext context)
+        public MessageRepository(IOptionsMonitor<AlmondcoveConfig> config, ILogger<MessageRepository> logger)
         {
-            _context = context;
+            _config = config;
+            _logger = logger;
+            _conStr = _config.CurrentValue.ConnectionString;
         }
+
 
         public async Task CreateMessageAsync(MessageRequest messageRequest)
         {
-            var message = new Message
+            using IDbConnection db = new SqlConnection(_conStr);
+
+            var parameters = new
             {
-                Content = messageRequest.Content,
-                DateAdded = DateTime.UtcNow,
-                Origin = messageRequest.Origin,
-                Topic = messageRequest.Topic
+                messageRequest.Content,
+                messageRequest.Origin,
+                messageRequest.Topic
             };
-            _context.Messages.Add(message);
-            await _context.SaveChangesAsync();
+
+            var result = await db.QueryFirstOrDefaultAsync<int>("sprocInsertMessage", messageRequest, commandType: CommandType.StoredProcedure);
         }
 
         public async Task<Message> GetMessageByContentAsync(string content)
         {
-            return await _context.Messages.FirstOrDefaultAsync(m => m.Content == content);
+            using IDbConnection db = new SqlConnection(_conStr);
+
+            var parameters = new
+            {
+                Content = content
+            };
+
+            return await db.QueryFirstOrDefaultAsync<Message>("sprocGetMessageByContent", parameters, commandType: CommandType.StoredProcedure);
         }
 
 
         public async Task<IEnumerable<Message>> GetAllMessagesAsync()
         {
-            return await _context.Messages.ToListAsync();
+            using IDbConnection db = new SqlConnection(_conStr);
+
+            string query = "SELECT * FROM Messages;";
+            return await db.QueryAsync<Message>(query);
         }
 
         public async Task<Message> GetMessageByIdAsync(int id)
         {
-            return await _context.Messages.FindAsync(id);
+            using IDbConnection db = new SqlConnection(_conStr);
+
+            string query = "SELECT * FROM Messages WHERE Id = @Id;";
+            return await db.QueryFirstOrDefaultAsync<Message>(query, new { Id = id });
         }
 
         public async Task UpdateMessageAsync(Message message)
         {
-            _context.Entry(message).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+            using IDbConnection db = new SqlConnection(_conStr);
+
+            string query = "UPDATE Messages SET Content = @Content, DateAdded = @DateAdded, Origin = @Origin, Topic = @Topic WHERE Id = @Id;";
+            await db.ExecuteAsync(query, message);
         }
 
         public async Task DeleteMessageAsync(Message message)
         {
-            _context.Messages.Remove(message);
-            await _context.SaveChangesAsync();
+            using IDbConnection db = new SqlConnection(_conStr);
+
+            string query = "DELETE FROM Messages WHERE Id = @Id;";
+            await db.ExecuteAsync(query, message);
         }
     }
+
 
 
 }

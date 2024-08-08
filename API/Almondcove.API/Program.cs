@@ -1,19 +1,17 @@
 
 using Almondcove.API.Middlewares;
-using Almondcove.Entities;
 using Almondcove.Entities.Shared;
 using Almondcove.Repositories;
+using Almondcove.Services;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.RateLimiting;
-using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
-using System.Data;
 using System.Reflection;
 using System.Security.Claims;
 using System.Text;
@@ -61,17 +59,20 @@ else
 var almondcoveConfigSection = builder.Configuration.GetSection("AlmondcoveConfig");
 var almondcoveConfig = builder.Configuration.GetSection("AlmondcoveConfig").Get<AlmondcoveConfig>();
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer("Data Source=localhost;Initial Catalog=almondcove_db;Trusted_Connection=True;Integrated Security=SSPI;TrustServerCertificate=True",
-        sqlOptions => sqlOptions.MigrationsAssembly("Almondcove.API")));
-
 builder.Services.Configure<AlmondcoveConfig>(almondcoveConfigSection);
 
+builder.Services.AddScoped<IDataService>(provider =>
+{
+    return new DataService(almondcoveConfig.ConnectionString.ToString());
+});
+
+//Register repositories
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
-//builder.Services.AddScoped<IUserRepository, UserRepository>();
-//builder.Services.AddScoped<IUserService, UserService>();
-//builder.Services.AddScoped<IBlogRepository, BlogRepository>();
-//builder.Services.AddScoped<IMailingService, MailingService>();
+
+//Register services
+builder.Services.AddScoped<INotificationService, NotificationService>();
+builder.Services.AddScoped<IMailService, MailService>();
+builder.Services.AddScoped<ITelegramService, TelegramService>();
 
 #region Auth
 builder.Services.AddAuthentication(options =>

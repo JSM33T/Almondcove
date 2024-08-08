@@ -1,6 +1,7 @@
 ﻿using Almondcove.Entities.Dedicated;
 using Almondcove.Entities.Shared;
 using Almondcove.Repositories;
+using Almondcove.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -13,7 +14,7 @@ namespace Almondcove.API.Controllers.Dedicated
     [Route("api/message")]
     [ApiController]
     [Authorize(Roles = "admin")]
-    public class MessageController(IOptionsMonitor<AlmondcoveConfig> config, ILogger<FoundationController> logger, IHttpContextAccessor httpContextAccessor, IMessageRepository messageRepository) : FoundationController(config, logger, httpContextAccessor)
+    public class MessageController(IOptionsMonitor<AlmondcoveConfig> config, ILogger<FoundationController> logger, IHttpContextAccessor httpContextAccessor,ITelegramService telegramService, IMessageRepository messageRepository) : FoundationController(config, logger, httpContextAccessor,telegramService)
     {
         private readonly IMessageRepository _messageRepo = messageRepository;
 
@@ -23,7 +24,7 @@ namespace Almondcove.API.Controllers.Dedicated
         {
             int statusCode = 200;
             string message = "Message Sent";
-            List<string> hints = new List<string>();
+            List<string> hints = [];
 
             return await ExecuteActionAsync(async () =>
             {
@@ -43,6 +44,7 @@ namespace Almondcove.API.Controllers.Dedicated
             }, MethodBase.GetCurrentMethod().Name);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpGet("getAll")]
         public async Task<IActionResult> GetAll()
         {
