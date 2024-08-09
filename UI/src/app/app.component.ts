@@ -44,8 +44,8 @@ import { SidePanelComponent } from './components/shared/side-panel/side-panel.co
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { BackToTopComponent } from './components/shared/back-to-top/back-to-top.component';
-import { inject } from '@vercel/analytics';
-import { injectSpeedInsights } from '@vercel/speed-insights';
+// import { inject } from '@vercel/analytics';
+// import { injectSpeedInsights } from '@vercel/speed-insights';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 
 @Component({
@@ -74,8 +74,8 @@ export class AppComponent implements OnInit {
   ngOnInit(): void {
     this.completeLoading();
     initBackToTop();
-    inject();
-    injectSpeedInsights();
+    // inject();
+    // injectSpeedInsights();
     this.setLang();
   }
 

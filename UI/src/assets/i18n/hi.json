@@ -1,8 +1,12 @@
 {
-    "TITLE": "kaisan ba",
-    "NAVBAR": {
-      "HOME": "ghar",
-      "ABOUT": "baare me",
-      "CONTACT": "Contacto"
-    }
+  "TITLE": "कैसे हो",
+  "NAVBAR": {
+    "HOME": "होम",
+    "ABOUT": "हमारे बारे में",
+    "CONTACT": "संपर्क करें"
+  },
+  "ABOUT": {
+    "WELCOME": "Almondcove में आपका स्वागत है",
+    "INTRO": "ब्लॉग्स, संगीत, गैलरी वेब संसाधनों और .NET, C# (MVC, Web API's, Razor Pages) जैसी कलाकृतियों के साथ एक डिजिटल अभयारण्य।"
   }
+}
