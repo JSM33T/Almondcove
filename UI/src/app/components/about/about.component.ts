@@ -34,7 +34,7 @@ export class AboutComponent implements OnInit {
   constructor(private titleService: Title, private metaService: Meta) { }
 
   ngOnInit(): void {
-    initParallax();
+   // initParallax();
   }
 
 }
