@@ -7,6 +7,9 @@
   },
   "ABOUT":{
     "WELCOME":"Welcome to Almondcove",
-    "INTRO" : " A digital santuary with blogs, music, gallery web resources and much more of the artifacts .NET, C# (MVC,Web Api's,Razor Pages)."
+    "INTRO" : " A digital santuary with blogs, music, gallery web resources and much more of the artifacts .NET, C# (MVC,Web Api's,Razor Pages).",
+    "CARD_CONTACT" :"",
+    "CARD_FAQ" :"",
+    "CARD_ATTRIBUTIONS" :""
   }
 }

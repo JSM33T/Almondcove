@@ -26,7 +26,7 @@ export class RouteSwitchService {
           }
         });
 
-        //InitAnimateOnScroll();
+        InitAnimateOnScroll();
       });
   }
 

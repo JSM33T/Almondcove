@@ -6,6 +6,6 @@ export default function InitAnimateOnScroll() {
 
     if (animationToggle === null) return;
 
-    Aos.refreshHard();
+    Aos.refresh();
     Aos.init();
 }

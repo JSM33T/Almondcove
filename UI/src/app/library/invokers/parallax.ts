@@ -14,6 +14,7 @@ import Parallax from 'parallax-js';
 let parallaxInstances: Parallax[] = [];
 
 export function initParallax() {
+    destroyParallax();
     const elements = document.querySelectorAll('.parallax');
     console.log(`Found ${elements.length} parallax elements.`);
     for (let i = 0; i < elements.length; i++) {

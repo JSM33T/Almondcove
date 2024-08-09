@@ -14,9 +14,6 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     initializeThemeSwitcher();
     this.toggler();
-
-
-
   }
 
   toggler()
