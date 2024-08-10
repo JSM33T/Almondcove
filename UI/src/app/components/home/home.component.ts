@@ -13,7 +13,7 @@ import { RouterModule } from '@angular/router';
 })
 export class HomeComponent implements OnInit{
   ngOnInit(): void {
-   initParallax();
+   //initParallax();
     // InitAnimateOnScroll();
   }
 
