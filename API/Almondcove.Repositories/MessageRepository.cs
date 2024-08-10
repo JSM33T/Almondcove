@@ -31,7 +31,9 @@ namespace Almondcove.Repositories
             {
                 messageRequest.Content,
                 messageRequest.Origin,
-                messageRequest.Topic
+                messageRequest.Topic,
+                messageRequest.Name,
+                messageRequest.Email
             };
 
             var result = await db.QueryFirstOrDefaultAsync<int>("sprocInsertMessage", messageRequest, commandType: CommandType.StoredProcedure);
@@ -64,22 +66,6 @@ namespace Almondcove.Repositories
 
             string query = "SELECT * FROM Messages WHERE Id = @Id;";
             return await db.QueryFirstOrDefaultAsync<Message>(query, new { Id = id });
-        }
-
-        public async Task UpdateMessageAsync(Message message)
-        {
-            using IDbConnection db = new SqlConnection(_conStr);
-
-            string query = "UPDATE Messages SET Content = @Content, DateAdded = @DateAdded, Origin = @Origin, Topic = @Topic WHERE Id = @Id;";
-            await db.ExecuteAsync(query, message);
-        }
-
-        public async Task DeleteMessageAsync(Message message)
-        {
-            using IDbConnection db = new SqlConnection(_conStr);
-
-            string query = "DELETE FROM Messages WHERE Id = @Id;";
-            await db.ExecuteAsync(query, message);
         }
     }
 

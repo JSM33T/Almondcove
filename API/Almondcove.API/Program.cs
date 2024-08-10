@@ -111,40 +111,75 @@ builder.Services.AddDataProtection()
     .PersistKeysToFileSystem(new DirectoryInfo(Path.Combine(builder.Environment.WebRootPath, "keys")))
     .SetApplicationName("AlmondcoveApp");
 
-var rateLimitingOptions = new RateLimitingConfig();
-builder.Configuration.GetSection("RateLimiting").Bind(rateLimitingOptions);
+//var rateLimitingOptions = new RateLimitingConfig();
+//builder.Configuration.GetSection("RateLimiting").Bind(rateLimitingOptions);
 
 
 #region rateLimiter
+//builder.Services.AddRateLimiter(options =>
+//{
+//    // Apply global rate limiting
+//    options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
+//    {
+//        return RateLimitPartition.GetFixedWindowLimiter(
+//            partitionKey: httpContext.User.Identity?.Name ?? httpContext.Request.Headers.Host.ToString(),
+//            factory: partition => new FixedWindowRateLimiterOptions
+//            {
+//                PermitLimit = rateLimitingOptions.Global.PermitLimit,
+//                Window = rateLimitingOptions.Global.Window,
+//                QueueLimit = rateLimitingOptions.Global.QueueLimit,
+//            });
+//    });
+
+//    // Apply rate limiting for specific routes
+//    foreach (var route in rateLimitingOptions.Routes)
+//    {
+//        options.AddFixedWindowLimiter(route.Key, opt =>
+//        {
+//            opt.PermitLimit = route.Value.PermitLimit;
+//            opt.Window = route.Value.Window;
+//            opt.QueueLimit = route.Value.QueueLimit;
+//        });
+//    }
+
+//    options.RejectionStatusCode = 429;
+//});
+// Bind the rate limiting settings from appsettings.json
+var rateLimitSettings = builder.Configuration.GetSection("RateLimiting").Get<RateLimitingConfig>();
+
+// Register the global rate limiter
 builder.Services.AddRateLimiter(options =>
 {
-    // Apply global rate limiting
-    options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
+    if (rateLimitSettings?.Global != null)
     {
-        return RateLimitPartition.GetFixedWindowLimiter(
-            partitionKey: httpContext.User.Identity?.Name ?? httpContext.Request.Headers.Host.ToString(),
-            factory: partition => new FixedWindowRateLimiterOptions
-            {
-                PermitLimit = rateLimitingOptions.Global.PermitLimit,
-                Window = rateLimitingOptions.Global.Window,
-                QueueLimit = rateLimitingOptions.Global.QueueLimit,
-            });
-    });
-
-    // Apply rate limiting for specific routes
-    foreach (var route in rateLimitingOptions.Routes)
-    {
-        options.AddFixedWindowLimiter(route.Key, opt =>
-        {
-            opt.PermitLimit = route.Value.PermitLimit;
-            opt.Window = route.Value.Window;
-            opt.QueueLimit = route.Value.QueueLimit;
-        });
+        options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(context =>
+            RateLimitPartition.GetFixedWindowLimiter("GlobalLimiter", _ =>
+                new FixedWindowRateLimiterOptions
+                {
+                    PermitLimit = rateLimitSettings.Global.PermitLimit,
+                    Window = rateLimitSettings.Global.Window,
+                    QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+                    QueueLimit = rateLimitSettings.Global.QueueLimit
+                }));
     }
 
-    options.RejectionStatusCode = 429;
+    // Register route-specific limiters
+    if (rateLimitSettings?.Routes != null)
+    {
+        foreach (var route in rateLimitSettings.Routes)
+        {
+            options.AddPolicy(route.Key, partition =>
+                RateLimitPartition.GetFixedWindowLimiter(partition, _ =>
+                    new FixedWindowRateLimiterOptions
+                    {
+                        PermitLimit = route.Value.PermitLimit,
+                        Window = route.Value.Window,
+                        QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
+                        QueueLimit = route.Value.QueueLimit
+                    }));
+        }
+    }
 });
-
 #endregion
 
 builder.Services.AddCors(o => o.AddPolicy("OpenPolicy", builder =>

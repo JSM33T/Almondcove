@@ -3,8 +3,17 @@ CREATE TABLE tblMessages
     Id              INT 
                     NOT NULL,
 
-    Content  NVARCHAR(512) 
+    Content			NVARCHAR(512) 
                     NOT NULL,
+
+	[Name]          NVARCHAR(128) 
+					NOT NULL 
+					DEFAULT 'anonymous',
+
+	Email          NVARCHAR(128) 
+					NOT NULL 
+					DEFAULT 'na',
+
 
     Topic           NVARCHAR(128) 
                     NOT NULL 
@@ -106,14 +115,16 @@ GO
 CREATE OR ALTER PROCEDURE sprocInsertMessage
     @Content NVARCHAR(MAX),
     @Origin NVARCHAR(50),
-    @Topic NVARCHAR(50)
+    @Topic NVARCHAR(50),
+	@Name NVARCHAR(128),
+	@Email NVARCHAR(256) 
 AS
 BEGIN
     DECLARE @MaxId INT;
     SELECT @MaxId = ISNULL(MAX(Id), 0) FROM tblMessages;
 
-    INSERT INTO tblMessages (Id, Content, DateAdded, Origin, Topic)
-    VALUES (@MaxId + 1, @Content, GETDATE(), @Origin, @Topic);
+    INSERT INTO tblMessages (Id, Content, DateAdded, Origin, Topic,Name,Email)
+    VALUES (@MaxId + 1, @Content, GETDATE(), @Origin, @Topic,@Name,@Email);
 
     SELECT @MaxId;
 END

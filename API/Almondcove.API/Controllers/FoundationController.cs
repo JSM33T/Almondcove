@@ -57,9 +57,9 @@ namespace Almondcove.API.Controllers
             }
         }
 
-        protected IActionResult AcResponse<T>(int status, string message, T data, List<string> errors = null)
+        protected IActionResult AcResponse<T>(int status, string message, T data, List<string> hints = null)
         {
-            var response = new APIResponse<T>(status, message, data, errors);
+            var response = new APIResponse<T>(status, message, data, hints);
             return StatusCode(status, response);
         }
     }

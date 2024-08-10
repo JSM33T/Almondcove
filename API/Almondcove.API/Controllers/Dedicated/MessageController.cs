@@ -4,23 +4,23 @@ using Almondcove.Repositories;
 using Almondcove.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Extensions.Options;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace Almondcove.API.Controllers.Dedicated
 {
-    [Route("api/message")]
+    [Route("api/messages")]
     [ApiController]
-    [Authorize(Roles = "admin")]
     public class MessageController(IOptionsMonitor<AlmondcoveConfig> config, ILogger<FoundationController> logger, IHttpContextAccessor httpContextAccessor,ITelegramService telegramService, IMessageRepository messageRepository) : FoundationController(config, logger, httpContextAccessor,telegramService)
     {
         private readonly IMessageRepository _messageRepo = messageRepository;
 
-        [HttpPost("add")]
+
+        [HttpPost("send")]
+        [EnableRateLimiting("api/messages/send")]
         [AllowAnonymous]
-        public async Task<IActionResult> Post([FromBody] MessageRequest messageRequest)
+        public async Task<IActionResult> SendMessage([FromBody] MessageRequest messageRequest)
         {
             int statusCode = 200;
             string message = "Message Sent";
@@ -32,8 +32,8 @@ namespace Almondcove.API.Controllers.Dedicated
                 if (existingMessage != null)
                 {
                     statusCode = StatusCodes.Status409Conflict;
-                    message = "A message with the same content already exists.";
-                    hints.Add("Please use a different content for the message.");
+                    message = "Message conflict";
+                    hints.Add("The message already exists");
                     return (statusCode, 0, message, hints);
                 }
 
@@ -43,6 +43,7 @@ namespace Almondcove.API.Controllers.Dedicated
                 return (statusCode, 0, message, hints);
             }, MethodBase.GetCurrentMethod().Name);
         }
+
 
         [Authorize(Roles = "admin")]
         [HttpGet("getAll")]

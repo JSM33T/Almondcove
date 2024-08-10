@@ -11,5 +11,4 @@
         public TimeSpan Window { get; set; }
         public int QueueLimit { get; set; }
     }
-
 }
