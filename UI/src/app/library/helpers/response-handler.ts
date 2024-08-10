@@ -5,7 +5,6 @@ import acToast from '../modals/notification-modal';
 import { APIResponse } from '../interfaces/api-response.model';
 
 export function handleResponse(observable: Observable<APIResponse<any>>, showToast: boolean = false): Observable<APIResponse<any>> {
-    debugger;
     return observable.pipe(
         tap((response) => {
             if (showToast) {
