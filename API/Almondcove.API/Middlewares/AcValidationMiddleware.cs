@@ -41,7 +41,7 @@ namespace Almondcove.API.Middlewares
                     {
                         status = StatusCodes.Status400BadRequest,
                         message = "Validation Error",
-                        errors = errorMessages,
+                        hints = errorMessages,
                         data = 0
                     };
 
@@ -60,7 +60,7 @@ namespace Almondcove.API.Middlewares
                     await responseBody.CopyToAsync(originalBodyStream);
                 }
             }
-            else if (context.Response.StatusCode == StatusCodes.Status429TooManyRequests)
+            else if (context.Response.StatusCode == StatusCodes.Status429TooManyRequests || context.Response.StatusCode == StatusCodes.Status503ServiceUnavailable)
             {
                 var errorMessages = new List<string>
                 {
