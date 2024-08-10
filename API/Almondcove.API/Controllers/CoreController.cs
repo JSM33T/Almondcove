@@ -8,24 +8,15 @@ using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace Almondcove.API.Controllers
 {
-    [Route("api/core")]
-
+    [Route("/")]
     [ApiController]
-    public class CoreController : ControllerBase
+    public class CoreController(IWebHostEnvironment hostingEnvironment, INotificationService notificationService, IMailService mailService, ITelegramService telegramService) : ControllerBase
     {
 
-        private readonly IWebHostEnvironment _hostingEnvironment;
-        private readonly INotificationService _notificationService;
-        private readonly IMailService _mailService;
-        private readonly ITelegramService _telegramService;
-
-        public CoreController(IWebHostEnvironment hostingEnvironment, INotificationService notificationService, IMailService mailService, ITelegramService telegramService)
-        {
-            _hostingEnvironment = hostingEnvironment;
-            _notificationService = notificationService;
-            _mailService = mailService;
-            _telegramService = telegramService;
-        }
+        private readonly IWebHostEnvironment _hostingEnvironment = hostingEnvironment;
+        private readonly INotificationService _notificationService = notificationService;
+        private readonly IMailService _mailService = mailService;
+        private readonly ITelegramService _telegramService = telegramService;
 
         [Authorize(Roles = "admin")]
         [HttpPost("restart")]
@@ -57,6 +48,7 @@ namespace Almondcove.API.Controllers
         }
 
         [HttpPost("sendEmail")]
+        [Authorize(Roles ="admin")]
         public async Task<IActionResult> SendEmail([FromBody] EmailMessage emailMessage)
         {
             await _mailService.SendEmailAsync(emailMessage);
@@ -65,6 +57,7 @@ namespace Almondcove.API.Controllers
         }
 
         [HttpGet("tele")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> testtele()
         {
             await _telegramService.SendMessageAsync("Hello from the server");
