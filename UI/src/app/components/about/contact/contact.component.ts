@@ -1,22 +1,23 @@
-import { Component, NgModule, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { APIResponse } from '../../../library/interfaces/api-response.model';
-import { handleResponse } from '../../../library/helpers/response-handler';
 import { HttpService } from '../../../services/http.service';
-import { NgFor, NgIf } from '@angular/common';
+import { NgIf } from '@angular/common';
 import {
   FormBuilder,
   FormGroup,
   FormControl,
   ReactiveFormsModule
 } from '@angular/forms';
+import { TranslateModule } from '@ngx-translate/core';
+import { ResponseHandlerService } from '../../../library/helpers/response-handler';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [ReactiveFormsModule,NgIf],
-  templateUrl: './contact.component.html',
-  styleUrl: './contact.component.css'
+  imports: [ReactiveFormsModule,NgIf,TranslateModule,RouterModule],
+  templateUrl: './contact.component.html'
 })
 export class ContactComponent implements OnInit,OnDestroy {
   loadingBarState: any;
@@ -24,7 +25,8 @@ export class ContactComponent implements OnInit,OnDestroy {
     isLoading = false;
 
     constructor(
-        private httpService: HttpService,private fb : FormBuilder
+        private httpService: HttpService,private fb : FormBuilder,
+        private responseHandler: ResponseHandlerService
     ) {
       this.messageForm = this.fb.group({
         name: new FormControl(''),
@@ -44,16 +46,17 @@ export class ContactComponent implements OnInit,OnDestroy {
     }
 
     onSubmit(): void {
-        this.isLoading = true;
-        const response$: Observable<APIResponse<any>> = this.httpService.post('api/messages/send', this.messageForm.value);
-        console.log(this.messageForm.value);
-        handleResponse(response$, true).subscribe({
-            next: () => {
-                this.isLoading = false;
-            },
-            error: () => {
-                this.isLoading = false;
-            },
-        });
+      this.isLoading = true;
+      const response$: Observable<APIResponse<any>> = this.httpService.post('api/messages/send', this.messageForm.value);
+      console.log(this.messageForm.value);
+  
+      this.responseHandler.handleResponse(response$, true, true).subscribe({
+        next: () => {
+          this.isLoading = false;
+        },
+        error: () => {
+          this.isLoading = false;
+        },
+      });
     }
 }

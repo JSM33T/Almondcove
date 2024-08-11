@@ -1,5 +1,5 @@
 <p>navbar works!</p>
-<!-- Navbar. Remove 'fixed-top' class to make the navigation bar scrollable with the page -->
+<!-- BASIC. Remove 'fixed-top' class to make the navigation bar scrollable with the page -->
 <header class="navbar navbar-expand-lg fixed-top bg-light">
   <div class="container">
     <!-- Navbar brand (Logo) -->
@@ -250,12 +250,12 @@
           </li> -->
           <li class="nav-item">
             <a class="nav-link" (click)="toggler()" routerLink="/">{{
-              "NAVBAR.HOME" | translate
+              "BASIC.HOME" | translate
             }}</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" (click)="toggler()" routerLink="/about">{{
-              "NAVBAR.ABOUT" | translate
+            <a class="nav-link disabled" (click)="toggler()" routerLink="/blog">{{
+              "BASIC.BLOG" | translate
             }}</a>
           </li>
         <li class="nav-item dropdown">
@@ -265,17 +265,21 @@
             data-bs-toggle="dropdown"
             data-bs-auto-close="outside"
             aria-expanded="false"
-            >About</a
-          >
+            >
+            {{"BASIC.ABOUT" | translate}}
+            </a>
           <ul class="dropdown-menu">
             <li>
               <a class="dropdown-item" (click)="toggler()" routerLink="/about">About Us</a>
             </li>
             <li>
-              <a class="dropdown-item" routerLink="/about/contact">Contact</a>
+              <a class="dropdown-item" (click)="toggler()" routerLink="/about/contact">Contact</a>
             </li>
             <li>
-              <a class="dropdown-item"  routerLink="/faq">Attributions</a>
+              <a class="dropdown-item"  (click)="toggler()" routerLink="/about/faq">FAQ</a>
+            </li>
+            <li>
+              <a class="dropdown-item"  (click)="toggler()" routerLink="/about/attributions">Attributions</a>
             </li>
           </ul>
         </li>

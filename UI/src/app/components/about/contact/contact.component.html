@@ -10,18 +10,20 @@
 
     <div class="row pb-1 pb-sm-3 pb-lg-4">
         <div class="col-lg-4 pe-xxl-4">
-            <h1 class="display-2" data-aos="flip-up" data-aos-duration="200">Contact</h1>
-            <p class="fs-lg pb-4 mb-0 mb-sm-2" data-aos="flip-up" data-aos-duration="500">Get in touch with us by completing the below form or call us now</p>
+            <h1 class="display-2" data-aos="flip-up" data-aos-duration="200">{{"BASIC.CONTACT" | translate}}</h1>
+            <p class="fs-lg pb-4 mb-0 mb-sm-2" data-aos="flip-up" data-aos-duration="500">
+                {{"CONTACT.INTRO" | translate}}    
+            </p>
         </div>
         <div class="col-lg-8 col-xl-7 offset-xl-1">
             <form class="row g-4 needs-validation" (ngSubmit)="onSubmit()" [formGroup]="messageForm">
                 <div class="col-sm-6">
-                    <label class="form-label fs-base" for="name">Name</label>
+                    <label class="form-label fs-base" for="name">{{"CONTACT.NAME" | translate}}</label>
                     <input class="form-control form-control-lg" type="text" placeholder="Your name" required id="name" formControlName="name" name="name"/>
                 </div>
 
                 <div class="col-sm-6">
-                    <label class="form-label fs-base" for="topic">Purpose</label>
+                    <label class="form-label fs-base" for="topic">{{"CONTACT.TOPIC" | translate}}</label>
                     <select class="form-select form-select-lg" id="yopic" formControlName="topic" name="topic">
                         <option value="general" selected>General</option>
                         <option value="feature">Feature Request</option>
@@ -30,12 +32,12 @@
                 </div>
 
                 <div class="col-sm-12">
-                    <label class="form-label fs-base" for="email">Email</label>
+                    <label class="form-label fs-base" for="email">{{"CONTACT.EMAIL" | translate}}</label>
                     <input class="form-control form-control-lg" type="email" placeholder="Email address" required formControlName="email" name="email" />
                 </div>
 
                 <div class="col-sm-12">
-                    <label class="form-label fs-base" for="message">How can we help?</label>
+                    <label class="form-label fs-base" for="message">{{"CONTACT.MESSAGE" | translate}}</label>
                     <textarea class="form-control form-control-lg" rows="5" placeholder="Enter your message here..." required id="message"  name="message" formControlName="content"></textarea>
                 </div>
 
@@ -50,7 +52,7 @@
                             <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
                             Loading...
                         </span>
-                        <span *ngIf="!isLoading">Send message</span>
+                        <span *ngIf="!isLoading">{{"CONTACT.SEND" | translate}}</span>
                     </button>
                 </div>
             </form>

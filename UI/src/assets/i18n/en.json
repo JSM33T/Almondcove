@@ -1,15 +1,42 @@
 {
-  "TITLE": "kaisan ba",
-  "NAVBAR": {
+  "BASIC": {
+    "TITLE": "Title",
     "HOME": "Home",
-    "ABOUT": "About Us",
-    "CONTACT": "Contact"
+    "ABOUT": "About",
+    "CONTACT": "Contact",
+    "BLOG": "Blog (ID)"
   },
-  "ABOUT":{
-    "WELCOME":"Welcome to Almondcove",
-    "INTRO" : " A digital santuary with blogs, music, gallery web resources and much more of the artifacts .NET, C# (MVC,Web Api's,Razor Pages).",
-    "CARD_CONTACT" :"",
-    "CARD_FAQ" :"",
-    "CARD_ATTRIBUTIONS" :""
+  "TOAST": {
+    "OK": "OK",
+    "NOT_FOUND": "Not Found",
+    "UNAUTHORIZED": "Unauthorized access",
+    "FORBIDDEN": "Forbidden",
+    "SERVER_ERROR": "Internal server error"
+  },
+  "ABOUT": {
+    "WELCOME": "Welcome to Almondcove",
+    "INTRO": " A digital santuary with blogs, music, gallery web resources and much more of the artifacts",
+    "CARD_CONTACT": "",
+    "CARD_FAQ": "",
+    "CARD_ATTRIBUTIONS": ""
+  },
+  "CONTACT": {
+    "INTRO": "Get in touch with us by completing the below form or call us now",
+    "NAME": "Name",
+    "TOPIC": "Topic",
+    "EMAIL": "Email",
+    "MESSAGE": "Message",
+    "SEND": "Send",
+    "VALIDATION": {
+      "NAME_REQUIRED": "Name is required",
+      "EMAIL_REQUIRED": "Email is required",
+      "TOPIC_REQUIRED": "Topic is required",
+      "MESSAGE_REQUIRED": "Message is required",
+      "EMAIL_INVALID": "Invalid email",
+      "LONG_NAME": "Name cannot be more than 128 chars long",
+      "LONG_MESSAGE": "Message too long",
+      "SHORT_MESSAGE": "Message too short",
+      "MESSAGE_EXISTS":"Message already exists"
+    }
   }
 }

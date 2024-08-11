@@ -1,0 +1,42 @@
+{
+    "TOAST": {
+      "OK": "OK",
+      "NOT_FOUND": "見つかりません",
+      "UNAUTHORIZED": "認証されていないアクセス",
+      "FORBIDDEN": "禁止されています",
+      "SERVER_ERROR": "内部サーバーエラー"
+    },
+    "TITLE": "タイトル",
+    "NAVBAR": {
+      "HOME": "ホーム",
+      "ABOUT": "概要",
+      "CONTACT": "お問い合わせ",
+      "BLOG": "ブログ"
+    },
+    "ABOUT": {
+      "WELCOME": "Almondcoveへようこそ",
+      "INTRO": "ブログ、音楽、ギャラリーのウェブリソースなど、アーティファクトが満載のデジタルサンクチュアリです",
+      "CARD_CONTACT": "",
+      "CARD_FAQ": "",
+      "CARD_ATTRIBUTIONS": ""
+    },
+    "CONTACT": {
+      "INTRO": "以下のフォームにご記入いただくか、今すぐお電話でお問い合わせください",
+      "NAME": "名前",
+      "TOPIC": "トピック",
+      "EMAIL": "メール",
+      "MESSAGE": "メッセージ",
+      "SEND": "送信",
+      "VALIDATION": {
+        "NAME_REQUIRED": "名前は必須です",
+        "EMAIL_REQUIRED": "メールは必須です",
+        "TOPIC_REQUIRED": "トピックは必須です",
+        "MESSAGE_REQUIRED": "メッセージは必須です",
+        "EMAIL_INVALID": "無効なメール",
+        "LONG_NAME": "名前は128文字を超えてはいけません",
+        "LONG_MESSAGE": "メッセージが長すぎます",
+        "SHORT_MESSAGE": "メッセージが短すぎます"
+      }
+    }
+  }
+  

@@ -1,12 +1,41 @@
 {
-  "TITLE": "कैसे हो",
+  "TOAST": {
+    "OK": "ठीक है",
+    "NOT_FOUND": "नहीं मिला",
+    "UNAUTHORIZED": "अनधिकृत पहुंच",
+    "FORBIDDEN": "निषिद्ध",
+    "SERVER_ERROR": "आंतरिक सर्वर त्रुटि"
+  },
+  "TITLE": "शीर्षक",
   "NAVBAR": {
-    "HOME": "होम",
-    "ABOUT": "हमारे बारे में",
-    "CONTACT": "संपर्क करें"
+    "HOME": "मुख्य पृष्ठ",
+    "ABOUT": "के बारे में",
+    "CONTACT": "संपर्क करें",
+    "BLOG": "ब्लॉग"
   },
   "ABOUT": {
     "WELCOME": "Almondcove में आपका स्वागत है",
-    "INTRO": "ब्लॉग्स, संगीत, गैलरी वेब संसाधनों और .NET, C# (MVC, Web API's, Razor Pages) जैसी कलाकृतियों के साथ एक डिजिटल अभयारण्य।"
+    "INTRO": "ब्लॉग, संगीत, गैलरी वेब संसाधनों और कई अन्य कलाकृतियों से भरी एक डिजिटल अभयारण्य",
+    "CARD_CONTACT": "",
+    "CARD_FAQ": "",
+    "CARD_ATTRIBUTIONS": ""
+  },
+  "CONTACT": {
+    "INTRO": "नीचे दिए गए फॉर्म को पूरा करके या अभी हमें कॉल करके हमसे संपर्क करें",
+    "NAME": "नाम",
+    "TOPIC": "विषय",
+    "EMAIL": "ईमेल",
+    "MESSAGE": "संदेश",
+    "SEND": "भेजें",
+    "VALIDATION": {
+      "NAME_REQUIRED": "नाम आवश्यक है",
+      "EMAIL_REQUIRED": "ईमेल आवश्यक है",
+      "TOPIC_REQUIRED": "विषय आवश्यक है",
+      "MESSAGE_REQUIRED": "संदेश आवश्यक है",
+      "EMAIL_INVALID": "अमान्य ईमेल",
+      "LONG_NAME": "नाम 128 वर्णों से अधिक नहीं हो सकता",
+      "LONG_MESSAGE": "संदेश बहुत लंबा है",
+      "SHORT_MESSAGE": "संदेश बहुत छोटा है"
+    }
   }
 }
