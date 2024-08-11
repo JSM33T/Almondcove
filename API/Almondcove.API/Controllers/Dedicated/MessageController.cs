@@ -23,7 +23,7 @@ namespace Almondcove.API.Controllers.Dedicated
         public async Task<IActionResult> SendMessage([FromBody] MessageRequest messageRequest)
         {
             int statusCode = 200;
-            string message = "Message Sent";
+            string message = "TOAST.OK";
             List<string> hints = [];
 
             return await ExecuteActionAsync(async () =>
@@ -32,8 +32,8 @@ namespace Almondcove.API.Controllers.Dedicated
                 if (existingMessage != null)
                 {
                     statusCode = StatusCodes.Status409Conflict;
-                    message = "Message conflict";
-                    hints.Add("The message already exists");
+                    message = "TOAST.CONFLICT";
+                    hints.Add("CONTACT.VALIDATION.MESSAGE_EXISTS");
                     return (statusCode, 0, message, hints);
                 }
 
@@ -46,11 +46,11 @@ namespace Almondcove.API.Controllers.Dedicated
 
 
         [Authorize(Roles = "admin")]
-        [HttpGet("getAll")]
+        [HttpGet("getall")]
         public async Task<IActionResult> GetAll()
         {
             int statusCode = 200;
-            string message = "Success";
+            string message = "TOAST.OK";
             List<string> hints = [];
 
             return await ExecuteActionAsync(async () =>
