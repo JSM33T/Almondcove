@@ -44,9 +44,38 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
+<!-- app.component.html (or the relevant template) -->
+<nav class="collapse navbar-collapse" id="navbarNav">
+  <ul class="navbar-nav navbar-nav-scroll me-auto" style="--ar-scroll-height: 520px">
+    <li *ngFor="let item of navItems" class="nav-item" [ngClass]="{'dropdown': item.isDropdown}">
+      <a 
+        class="nav-link" 
+        [routerLink]="item.isDropdown ? null : item.link"
+        (click)="item.isDropdown ? null : toggler()"
+        [attr.data-bs-toggle]="item.isDropdown ? 'dropdown' : null"
+        [attr.data-bs-auto-close]="item.isDropdown ? 'outside' : null"
+        [attr.aria-expanded]="item.isDropdown ? 'false' : null"
+      >
+        {{ item.label }}
+        <i *ngIf="item.isDropdown" class="{{item.icon}}"></i> <!-- Icon for dropdown -->
+      </a>
+      <ul *ngIf="item.isDropdown" class="dropdown-menu">
+        <li *ngFor="let dropdownItem of item.dropdownItems">
+          <a 
+            class="dropdown-item"
+            (click)="toggler()"
+            [routerLink]="dropdownItem.link"
+          >
+            {{ dropdownItem.label }}
+          </a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
 
     <!-- Navbar collapse (Main navigation) -->
-    <nav class="collapse navbar-collapse" id="navbarNav">
+    <!-- <nav class="collapse navbar-collapse" id="navbarNav">
       <ul
         class="navbar-nav navbar-nav-scroll me-auto"
         style="--ar-scroll-height: 520px"
@@ -104,6 +133,6 @@
         </li>
        
       </ul>
-    </nav>
+    </nav> -->
   </div>
 </header>
