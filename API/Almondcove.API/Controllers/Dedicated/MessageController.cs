@@ -16,7 +16,6 @@ namespace Almondcove.API.Controllers.Dedicated
     {
         private readonly IMessageRepository _messageRepo = messageRepository;
 
-
         [HttpPost("send")]
         [EnableRateLimiting("api/messages/send")]
         [AllowAnonymous]

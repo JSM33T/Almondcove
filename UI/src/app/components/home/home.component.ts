@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { initParallax } from '../../library/invokers/parallax';
-import InitAnimateOnScroll from '../../library/invokers/animate-on-scroll';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -13,7 +11,6 @@ import { RouterModule } from '@angular/router';
 export class HomeComponent implements OnInit{
   ngOnInit(): void {
    //initParallax();
-    // InitAnimateOnScroll();
   }
 
 }

@@ -12,36 +12,12 @@ import { NgClass, NgFor, NgIf } from '@angular/common';
 })
 export class NavbarComponent implements OnInit {
 
-  navItems = [
-    { label: 'Home', link: '/', isDropdown: false },
-    { 
-      label: 'Artifacts', 
-      isDropdown: true, 
-      dropdownItems: [
-        { label: 'Chronicles', link: '/chronicles' },
-        { label: 'Studio', link: '/studio' }
-      ],
-      icon: 'bi bi-chevron-down' // Example icon class for dropdown indicator
-    },
-    { 
-      label: 'About', 
-      isDropdown: true, 
-      dropdownItems: [
-        { label: 'About Us', link: '/about' },
-        { label: 'Contact', link: '/contact' },
-        { label: 'FAQ', link: '/faq' },
-        { label: 'Attributions', link: '/attributions' }
-      ],
-      icon: 'bi bi-chevron-down' // Example icon class for dropdown indicator
-    }
-  ];
-
   ngOnInit(): void {
     initializeThemeSwitcher();
-    this.toggler();
+    this.navToggler();
   }
 
-  toggler()
+  navToggler()
   {
     const button = document.querySelector('button.navbar-toggler') as HTMLButtonElement;
     if (button.getAttribute('aria-expanded') === 'true') {

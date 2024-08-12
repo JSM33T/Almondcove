@@ -49,11 +49,13 @@ export class ContactComponent implements OnInit,OnDestroy {
       const response$: Observable<APIResponse<any>> = this.httpService.post('api/messages/send', this.messageForm.value);
       console.log(this.messageForm.value);
   
-      this.responseHandler.handleResponse(response$, true, true).subscribe({
-        next: () => {
+      this.responseHandler.handleResponse(response$, true).subscribe({
+        next: (response) => {
+          console.log(response);
           this.isLoading = false;
         },
-        error: () => {
+        error: (error) => {
+          console.log(error.error);
           this.isLoading = false;
         },
       });
