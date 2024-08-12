@@ -90,7 +90,6 @@
 //   }
 // }
 import { Injectable } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { APIResponse } from '../library/interfaces/api-response.model';
 import { forkJoin, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -101,40 +100,23 @@ declare var bootstrap: any;
   providedIn: 'root',
 })
 export class ToastService {
-  constructor(private translate: TranslateService) {}
 
   showToast(response: APIResponse<any>, someBoolean: boolean = false): void {
     const statusTitles: { [key: number]: string } = {
-      200: 'TOAST.OK',
-      201: 'TOAST.OK',
-      400: 'TOAST.BAD_REQUEST',
-      401: 'TOAST.UNAUTHORIZED',
-      403: 'TOAST.FORBIDDEN',
-      404: 'TOAST.NOT_FOUND',
-      410: 'TOAST.EXPIRED',
-      500: 'TOAST.SERVER_ERROR',
-      429: 'TOAST.SPAM_DETECTED',
+      200: 'OK',
+      201: 'OK',
+      400: 'BAD_REQUEST',
+      401: 'UNAUTHORIZED',
+      403: 'FORBIDDEN',
+      404: 'NOT_FOUND',
+      410: 'EXPIRED',
+      500: 'SERVER_ERROR',
+      429: 'SPAM_DETECTED',
     };
 
-    const titleKey = statusTitles[response.status] || 'TOAST.NOTICE';
-
-    // Translate title, message, and hints
-    this.getTranslations(titleKey, response.message, response.hints).subscribe(
-      ([translatedTitle, translatedMessage, translatedHints]) => {
-        this.showModal(translatedTitle, translatedMessage, translatedHints, someBoolean);
-      }
-    );
+    const titleKey = statusTitles[response.status] || 'Notif';
   }
 
-  private getTranslations(titleKey: string, message: string, hints: string[]): Observable<[string, string, string[]]> {
-    return forkJoin([
-      this.translate.get(titleKey),
-      this.translate.get(message),
-      ...hints.map(hint => this.translate.get(hint))
-    ]).pipe(
-      map(([title, message, ...translatedHints]) => [title, message, translatedHints] as [string, string, string[]])
-    );
-  }
 
   private showModal(title: string, message: string, hints: string[], someBoolean: boolean): void {
     const modalContainer = document.createElement('div');
@@ -172,7 +154,7 @@ export class ToastService {
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-              ${this.translate.instant('TOAST.OK')}
+             OK
             </button>
           </div>
         </div>

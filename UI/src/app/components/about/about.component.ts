@@ -2,12 +2,11 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { initParallax } from '../../library/invokers/parallax';
-import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [CommonModule,TranslateModule],
+  imports: [CommonModule],
   templateUrl: './about.component.html',
   styleUrl: './about.component.css'
 })

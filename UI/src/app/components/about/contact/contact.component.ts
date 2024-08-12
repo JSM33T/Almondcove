@@ -9,14 +9,13 @@ import {
   FormControl,
   ReactiveFormsModule
 } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
 import { ResponseHandlerService } from '../../../library/helpers/response-handler';
 import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [ReactiveFormsModule,NgIf,TranslateModule,RouterModule],
+  imports: [ReactiveFormsModule,NgIf,RouterModule],
   templateUrl: './contact.component.html'
 })
 export class ContactComponent implements OnInit,OnDestroy {

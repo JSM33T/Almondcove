@@ -8,7 +8,6 @@ import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { BackToTopComponent } from './components/shared/back-to-top/back-to-top.component';
 import { inject } from '@vercel/analytics';
 import { injectSpeedInsights } from '@vercel/speed-insights';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 
@@ -22,7 +21,6 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
     FooterComponent,
     NavbarComponent,
     SidePanelComponent,
-    TranslateModule,
     LoadingBarRouterModule,
     LoadingBarHttpClientModule
   ],
@@ -31,16 +29,14 @@ import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 })
 export class AppComponent implements OnInit {
   constructor(
-    private routeMetaService: RouteSwitchService,
-    private translate: TranslateService
+    private routeMetaService: RouteSwitchService
   ) {
-    translate.setDefaultLang('en');
+   
   }
 
   ngOnInit(): void {
     this.completeLoading();
     initBackToTop();
-    this.setLang();
     inject();
     injectSpeedInsights();
   }
@@ -51,17 +47,5 @@ export class AppComponent implements OnInit {
     setTimeout(function () {
       preloader.remove();
     }, 1500);
-  }
-
-  setLang() {
-    const ll = localStorage.getItem('lang');
-    if (ll) {
-      this.translate.use(ll);
-    } else {
-      this.translate.use('en');
-    }
-  }
-  switchLang(lang: string) {
-    this.translate.use(lang);
   }
 }
