@@ -10,13 +10,6 @@
         public string Origin { get; set; } = "na";
         public string Topic { get; set; } = "general";
     }
-    public class MessageRequest
-    {
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string Content { get; set; }
-        public string Origin { get; set; }
-        public string Topic { get; set; }
-    }
+    
 
 }

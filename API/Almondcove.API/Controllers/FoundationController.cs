@@ -1,6 +1,5 @@
 ﻿using Almondcove.Entities.Shared;
 using Almondcove.Services;
-using Flurl;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Diagnostics;

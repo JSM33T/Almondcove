@@ -8,10 +8,13 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.RateLimiting;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using System.Data;
+using System.Data.Common;
 using System.Reflection;
 using System.Security.Claims;
 using System.Text;
@@ -73,6 +76,7 @@ builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<IMailService, MailService>();
 builder.Services.AddScoped<ITelegramService, TelegramService>();
+builder.Services.AddScoped<IDbConnection>(sp => new SqlConnection(almondcoveConfig.ConnectionString));
 
 #region Auth
 builder.Services.AddAuthentication(options =>
@@ -99,10 +103,10 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddMemoryCache();
 
-//builder.Services.AddResponseCompression(options =>
-//{
-//    options.EnableForHttps = true;
-//});
+builder.Services.AddResponseCompression(options =>
+{
+    options.EnableForHttps = true;
+});
 
 
 builder.Services.AddHttpClient();
@@ -111,40 +115,12 @@ builder.Services.AddDataProtection()
     .PersistKeysToFileSystem(new DirectoryInfo(Path.Combine(builder.Environment.WebRootPath, "keys")))
     .SetApplicationName("AlmondcoveApp");
 
-//var rateLimitingOptions = new RateLimitingConfig();
-//builder.Configuration.GetSection("RateLimiting").Bind(rateLimitingOptions);
+var rateLimitingOptions = new RateLimitingConfig();
+builder.Configuration.GetSection("RateLimiting").Bind(rateLimitingOptions);
 
 
 #region rateLimiter
-//builder.Services.AddRateLimiter(options =>
-//{
-//    // Apply global rate limiting
-//    options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
-//    {
-//        return RateLimitPartition.GetFixedWindowLimiter(
-//            partitionKey: httpContext.User.Identity?.Name ?? httpContext.Request.Headers.Host.ToString(),
-//            factory: partition => new FixedWindowRateLimiterOptions
-//            {
-//                PermitLimit = rateLimitingOptions.Global.PermitLimit,
-//                Window = rateLimitingOptions.Global.Window,
-//                QueueLimit = rateLimitingOptions.Global.QueueLimit,
-//            });
-//    });
 
-//    // Apply rate limiting for specific routes
-//    foreach (var route in rateLimitingOptions.Routes)
-//    {
-//        options.AddFixedWindowLimiter(route.Key, opt =>
-//        {
-//            opt.PermitLimit = route.Value.PermitLimit;
-//            opt.Window = route.Value.Window;
-//            opt.QueueLimit = route.Value.QueueLimit;
-//        });
-//    }
-
-//    options.RejectionStatusCode = 429;
-//});
-// Bind the rate limiting settings from appsettings.json
 var rateLimitSettings = builder.Configuration.GetSection("RateLimiting").Get<RateLimitingConfig>();
 
 // Register the global rate limiter

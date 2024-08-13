@@ -1,20 +1,20 @@
-﻿using Almondcove.Entities.Dedicated;
+﻿using Almondcove.Entities.DTO;
 using FluentValidation;
 
 namespace Almondcove.Validators
 {
-    public class MessageRequestValidator : AbstractValidator<MessageRequest>
+    public class MessageRequestValidator : AbstractValidator<Message_AddRequest>
     {
         public MessageRequestValidator()
         {
             RuleFor(x => x.Name)
-               .NotEmpty().WithMessage("CONTACT.VALIDATION.NAME_REQUIRED")
-               .MaximumLength(128).WithMessage("CONTACT.VALIDATION.LONG_NAME");
+               .NotEmpty().WithMessage("Name is required")
+               .MaximumLength(128).WithMessage("Name is too long");
 
             RuleFor(x => x.Email)
-                .NotEmpty().WithMessage("CONTACT.VALIDATION.EMAIL_REQUIRED")
-                .EmailAddress().WithMessage("CONTACT.VALIDATION.EMAIL_INVALID")
-                .MaximumLength(128).WithMessage("CONTACT.VALIDATION.EMAIL_INVALID");
+                .NotEmpty().WithMessage("Email is required")
+                .EmailAddress().WithMessage("Invalid email format")
+                .MaximumLength(256).WithMessage("Email too long");
 
             RuleFor(x => x.Content)
                 .NotEmpty().WithMessage("CONTACT.VALIDATION.MESSAGE_REQUIRED")
