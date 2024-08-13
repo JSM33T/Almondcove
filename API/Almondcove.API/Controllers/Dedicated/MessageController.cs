@@ -31,8 +31,8 @@ namespace Almondcove.API.Controllers.Dedicated
                 if (existingMessage != null)
                 {
                     statusCode = StatusCodes.Status409Conflict;
-                    message = "TOAST.CONFLICT";
-                    hints.Add("CONTACT.VALIDATION.MESSAGE_EXISTS");
+                    message = "Conflict";
+                    hints.Add("This message already exists");
                     return (statusCode, 0, message, hints);
                 }
 

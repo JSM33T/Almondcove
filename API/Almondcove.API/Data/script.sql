@@ -1,3 +1,14 @@
+drop table if exists tblMessages
+drop table if exists tblParameters
+drop table if exists tblRoles
+drop table if exists tblUsers
+drop table if exists tblArtifacts
+drop table if exists tblArtifactTagsMap
+drop table if exists tblArtifactSeriesMap
+drop table if exists tblTags
+drop table if exists tblArtifactCategories
+drop table if exists tblArtifactSeries
+
 CREATE TABLE tblMessages
 (
     Id              INT 
@@ -10,7 +21,7 @@ CREATE TABLE tblMessages
 					NOT NULL 
 					DEFAULT 'anonymous',
 
-	Email          NVARCHAR(128) 
+	Email			NVARCHAR(128) 
 					NOT NULL 
 					DEFAULT 'na',
 
@@ -35,105 +46,133 @@ CREATE TABLE tblMessages
 );
 GO
 
-CREATE TABLE tblParameters
+CREATE TABLE tblArtifactTypes
 (
-    ParameterKey    NVARCHAR(255) 
-                    PRIMARY KEY,
+    Id			INT 
+				PRIMARY KEY,
 
-    ParameterValue  NVARCHAR(MAX),
+    TypeName	NVARCHAR(128)
+				NOT NULL,
 
-    DateAdded       DATETIME 
-                    NOT NULL 
-                    DEFAULT GETDATE(),
+	Slug		NVARCHAR(128)
+				NOT NULL,
+
+    DateAdded	DATETIME 
+				NOT NULL 
+				DEFAULT GETDATE(),
 );
 
-CREATE TABLE tblRoles
-(
-    RoleId      INT             
-                PRIMARY KEY,
 
-    RoleName    NVARCHAR(50)    
-                NOT NULL 
-                CONSTRAINT UQ_RoleName UNIQUE (RoleName)
+CREATE TABLE tblArtifactCategories
+(
+    Id				INT 
+					PRIMARY KEY,
+
+    CategoryName	NVARCHAR(128)
+					NOT NULL,
+
+	Slug			NVARCHAR(128)
+					NOT NULL,
+
+    DateAdded		DATETIME 
+					NOT NULL 
+					DEFAULT GETDATE(),
 );
 
--- SEEDING ROLES
-INSERT INTO tblRoles (RoleId, RoleName) VALUES (1, 'user');
-INSERT INTO tblRoles (RoleId, RoleName) VALUES (2, 'admin');
-
-
-CREATE TABLE tblUsers
+CREATE TABLE tblArtifactSeries
 (
-    Id          INT           
-                PRIMARY KEY,
+    Id				INT 
+					PRIMARY KEY,
 
-    FirstName   NVARCHAR(50)  
-                NOT NULL,
+    SeriesName		NVARCHAR(128)
+					NOT NULL,
 
-    LastName    NVARCHAR(50)  
-                NOT NULL,
+	Slug			NVARCHAR(128)
+					NOT NULL,
 
-    UserName    NVARCHAR(50)  
-                NOT NULL,
+    DateAdded		DATETIME 
+					NOT NULL 
+					DEFAULT GETDATE(),
+);
 
-    Email       NVARCHAR(255) 
-                NOT NULL,
+CREATE TABLE tblTags
+(
+    Id			INT 
+				PRIMARY KEY,
 
-    RoleId      INT           
-                NOT NULL 
-                CONSTRAINT FK_UserRole FOREIGN KEY (RoleId) REFERENCES tblRoles(RoleId),
+    TagName		NVARCHAR(128)
+				NOT NULL,
 
-    DateAdded   DATETIME      
-                NOT NULL 
-                DEFAULT GETDATE(),
+	Slug		NVARCHAR(128)
+				NOT NULL,
 
-    DateBorn    DATETIME      
-                NULL,
+    DateAdded	DATETIME 
+				NOT NULL 
+				DEFAULT GETDATE()
+);
 
-    DateEdited  DATETIME      
-                NOT NULL 
-                DEFAULT GETDATE(),  
+CREATE TABLE tblArtifacts
+(
+    Id				INT 
+					PRIMARY KEY,
+
+    ArtifactName	NVARCHAR(256)
+					NOT NULL,
+
+	Slug			NVARCHAR(128)
+					NOT NULL,
+
+	TypeId			INT
+					NOT NULL
+					FOREIGN KEY REFERENCES tblArtifactTypes(Id),
+
+	CategoryId		INT
+					NOT NULL
+					FOREIGN KEY REFERENCES tblArtifactCategories(Id),
+
     
-    IsActive    BIT           
-                NOT NULL 
-                DEFAULT 1,
 
-    IsVerified  BIT           
-                NOT NULL 
-                DEFAULT 0,
-
-    Token       NVARCHAR(255) 
-                NOT NULL 
-                DEFAULT(1000),
-
-    TimeSpent   INT           
-                NOT NULL 
-                DEFAULT(10),
+    DateAdded		DATETIME 
+					NOT NULL 
+					DEFAULT GETDATE()
 );
-GO
 
-CREATE OR ALTER PROCEDURE sprocInsertMessage
-    @Content NVARCHAR(MAX),
-    @Origin NVARCHAR(50),
-    @Topic NVARCHAR(50),
-	@Name NVARCHAR(128),
-	@Email NVARCHAR(256) 
-AS
-BEGIN
-    DECLARE @MaxId INT;
-    SELECT @MaxId = ISNULL(MAX(Id), 0) FROM tblMessages;
+CREATE TABLE tblArtifactSeriesMap
+(
+    Id				INT 
+					PRIMARY KEY,
 
-    INSERT INTO tblMessages (Id, Content, DateAdded, Origin, Topic,Name,Email)
-    VALUES (@MaxId + 1, @Content, GETDATE(), @Origin, @Topic,@Name,@Email);
+    SeriesId		INT
+					NOT NULL,
 
-    SELECT @MaxId;
-END
+	ArtifactId		INT
+					NOT NULL
+    				FOREIGN KEY REFERENCES tblArtifacts(Id),
 
-Go
+	DateAdded		DATETIME 
+					NOT NULL 
+					DEFAULT GETDATE(),
+);
 
-CREATE PROCEDURE sprocGetMessageByContent
-    @Content NVARCHAR(MAX)
-AS
-BEGIN
-    SELECT * FROM tblMessages WHERE Content = @Content;
-END
+
+
+CREATE TABLE tblArtifactTagsMap
+(
+    Id			INT 
+				PRIMARY KEY,
+
+    ArtifactId	INT
+				NOT NULL
+				FOREIGN KEY REFERENCES tblArtifacts(Id),
+
+    TagId		INT
+				NOT NULL
+				FOREIGN KEY REFERENCES tblTags(Id),
+
+    DateAdded	DATETIME 
+				NOT NULL 
+				DEFAULT GETDATE()
+);
+
+
+
