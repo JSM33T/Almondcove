@@ -71,11 +71,15 @@ builder.Services.AddScoped<IDataService>(provider =>
 
 //Register repositories
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
+builder.Services.AddScoped<IArtifactRepository, ArtifactRepository>();
+
+
 
 //Register services
 builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<IMailService, MailService>();
 builder.Services.AddScoped<ITelegramService, TelegramService>();
+
 builder.Services.AddScoped<IDbConnection>(sp => new SqlConnection(almondcoveConfig.ConnectionString));
 
 #region Auth

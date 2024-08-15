@@ -34,5 +34,19 @@ export const routes: Route[] = [
         (m) => m.AttributionsComponent
       ),
   },
+  {
+    path: 'artifacts',
+    loadComponent: () =>
+      import('./components/artifacts/artifacts.component').then(
+        (m) => m.ArtifactsComponent
+      ),
+  },
+  {
+    path: 'artifact/:year/:slug',
+    loadComponent: () =>
+      import('./components/artifacts/view/view.component').then(
+        (m) => m.ViewComponent
+      ),
+  },
   { path: '**', redirectTo: '/' },
 ];

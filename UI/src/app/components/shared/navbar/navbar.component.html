@@ -57,7 +57,12 @@
               Home
             </a>
           </li>
-          <li class="nav-item dropdown">
+          <li class="nav-item">
+            <a class="nav-link" (click)="navToggler()" routerLink="/artifacts">
+              Artifacts
+            </a>
+          </li>
+          <!-- <li class="nav-item dropdown">
             <a
               class="nav-link dropdown-toggle"
               href="#"
@@ -69,13 +74,16 @@
               </a>
             <ul class="dropdown-menu">
               <li>
-                <a class="dropdown-item disabled" (click)="navToggler()" routerLink="/about">Chronicles</a>
+                <a class="dropdown-item disabled" (click)="navToggler()" routerLink="/about">Home</a>
               </li>
               <li>
-                <a class="dropdown-item disabled" (click)="navToggler()" routerLink="/about">Studio</a>
+                <a class="dropdown-item disabled" (click)="navToggler()" routerLink="/about">Blog</a>
+              </li>
+              <li>
+                <a class="dropdown-item disabled" (click)="navToggler()" routerLink="/about">Gallery</a>
               </li>
             </ul>
-          </li>
+          </li> -->
         <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
@@ -99,6 +107,10 @@
             <li>
               <a class="dropdown-item"  (click)="navToggler()" routerLink="/about/attributions">Attributions</a>
             </li>
+            <li>
+              <a class="dropdown-item"  (click)="navToggler()" routerLink="artifact/view/2022/garden-state">Test</a>
+            </li>
+            
           </ul>
         </li>
        

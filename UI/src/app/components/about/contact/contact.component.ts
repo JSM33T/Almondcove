@@ -47,7 +47,7 @@ export class ContactComponent implements OnInit,OnDestroy {
     onSubmit(): void {
       this.isLoading = true;
       const response$: Observable<APIResponse<any>> = this.httpService.post('api/messages/send', this.messageForm.value);
-      console.log(this.messageForm.value);
+    
   
       this.responseHandler.handleResponse(response$, true).subscribe({
         next: (response) => {

@@ -1,11 +1,7 @@
 drop table if exists tblMessages
-drop table if exists tblParameters
-drop table if exists tblRoles
-drop table if exists tblUsers
 drop table if exists tblArtifacts
-drop table if exists tblArtifactTagsMap
-drop table if exists tblArtifactSeriesMap
-drop table if exists tblTags
+drop table if exists tblArtifactTags
+drop table if exists tblArtifactTypes
 drop table if exists tblArtifactCategories
 drop table if exists tblArtifactSeries
 
@@ -95,22 +91,6 @@ CREATE TABLE tblArtifactSeries
 					DEFAULT GETDATE(),
 );
 
-CREATE TABLE tblTags
-(
-    Id			INT 
-				PRIMARY KEY,
-
-    TagName		NVARCHAR(128)
-				NOT NULL,
-
-	Slug		NVARCHAR(128)
-				NOT NULL,
-
-    DateAdded	DATETIME 
-				NOT NULL 
-				DEFAULT GETDATE()
-);
-
 CREATE TABLE tblArtifacts
 (
     Id				INT 
@@ -122,6 +102,9 @@ CREATE TABLE tblArtifacts
 	Slug			NVARCHAR(128)
 					NOT NULL,
 
+	Tags			NVARCHAR(128)
+					NOT NULL,
+
 	TypeId			INT
 					NOT NULL
 					FOREIGN KEY REFERENCES tblArtifactTypes(Id),
@@ -130,49 +113,12 @@ CREATE TABLE tblArtifacts
 					NOT NULL
 					FOREIGN KEY REFERENCES tblArtifactCategories(Id),
 
-    
+	SeriesId		INT
+					NOT NULL
+					FOREIGN KEY REFERENCES tblArtifactSeries(Id),
 
     DateAdded		DATETIME 
 					NOT NULL 
 					DEFAULT GETDATE()
 );
-
-CREATE TABLE tblArtifactSeriesMap
-(
-    Id				INT 
-					PRIMARY KEY,
-
-    SeriesId		INT
-					NOT NULL,
-
-	ArtifactId		INT
-					NOT NULL
-    				FOREIGN KEY REFERENCES tblArtifacts(Id),
-
-	DateAdded		DATETIME 
-					NOT NULL 
-					DEFAULT GETDATE(),
-);
-
-
-
-CREATE TABLE tblArtifactTagsMap
-(
-    Id			INT 
-				PRIMARY KEY,
-
-    ArtifactId	INT
-				NOT NULL
-				FOREIGN KEY REFERENCES tblArtifacts(Id),
-
-    TagId		INT
-				NOT NULL
-				FOREIGN KEY REFERENCES tblTags(Id),
-
-    DateAdded	DATETIME 
-				NOT NULL 
-				DEFAULT GETDATE()
-);
-
-
 

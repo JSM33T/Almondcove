@@ -1,0 +1,6 @@
+<section class="pt-5 mt-5">
+    {{slug}}
+    <div *ngIf="isLoading">Loading...</div>
+<div *ngIf="!isLoading" [innerHTML]="content"></div>
+
+</section>
