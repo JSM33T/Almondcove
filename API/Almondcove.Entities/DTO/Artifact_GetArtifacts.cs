@@ -13,9 +13,11 @@ namespace Almondcove.Entities.DTO
         public string ArtifactName { get; set; }
         public string Slug { get; set; }
         public string Tags { get; set; }
-        public int TypeId { get; set; }
-        public int CategoryId { get; set; }
+        public string Type { get; set; }
+        public string CategoryName { get; set; }
+        public string CategorySlug { get; set; }
         public int SeriesId { get; set; }
+        public string Markdown { get; set; }
         public DateTime DateAdded { get; set; }
     }
 }

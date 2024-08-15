@@ -22,7 +22,7 @@ export class ResponseHandlerService {
       }),
       catchError((error) => {
         if (error.error == undefined) {
-          acToast('Error', 'API not reachable: some parts of the app will not work as expected');
+          //acToast('Error', 'API not reachable: some parts of the app will not work as expected');
         } else {
           if (showToast) {
             this.toastService.showToast(error.error);

@@ -1,13 +1,10 @@
-USE [almondcove_db]
-GO
-/****** Object:  StoredProcedure [dbo].[sproc_GetPaginatedArtifacts]    Script Date: 15-08-2024 10.16.07 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
+-- Drop the stored procedure if it already exists
+IF OBJECT_ID('sproc_GetPaginatedArtifacts', 'P') IS NOT NULL
+    DROP PROCEDURE sproc_GetPaginatedArtifacts;
 GO
 
 -- Create the stored procedure
-ALTER PROCEDURE [dbo].[sproc_GetPaginatedArtifacts]
+CREATE PROCEDURE sproc_GetPaginatedArtifacts
     @PageNumber INT,
     @PageSize INT,
     @SearchString NVARCHAR(128) = NULL,
@@ -104,21 +101,19 @@ BEGIN
 
     -- Fetch paginated records
     SET @SQL = '
- SELECT 
-    a.Id,
-    a.ArtifactName,
-    a.Slug,
-    a.Tags,
-    a.TypeId,
-    a.CategoryId,
-    ac.CategoryName,
-    a.SeriesId,
-    a.DateAdded,
-    @PageNumber AS CurrentPage,
-    @TotalPages AS TotalPages
-FROM tblArtifacts a
-LEFT JOIN tblArtifactCategories ac ON a.CategoryId = ac.Id
-    WHERE 1 = 1 AND IsActive = 1';
+    SELECT 
+        Id,
+        ArtifactName,
+        Slug,
+        Tags,
+        TypeId,
+        CategoryId,
+        SeriesId,
+        DateAdded,
+        @PageNumber AS CurrentPage,
+        @TotalPages AS TotalPages
+    FROM tblArtifacts
+    WHERE 1 = 1';
 
     -- Add conditions as before
     IF @SearchString IS NOT NULL AND @SearchString != ''
@@ -153,21 +148,21 @@ LEFT JOIN tblArtifactCategories ac ON a.CategoryId = ac.Id
 
     IF @Year IS NOT NULL AND @Year != ''
     BEGIN
-        SET @SQL = @SQL + ' AND YEAR(a.DateAdded) = @Year';
+        SET @SQL = @SQL + ' AND YEAR(DateAdded) = @Year';
     END
 
     IF @FromDate IS NOT NULL  AND @FromDate != ''
     BEGIN
-        SET @SQL = @SQL + ' AND a.DateAdded >= @FromDate';
+        SET @SQL = @SQL + ' AND DateAdded >= @FromDate';
     END
 
     IF @ToDate IS NOT NULL AND @ToDate != ''
     BEGIN
-        SET @SQL = @SQL + ' AND a.DateAdded <= @ToDate';
+        SET @SQL = @SQL + ' AND DateAdded <= @ToDate';
     END
 
     SET @SQL = @SQL + '
-    ORDER BY a.DateAdded DESC
+    ORDER BY DateAdded DESC
     OFFSET (@PageNumber - 1) * @PageSize ROWS
     FETCH NEXT @PageSize ROWS ONLY';
 
@@ -183,3 +178,16 @@ LEFT JOIN tblArtifactCategories ac ON a.CategoryId = ac.Id
         @TotalPages AS TotalPages,
         @PageSize AS PageSize;
 END;
+GO
+
+-- Example execution:
+-- EXEC sproc_GetPaginatedArtifacts
+--     @PageNumber = 1,
+--     @PageSize = 10,
+--     @SearchString = NULL,
+--     @Type = NULL,
+--     @Category = '',
+--     @Tag = 'dnb',
+--     @Year = 2024,
+--     @FromDate = '2019-08-01',
+--     @ToDate = '2024-08-31';

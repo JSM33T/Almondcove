@@ -7,7 +7,6 @@ declare var bootstrap: any;
   providedIn: 'root',
 })
 export class ToastService {
-
   showToast(response: APIResponse<any>): void {
     const statusTitles: { [key: number]: string } = {
       200: 'OK',
@@ -28,8 +27,12 @@ export class ToastService {
     this.showModal(titleKey, message, hints, response.status === 400);
   }
 
-
-  private showModal(title: string, message: string, hints: string[], someBoolean: boolean): void {
+  private showModal(
+    title: string,
+    message: string,
+    hints: string[],
+    someBoolean: boolean
+  ): void {
     const modalContainer = document.createElement('div');
     modalContainer.classList.add('modal', 'fade');
     modalContainer.setAttribute('tabindex', '-1');

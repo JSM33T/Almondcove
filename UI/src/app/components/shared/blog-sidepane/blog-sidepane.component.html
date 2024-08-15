@@ -1,0 +1,46 @@
+<!-- Sidebar (offcanvas on screens < 992px) -->
+<div class="offcanvas-lg offcanvas-end" id="sidebarBlog">
+    <div class="offcanvas-header">
+        <h4 class="offcanvas-title">Sidebar</h4>
+        <button class="btn-close ms-auto" type="button" data-bs-dismiss="offcanvas" data-bs-target="#sidebarBlog" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <!-- Search box -->
+        <div [formGroup]="searchForm">
+        <div class="position-relative mb-4 mb-lg-5">
+            <i class="ai-search position-absolute top-50 start-0 translate-middle-y ms-3"></i>
+            <input class="form-control ps-5" [formControlName]="'search'" type="search" placeholder="Enter keyword" />
+        </div>
+    </div>
+        <h4 class="pt-1 pt-lg-0 mt-lg-n2">Categories:</h4>
+        <ul class="nav flex-column mb-lg-5 mb-4">
+            <li class="mb-2">
+                <a class="nav-link d-flex p-0" [routerLink]="['/artifacts']">
+                    All
+                    <span class="fs-sm text-body-secondary ms-2">(n)</span>
+                </a>
+            </li>
+            <li class="mb-2" *ngFor="let category of blogCategories; let i = index">
+                <a class="nav-link d-flex p-0" [class.active]="false" [routerLink]="['/artifacts']" [queryParams]="{ category: category.slug }">
+                    {{ category.categoryName }}
+                    <span class="fs-sm text-body-secondary ms-2">({{ category.blogCount }})</span>
+                </a>
+            </li>
+        </ul>
+        <h4 class="pt-1 pt-lg-0 mt-lg-n2">Years:</h4>
+        <ul class="nav flex-column mb-lg-5 mb-4">
+            <li class="mb-2">
+                <a class="nav-link d-flex p-0" [routerLink]="['/artifacts']">
+                    All
+                    <!-- <span class="fs-sm text-body-secondary ms-2">()</span> -->
+                </a>
+            </li>
+            <li class="mb-2" *ngFor="let year of years; let i = index">
+                <a class="nav-link d-flex p-0" [class.active]="false" [routerLink]="['/artifacts']" [queryParams]="{ year: year }">
+                    {{ year }}
+                    <!-- <span class="fs-sm text-body-secondary ms-2">()</span> -->
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,4 +1,66 @@
-<p class="pt-5 mt-5">artifacts works!</p>
+<div class="container pt-5 pb-lg-5 pb-md-4 pb-2 my-5">
+    <!-- Breadcrumb -->
 
+    <nav aria-label="breadcrumb">
+        <ol class="pt-lg-3 pb-lg-4 pb-2 breadcrumb">
+            <li class="breadcrumb-item">
+                <a routerLink="/" data-aos="flip-up" data-aos-duration="500">Home</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page" data-aos="flip-down" data-aos-duration="900">Blog</li>
+        </ol>
+    </nav>
 
-<a routerLink="/artifact/2022/garden-state">Hi visit ehre</a>
+    <div class="row mb-md-2 mb-xl-4">
+        <!-- Blog posts -->
+        <div class="col-lg-9 pe-lg-4 pe-xl-5">
+            <h1 class="pb-3 pb-lg-4" data-aos="fade-in" data-aos-duration="900">Artifacts (ID)</h1>
+            <div *ngIf="artifacts.length === 0" class="alert alert-info" role="alert">
+                No artifacts with the given criteria available!!
+            </div>
+            <!-- Post -->
+            <div *ngFor="let artifact of artifacts; let i = index">
+                <article class="row g-0 border-0 mb-4">
+                    <a class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" [routerLink]="['/artifact', formatDate(artifact.dateAdded), artifact.slug]" [style.backgroundImage]="'url(' + cover + '/content/blogs/' + artifact.slug + '/cover.webp)'" style="min-height: 14rem" aria-label="Post image"></a>
+                    <div class="col-sm-7">
+                        <div class="pt-4 pb-sm-4 ps-sm-4 pe-lg-4">
+                            <h3>
+                                <!-- <a [routerLink]="'blog/2024?id=' + blog.id">{{ blog.title }}</a> -->
+                                <!-- <a [routerLink]="'/artifact/'+ artifact.dateAdded +'/' + artifact.slug">{{ artifact.artifactName }}</a> -->
+                                <a [routerLink]="['/artifact', this.formatDate(artifact.dateAdded), artifact.slug]">
+                                    {{ artifact.artifactName }}
+                                </a>
+                                  
+                            </h3>
+                            <p class="d-sm-none d-md-block">{{ artifact.description }}</p>
+                            <div class="d-flex flex-wrap align-items-center mt-n2">
+                                <a class="nav-link text-body-secondary fs-sm fw-normal p-0 mt-2 me-3" href="#">
+                                   
+                                    <i class="ai-share fs-lg ms-1"></i>
+                                   
+                                    {{ artifact.categoryName }}
+                                </a>
+                                <a class="nav-link text-body-secondary fs-sm fw-normal d-flex align-items-end p-0 mt-2" href="#">
+                                    {{ artifact.comments }}
+                                    <i class="ai-message fs-lg ms-1"></i>
+                                </a>
+                                <span class="fs-xs opacity-20 mt-2 mx-3">|</span>
+                                <span class="fs-sm text-body-secondary mt-2">{{ artifact.timeAgo }}</span>
+                                <span class="fs-xs opacity-20 mt-2 mx-3">|</span>
+                                <a class="badge text-nav fs-xs border mt-2" href="#">{{ artifact.category }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <aside class="col-lg-3">
+            <app-blog-sidepane></app-blog-sidepane>
+        </aside>
+    </div>
+</div>
+
+<!-- Sidebar toggle button -->
+<button class="d-lg-none btn btn-sm fs-sm btn-primary w-100 rounded-0 fixed-bottom" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarBlog">
+    <i class="ai-layout-column me-2"></i>
+    Sidebar
+</button>

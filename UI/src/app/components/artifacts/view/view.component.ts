@@ -1,23 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { HttpService } from '../../../services/http.service';
 import { APIResponse } from '../../../library/interfaces/api-response.model';
 import { Observable } from 'rxjs';
 import { ResponseHandlerService } from '../../../library/helpers/response-handler';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { marked } from 'marked';
-import { NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-view',
   standalone: true,
-  imports: [NgIf],
+  imports: [NgIf,NgFor,RouterModule],
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.css']  // Corrected to styleUrls
 })
 export class ViewComponent implements OnInit {
   slug: string = '';
   year:string = '';
+  title:string = '';
+  dateAdded:string = '';
+  blogTitle : string = '';
   isLoading = false;
   content: SafeHtml = '';  // For holding sanitized HTML content
 
@@ -41,9 +44,20 @@ export class ViewComponent implements OnInit {
  
     this.responseHandler.handleResponse(response$, false).subscribe({
       next: async (response) => {
-        const markdownContent = response.data;
-        const htmlContent =await marked(markdownContent);  
-        this.content = this.sanitizer.bypassSecurityTrustHtml(htmlContent); 
+        console.log(response);
+        if(response.data)
+        {
+          this.title = response.data.name;
+          this.dateAdded = response.data.dateAdded;
+
+          const markdownContent = response.data.content;
+          const htmlContent =await marked(markdownContent);  
+          this.content = this.sanitizer.bypassSecurityTrustHtml(htmlContent); 
+        }
+        else
+        {
+          console.log("no markdown data");
+        }
         this.isLoading = false;
       },
       error: (error) => {

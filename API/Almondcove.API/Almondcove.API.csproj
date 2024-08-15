@@ -37,7 +37,6 @@
 	  <Folder Include="Logs\" />
 	  <Folder Include="wwwroot\content\2022\garden-state\assets\" />
 	  <Folder Include="wwwroot\content\2024\" />
-	  <Folder Include="wwwroot\content\2023\" />
 	</ItemGroup>
 
 </Project>

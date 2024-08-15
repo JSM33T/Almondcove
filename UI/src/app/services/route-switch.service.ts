@@ -15,17 +15,40 @@ export class RouteSwitchService {
     private metaService: Meta,
     private metaTagsService: MetaTagsService
   ) {
+    // this.router.events
+    //   .pipe(filter((event) => event instanceof NavigationEnd))
+    //   .subscribe((event: NavigationEnd) => {
+    //     window.scrollTo(0, 0);
+    //     const route = event.urlAfterRedirects.split('/').pop() || 'home';
+    //     this.metaTagsService.getMetaTags(route).subscribe((metaTags) => {
+    //       if (metaTags) {
+    //         this.setTitleAndMetaTags(metaTags);
+    //       }
+    //     });
+
+    //     InitAnimateOnScroll();
+    //   });
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
         window.scrollTo(0, 0);
+
+        // window.scrollTo({
+        //   top: 0,
+        //   behavior: 'smooth',
+        // });
         const route = event.urlAfterRedirects.split('/').pop() || 'home';
+
+        if (event.urlAfterRedirects.startsWith('/artifact')) {
+          //skipping cz dynamic artifact tags
+          return;
+        }
+
         this.metaTagsService.getMetaTags(route).subscribe((metaTags) => {
           if (metaTags) {
             this.setTitleAndMetaTags(metaTags);
           }
         });
-
         InitAnimateOnScroll();
       });
   }

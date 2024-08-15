@@ -33,6 +33,7 @@ namespace Almondcove.API.Controllers
             try
             {
                 var (statusCode, result, message, errors) = await action();
+                //await Task.Delay(1000);
                 return AcResponse(statusCode, message, result, errors);
             }
             catch (Exception ex)

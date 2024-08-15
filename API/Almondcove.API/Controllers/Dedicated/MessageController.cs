@@ -50,22 +50,5 @@ namespace Almondcove.API.Controllers.Dedicated
                 return (statusCode, 0, message, hints);
             }, MethodBase.GetCurrentMethod().Name);
         }
-
-
-        //[Authorize(Roles = "admin")]
-        //[HttpGet("getall")]
-        //public async Task<IActionResult> GetAll()
-        //{
-        //    int statusCode = 200;
-        //    string message = "TOAST.OK";
-        //    List<string> hints = [];
-
-        //    return await ExecuteActionAsync(async () =>
-        //    {
-        //        var messages = await _messageRepo.GetAllMessagesAsync();
-
-        //        return (statusCode, messages, message, hints);
-        //    }, MethodBase.GetCurrentMethod().Name);
-        //}
     }
 }
