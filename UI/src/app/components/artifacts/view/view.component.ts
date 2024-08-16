@@ -19,6 +19,7 @@ export class ViewComponent implements OnInit {
   slug: string = '';
   year:string = '';
   title:string = '';
+  authors : any = [];
   dateAdded:string = '';
   blogTitle : string = '';
   isLoading = false;
@@ -52,6 +53,7 @@ export class ViewComponent implements OnInit {
 
           const markdownContent = response.data.content;
           const htmlContent =await marked(markdownContent);  
+          this.authors = response.data.authors;
           this.content = this.sanitizer.bypassSecurityTrustHtml(htmlContent); 
         }
         else
