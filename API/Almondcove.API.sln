@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Almondcove.Validators", "Al
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Almondcove.Repositories", "Almondcove.Repositories\Almondcove.Repositories.csproj", "{E2650F49-01FF-4066-B9B4-3FDA636F5BDA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Almondcove.Services", "Almondcove.Services\Almondcove.Services.csproj", "{2A8F4A78-BAE0-4425-A49D-A4D4791E53BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Almondcove.Services", "Almondcove.Services\Almondcove.Services.csproj", "{2A8F4A78-BAE0-4425-A49D-A4D4791E53BC}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Almondcove.Scripts", "Almondcove.Scripts\Almondcove.Scripts.pyproj", "{83D515E5-1B98-42FE-8515-07DC64F78B13}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,8 @@ Global
 		{2A8F4A78-BAE0-4425-A49D-A4D4791E53BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A8F4A78-BAE0-4425-A49D-A4D4791E53BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A8F4A78-BAE0-4425-A49D-A4D4791E53BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83D515E5-1B98-42FE-8515-07DC64F78B13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83D515E5-1B98-42FE-8515-07DC64F78B13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
