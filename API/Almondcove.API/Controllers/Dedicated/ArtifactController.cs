@@ -56,11 +56,13 @@ namespace Almondcove.API.Controllers.Dedicated
                 artifactDetails.Slug = artifact.Slug;
                 artifactDetails.Name = artifact.ArtifactName;
                 artifactDetails.DateAdded = artifact.DateAdded;
+                artifactDetails.Id = artifact.Id;
 
                 if (System.IO.File.Exists(filePath))
                 {
                     artifactDetails.Content = await System.IO.File.ReadAllTextAsync(filePath);
                     statusCode = StatusCodes.Status200OK;
+                    artifactDetails.Authors = await _artifactRepo.GetArtifactAuthorsByArtifactId(artifactDetails.Id);
                     message = "Retrieved";
                 }
 

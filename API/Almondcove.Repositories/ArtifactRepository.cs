@@ -33,7 +33,7 @@ namespace Almondcove.Repositories
             {
                 request.PageNumber,
                 request.PageSize,
-                SearchString = string.IsNullOrEmpty(request.SearchString) ? null : request.SearchString,
+                SearchString = string.IsNullOrEmpty(request.SearchString) ? string.Empty : request.SearchString,
                 Type = string.IsNullOrEmpty(request.Type) ? null : request.Type,
                 Category = string.IsNullOrEmpty(request.Category) ? null : request.Category,
                 Tag = string.IsNullOrEmpty(request.Tag) ? null : request.Tag,
@@ -72,8 +72,27 @@ namespace Almondcove.Repositories
             var query = $"SELECT * FROM tblArtifacts where Slug = '{Slug}'";
 
             Artifact artifact = await dbConnection.QuerySingleAsync<Artifact>(query, new { Slug = Slug });
+
+            artifact.Authors = await GetArtifactAuthorsByArtifactId(artifact.Id);
+
             return artifact;
         }
+
+
+        public async Task<IEnumerable<ArtifactAuthor>> GetArtifactAuthorsByArtifactId(int artifactId)
+        {
+            using IDbConnection dbConnection = new SqlConnection(_conStr);
+
+            // Stored procedure call with Dapper
+            var authors = await dbConnection.QueryAsync<ArtifactAuthor>(
+                "sproc_GetArtifactAuthorsByArtifactId",
+                new { ArtifactId = artifactId },
+                commandType: CommandType.StoredProcedure
+            );
+
+            return authors;
+        }
+
 
     }
 }

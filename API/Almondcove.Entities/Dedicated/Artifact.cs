@@ -6,9 +6,6 @@ using System.Threading.Tasks;
 
 namespace Almondcove.Entities.Dedicated
 {
-   
-    
-
     public class Artifact
     {
         public int Id { get; set; }
@@ -16,10 +13,7 @@ namespace Almondcove.Entities.Dedicated
         public string Slug { get; set; }
         public int TypeId { get; set; }
         public int CategoryId { get; set; }
+        public IEnumerable<ArtifactAuthor> Authors { get; set; }
         public DateTime DateAdded { get; set; } = DateTime.Now;
-    }
-
-  
-
-   
+    } 
 }

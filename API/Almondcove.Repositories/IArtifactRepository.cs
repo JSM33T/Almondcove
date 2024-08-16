@@ -9,5 +9,6 @@ namespace Almondcove.Repositories
         public Task<PaginatedResult<Artifact_GetArtifacts>> GetPaginatedArtifactsAsync(Artifact_GetRequest request);
         public Task<List<ArtifactCategory>> GetCategories();
         public Task<Artifact> GetArtifactDetailsBySlug(string Slug);
+        public Task<IEnumerable<ArtifactAuthor>> GetArtifactAuthorsByArtifactId(int artifactId);
     }
 }
