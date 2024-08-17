@@ -95,6 +95,7 @@ import { APIResponse } from '../../library/interfaces/api-response.model';
 import { Observable } from 'rxjs';
 import { ResponseHandlerService } from '../../library/helpers/response-handler';
 import { DatePipe } from '@angular/common';
+import InitAnimateOnScroll from '../../library/invokers/animate-on-scroll';
 
 @Component({
   selector: 'app-artifacts',
@@ -132,6 +133,7 @@ export class ArtifactsComponent implements OnInit {
   
 
   ngOnInit(): void {
+    InitAnimateOnScroll();
     // Subscribe to query params changes
     this.route.queryParams.subscribe(params => {
       this.currentCategory = params['category'] || null;
@@ -170,7 +172,7 @@ export class ArtifactsComponent implements OnInit {
       next: (response) => {
         this.isLoading = false;
         if (response.status == 200) {
-          console.log(response);
+        
           this.artifacts = response.data.items;
         }
         else

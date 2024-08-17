@@ -16,20 +16,19 @@ let parallaxInstances: Parallax[] = [];
 export function initParallax() {
     destroyParallax();
     const elements = document.querySelectorAll('.parallax');
-    console.log(`Found ${elements.length} parallax elements.`);
+    //console.log(`Found ${elements.length} parallax elements.`);
     for (let i = 0; i < elements.length; i++) {
         // @ts-ignore
         const parallaxInstance = new Parallax(elements[i]);
         parallaxInstances.push(parallaxInstance);
-        console.log(`Initialized parallax for element ${i}`);
+        //console.log(`Initialized parallax for element ${i}`);
     }
 }
 
 export function destroyParallax() {
-    console.log(`Destroying ${parallaxInstances.length} parallax instances.`);
     for (let i = 0; i < parallaxInstances.length; i++) {
         parallaxInstances[i].destroy();
-        console.log(`Destroyed parallax instance ${i}`);
+       
     }
     parallaxInstances = [];
 }

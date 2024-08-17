@@ -3,7 +3,6 @@ import { Router, NavigationEnd } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { MetaTagsService } from './meta-tags.service';
 import { filter } from 'rxjs/operators';
-import InitAnimateOnScroll from '../library/invokers/animate-on-scroll';
 
 @Injectable({
   providedIn: 'root',
@@ -15,24 +14,10 @@ export class RouteSwitchService {
     private metaService: Meta,
     private metaTagsService: MetaTagsService
   ) {
-    // this.router.events
-    //   .pipe(filter((event) => event instanceof NavigationEnd))
-    //   .subscribe((event: NavigationEnd) => {
-    //     window.scrollTo(0, 0);
-    //     const route = event.urlAfterRedirects.split('/').pop() || 'home';
-    //     this.metaTagsService.getMetaTags(route).subscribe((metaTags) => {
-    //       if (metaTags) {
-    //         this.setTitleAndMetaTags(metaTags);
-    //       }
-    //     });
-
-    //     InitAnimateOnScroll();
-    //   });
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event: NavigationEnd) => {
         window.scrollTo(0, 0);
-
         // window.scrollTo({
         //   top: 0,
         //   behavior: 'smooth',
@@ -49,7 +34,6 @@ export class RouteSwitchService {
             this.setTitleAndMetaTags(metaTags);
           }
         });
-        InitAnimateOnScroll();
       });
   }
 

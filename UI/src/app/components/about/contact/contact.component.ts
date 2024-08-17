@@ -51,7 +51,7 @@ export class ContactComponent implements OnInit,OnDestroy {
   
       this.responseHandler.handleResponse(response$, true).subscribe({
         next: (response) => {
-          console.log(response);
+          //console.log(response);
           this.isLoading = false;
         },
         error: (error) => {

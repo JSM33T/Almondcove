@@ -25,7 +25,7 @@ export class MetaTagsService {
 
   getMetaTags(route: string): Observable<MetaTags> {
     const metaTagsUrl = `assets/data/meta/${route}.json`;
-    console.log(route);
+    //console.log(route);
     return this.http.get<MetaTags>(metaTagsUrl);
   }
 }

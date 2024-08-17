@@ -16,6 +16,6 @@ export default function setTheme(): void {
 
         themeStyle.innerHTML = themeStyleData;
     } else {
-        console.log('No theme data found in local storage.');
+        //console.log('No theme data found in local storage.');
     }
 }

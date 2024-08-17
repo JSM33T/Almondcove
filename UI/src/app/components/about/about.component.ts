@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { initParallax } from '../../library/invokers/parallax';
+import InitAnimateOnScroll from '../../library/invokers/animate-on-scroll';
 
 @Component({
   selector: 'app-about',
@@ -34,6 +35,7 @@ export class AboutComponent implements OnInit {
 
   ngOnInit(): void {
     initParallax();
+    InitAnimateOnScroll();
   }
 
 }
