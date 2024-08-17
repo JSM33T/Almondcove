@@ -66,7 +66,6 @@ namespace Almondcove.API.Controllers.Dedicated
                     message = "Retrieved";
                 }
 
-
                 return (statusCode, artifactDetails, message, hints);
             }, MethodBase.GetCurrentMethod().Name);
         }
