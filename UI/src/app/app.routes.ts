@@ -35,6 +35,21 @@ export const routes: Route[] = [
       ),
   },
   {
+    path: 'blogs',
+    loadComponent: () =>
+      import('./components/blogs/blog.component').then(
+        (m) => m.BlogComponent
+      ),
+  },
+  {
+    path: 'blog/:year/:slug',
+    loadComponent: () =>
+      import('./components/blogs/view/view.component').then(
+        (m) => m.ViewComponent
+      ),
+  },
+
+  {
     path: 'artifacts',
     loadComponent: () =>
       import('./components/artifacts/artifacts.component').then(
@@ -42,11 +57,20 @@ export const routes: Route[] = [
       ),
   },
   {
-    path: 'artifact/:year/:slug',
+    path: 'artifact/:type/:slug',
     loadComponent: () =>
       import('./components/artifacts/view/view.component').then(
         (m) => m.ViewComponent
       ),
   },
+
+  {
+    path: 'studio',
+    loadComponent: () =>
+      import('./components/studio/studio.component').then(
+        (m) => m.StudioComponent
+      ),
+  },
+
   { path: '**', redirectTo: '/' },
 ];

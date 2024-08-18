@@ -1,0 +1,66 @@
+<div class="container pt-5 pb-lg-5 pb-md-4 pb-2 my-5">
+    <!-- Breadcrumb -->
+
+    <nav aria-label="breadcrumb">
+        <ol class="pt-lg-3 pb-lg-4 pb-2 breadcrumb">
+            <li class="breadcrumb-item">
+                <a routerLink="/">Home</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Blog</li>
+        </ol>
+    </nav>
+
+    <div class="row mb-md-2 mb-xl-4">
+        <!-- Blog posts -->
+        <div class="col-lg-9 pe-lg-4 pe-xl-5">
+            <h1 class="pb-3 pb-lg-4" data-aos="fade-in" data-aos-duration="900">blogs (ID)</h1>
+            <div *ngIf="blogs.length === 0" class="alert alert-info" role="alert">
+                No blogs with the given criteria available!!
+            </div>
+            <!-- Post -->
+            <div *ngFor="let blog of blogs; let i = index">
+                <article class="row g-0 border-0 mb-4">
+                    <a class="col-sm-5 bg-repeat-0 bg-size-cover bg-position-center rounded-5" [routerLink]="['/blog', formatDate(blog.dateAdded), blog.slug]" [style.backgroundImage]="'url('+cover+'/content/'+ this.formatDate(blog.dateAdded) +'/'+ blog.slug + '/cover.webp)'" style="min-height: 14rem" aria-label="Post image"></a>
+                    <div class="col-sm-7">
+                        <div class="pt-4 pb-sm-4 ps-sm-4 pe-lg-4">
+                            <h3>
+                                <!-- <a [routerLink]="'blog/2024?id=' + blog.id">{{ blog.title }}</a> -->
+                                <!-- <a [routerLink]="'/blog/'+ blog.dateAdded +'/' + blog.slug">{{ blog.blogName }}</a> -->
+                                <a [routerLink]="['/blog', this.formatDate(blog.dateAdded), blog.slug]">
+                                    {{ blog.blogName }}
+                                </a>
+                                  
+                            </h3>
+                            <p class="d-sm-none d-md-block">{{ blog.description }}</p>
+                            <div class="d-flex flex-wrap align-items-center mt-n2">
+                                <a class="nav-link text-body-secondary fs-sm fw-normal p-0 mt-2 me-3" href="#">
+                                   
+                                    <i class="ai-share fs-lg ms-1"></i>
+                                   
+                                    {{ blog.categoryName }}
+                                </a>
+                                <a class="nav-link text-body-secondary fs-sm fw-normal d-flex align-items-end p-0 mt-2" href="#">
+                                    {{ blog.comments }}
+                                    <i class="ai-message fs-lg ms-1"></i>
+                                </a>
+                                <span class="fs-xs opacity-20 mt-2 mx-3">|</span>
+                                <span class="fs-sm text-body-secondary mt-2">{{ blog.timeAgo }}</span>
+                                <span class="fs-xs opacity-20 mt-2 mx-3">|</span>
+                                <a class="badge text-nav fs-xs border mt-2" href="#">{{ blog.category }}</a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+        <aside class="col-lg-3">
+            <app-blog-sidepane></app-blog-sidepane>
+        </aside>
+    </div>
+</div>
+
+<!-- Sidebar toggle button -->
+<button class="d-lg-none btn btn-sm fs-sm btn-primary w-100 rounded-0 fixed-bottom" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarBlog">
+    <i class="ai-layout-column me-2"></i>
+    Sidebar
+</button>

@@ -24,7 +24,7 @@ export class RouteSwitchService {
         // });
         const route = event.urlAfterRedirects.split('/').pop() || 'home';
 
-        if (event.urlAfterRedirects.startsWith('/artifact')) {
+        if (event.urlAfterRedirects.startsWith('/blogs')) {
           //skipping cz dynamic artifact tags
           return;
         }

@@ -37,7 +37,7 @@ export class BlogSidepaneComponent implements OnInit {
     }
 
     loadCategories() {
-        const response$: Observable<APIResponse<any>> = this.httpService.get('api/artifact/getcategories');
+        const response$: Observable<APIResponse<any>> = this.httpService.get('api/blog/getcategories');
         this.responseHandler.handleResponse(response$, false).subscribe({
             next: (response) => {
                 this.isLoading = false;
@@ -57,9 +57,9 @@ export class BlogSidepaneComponent implements OnInit {
             distinctUntilChanged()
         ).subscribe(searchTerm => {
             if (searchTerm) {
-                this.router.navigate(['/artifacts'], { queryParams: { search: searchTerm } });
+                this.router.navigate(['/blogs'], { queryParams: { search: searchTerm } });
             } else {
-                this.router.navigate(['/artifacts']);
+                this.router.navigate(['/blogs']);
             }
         });
     }

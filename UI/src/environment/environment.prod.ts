@@ -1,5 +1,5 @@
 export const environment = {
     production: true,
     apiUrl: 'https://api.almondcove.in',
-    loaderWait: 2000,
+    loaderWait: 2500
 };

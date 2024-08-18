@@ -1,17 +1,17 @@
-import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
+import { NgFor } from '@angular/common';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { initParallax } from '../../library/invokers/parallax';
-import InitAnimateOnScroll from '../../library/invokers/animate-on-scroll';
+import initAOS, { cleanAOS } from '../../library/invokers/animate-on-scroll';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [CommonModule],
+  imports: [RouterModule,NgFor],
   templateUrl: './about.component.html',
   styleUrl: './about.component.css'
 })
-export class AboutComponent implements OnInit {
+export class AboutComponent implements OnInit ,OnDestroy{
 
   socialLinks = [
     {
@@ -31,11 +31,15 @@ export class AboutComponent implements OnInit {
     },
 ];
 
-  constructor(private titleService: Title, private metaService: Meta) { }
+
+  ngOnDestroy(): void {
+    cleanAOS();
+  }
 
   ngOnInit(): void {
     initParallax();
-    InitAnimateOnScroll();
+    initAOS();
   }
+  
 
 }

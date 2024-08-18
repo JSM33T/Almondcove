@@ -15,13 +15,13 @@
         <h4 class="pt-1 pt-lg-0 mt-lg-n2">Categories:</h4>
         <ul class="nav flex-column mb-lg-5 mb-4">
             <li class="mb-2">
-                <a class="nav-link d-flex p-0" [routerLink]="['/artifacts']">
+                <a class="nav-link d-flex p-0" [routerLink]="['/blogs']">
                     All
                     <span class="fs-sm text-body-secondary ms-2">(n)</span>
                 </a>
             </li>
             <li class="mb-2" *ngFor="let category of blogCategories; let i = index">
-                <a class="nav-link d-flex p-0" [class.active]="false" [routerLink]="['/artifacts']" [queryParams]="{ category: category.slug }">
+                <a class="nav-link d-flex p-0" [class.active]="false" [routerLink]="['/blogs']" [queryParams]="{ category: category.slug }">
                     {{ category.categoryName }}
                     <span class="fs-sm text-body-secondary ms-2">({{ category.blogCount }})</span>
                 </a>
@@ -30,13 +30,13 @@
         <h4 class="pt-1 pt-lg-0 mt-lg-n2">Years:</h4>
         <ul class="nav flex-column mb-lg-5 mb-4">
             <li class="mb-2">
-                <a class="nav-link d-flex p-0" [routerLink]="['/artifacts']">
+                <a class="nav-link d-flex p-0" [routerLink]="['/blogs']">
                     All
                     <!-- <span class="fs-sm text-body-secondary ms-2">()</span> -->
                 </a>
             </li>
             <li class="mb-2" *ngFor="let year of years; let i = index">
-                <a class="nav-link d-flex p-0" [class.active]="false" [routerLink]="['/artifacts']" [queryParams]="{ year: year }">
+                <a class="nav-link d-flex p-0" [class.active]="false" [routerLink]="['/blogs']" [queryParams]="{ year: year }">
                     {{ year }}
                     <!-- <span class="fs-sm text-body-secondary ms-2">()</span> -->
                 </a>

@@ -11,6 +11,7 @@ import {
 } from '@angular/forms';
 import { ResponseHandlerService } from '../../../library/helpers/response-handler';
 import { RouterModule } from '@angular/router';
+import initAOS, { cleanAOS } from '../../../library/invokers/animate-on-scroll';
 
 @Component({
   selector: 'app-contact',
@@ -19,7 +20,6 @@ import { RouterModule } from '@angular/router';
   templateUrl: './contact.component.html'
 })
 export class ContactComponent implements OnInit,OnDestroy {
-  loadingBarState: any;
   messageForm! : FormGroup;
     isLoading = false;
 
@@ -37,11 +37,11 @@ export class ContactComponent implements OnInit,OnDestroy {
     }
 
     ngOnInit(): void {
-       
+       initAOS()
     }
 
     ngOnDestroy(): void {
-        
+        cleanAOS();
     }
 
     onSubmit(): void {

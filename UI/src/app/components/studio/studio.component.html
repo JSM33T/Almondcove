@@ -1,0 +1,57 @@
+<!-- Our projects (Filterable masonry grid) -->
+<section class="container overflow-hidden pb-5 mb-2 mb-lg-3 mb-xl-4 mb-xxl-5 pt-5">
+	<div class="masonry-filterable">
+		<div class="row pb-lg-4 mb-2 mb-sm-3">
+			<!-- Page title -->
+			<div class="col-xxl-3 col-lg-4 text-center text-lg-start">
+				<h1>jsm33t music</h1>
+				<p class="mb-4 mb-lg-0">Compilation of all my remixes and teasers</p>
+			</div>
+
+			<!-- Filters -->
+			<div class="col-xxl-9 col-lg-8 d-flex">
+				<ul class="masonry-filters nav nav-pills fs-sm flex-nowrap overflow-auto text-nowrap w-100 mx-auto me-lg-0 pb-3" style="max-width: 456px">
+					<li class="nav-item mb-0">
+						<a class="nav-link border active" href="#" data-group="all">All</a>
+					</li>
+					<li class="nav-item mb-0">
+						<a class="nav-link border" href="#" data-group="singles">Singles</a>
+					</li>
+					<li class="nav-item mb-0">
+						<a class="nav-link border" href="#" data-group="albums">Albums</a>
+					</li>
+					<li class="nav-item mb-0">
+						<a class="nav-link border" href="#" data-group="snippets">Snippets</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="masonry-grid" data-columns="2">
+			<!-- Item -->
+			<article *ngFor="let item of items" class="masonry-grid-item pb-5 mb-md-2 mb-lg-4 mb-xl-5" [attr.data-groups]="getGroupsJson(item.group)">
+				<div class="zoom-effect position-relative border-bottom pb-3" style="max-width: 512px">
+					<div class="zoom-effect-wrapper">
+						<div class="zoom-effect-img">
+							<img [src]="item.imgSrc" [alt]="item.title" />
+						</div>
+					</div>
+					<div class="pt-4 mt-lg-2">
+						<h2 class="h4 mb-2">
+							<a class="stretched-link" [href]="item.link">{{ item.title }}</a>
+						</h2>
+						<div class="d-flex justify-content-between fs-lg text-body-secondary">
+							<span>{{ item.categories.join(", ") }}</span>
+							<span>{{ item.year }}</span>
+						</div>
+					</div>
+				</div>
+			</article>
+		</div>
+
+		<!-- Button -->
+		<div class="text-center pb-sm-2 pb-md-4 mt-n1 mt-lg-n2">
+			<a class="btn btn-lg btn-outline-dark rounded-0" href="#">Let's work together</a>
+		</div>
+	</div>
+</section>
