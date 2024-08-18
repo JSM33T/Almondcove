@@ -1,5 +1,5 @@
 use [almondcove_db]
-CREATE TABLE tblUsers
+CREATE TABLE [dbo].[tblUsers]
 (
 	---------------------
 	--		PROPS      --
@@ -47,7 +47,7 @@ GO
 
 
 
-CREATE TABLE tblMessages
+CREATE TABLE [dbo].[tblMessages]
 (
 	---------------------
 	--		PROPS      --
@@ -77,7 +77,7 @@ CREATE TABLE tblMessages
 GO
 
 
-CREATE TABLE tblBlogCategories
+CREATE TABLE [dbo].[tblBlogCategories]
 (
     Id				INT 
 					PRIMARY KEY,
@@ -94,7 +94,7 @@ CREATE TABLE tblBlogCategories
 );
 
 
-CREATE TABLE tblBlogSeries
+CREATE TABLE [dbo].[tblBlogSeries]
 (
     Id				INT				PRIMARY KEY,
 
@@ -105,7 +105,7 @@ CREATE TABLE tblBlogSeries
     DateAdded		DATETIME		NOT NULL	DEFAULT GETDATE(),
 );
 
-CREATE TABLE tblBlogs
+CREATE TABLE [dbo].[tblBlogs]
 (
     Id              INT				PRIMARY KEY,
 
@@ -126,7 +126,7 @@ CREATE TABLE tblBlogs
 
 go
 
-CREATE TABLE tblBlogAuthorMap
+CREATE TABLE [dbo].[tblBlogAuthorMap]
 (
     Id          INT     NOT NULL,
 
@@ -142,7 +142,7 @@ CREATE TABLE tblBlogAuthorMap
 );
 GO
 
-CREATE TABLE tblBlogSeriesMap
+CREATE TABLE [dbo].[tblBlogSeriesMap]
 (
     Id          INT     NOT NULL,
 
@@ -158,7 +158,7 @@ CREATE TABLE tblBlogSeriesMap
 );
 GO
 
-CREATE OR ALTER PROCEDURE sproc_CheckAndAddMessage
+CREATE OR ALTER PROCEDURE [dbo].[sproc_CheckAndAddMessage]
     @Content    NVARCHAR(512),
     @Name       NVARCHAR(128) = 'anonymous',
     @Email      NVARCHAR(128) = 'na',
@@ -356,7 +356,7 @@ END;
 
 GO
 
-CREATE OR ALTER  PROCEDURE [sproc_GetBlogAuthorsByBlogId]
+CREATE OR ALTER  PROCEDURE [dbo].[sproc_GetBlogAuthorsByBlogId]
     @BlogId INT
 AS
 BEGIN
