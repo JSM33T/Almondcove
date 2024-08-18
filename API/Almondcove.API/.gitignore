@@ -59,12 +59,12 @@ nunit-*.xml
 dlldata.c
 
 # Benchmark Results
-BenchmarkDotNet.Artifacts/
+BenchmarkDotNet.Blogs/
 
 # .NET
 project.lock.json
 project.fragment.lock.json
-artifacts/
+Blogs/
 
 # Tye
 .tye/
@@ -223,7 +223,7 @@ rcf/
 
 # Windows Store app package directories and files
 AppPackages/
-BundleArtifacts/
+BundleBlogs/
 Package.StoreAssociation.xml
 _pkginfo.txt
 *.appx
@@ -313,10 +313,10 @@ node_modules/
 *.aps
 
 # Visual Studio LightSwitch build output
-**/*.HTMLClient/GeneratedArtifacts
-**/*.DesktopClient/GeneratedArtifacts
+**/*.HTMLClient/GeneratedBlogs
+**/*.DesktopClient/GeneratedBlogs
 **/*.DesktopClient/ModelManifest.xml
-**/*.Server/GeneratedArtifacts
+**/*.Server/GeneratedBlogs
 **/*.Server/ModelManifest.xml
 _Pvt_Extensions
 

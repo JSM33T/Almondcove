@@ -1,11 +1,4 @@
-drop table if exists tblMessages
-drop table if exists tblArtifacts
-drop table if exists tblArtifactTags
-drop table if exists tblArtifactTypes
-drop table if exists tblArtifactCategories
-drop table if exists tblArtifactSeries
-
-
+use [almondcove_db]
 CREATE TABLE tblUsers
 (
 	---------------------
@@ -34,6 +27,10 @@ CREATE TABLE tblUsers
 
 	IsVerified		BIT					NOT NULL DEFAULT 0,
 
+	ExpPoints		INT					NOT NULL DEFAULT 1000,
+
+	TimeSpent		INT					NOT NULL DEFAULT 300,
+
     DateAdded       DATETIME			NOT NULL DEFAULT GETDATE(),
 
 	DateEdited      DATETIME			NOT NULL DEFAULT GETDATE(),
@@ -52,59 +49,35 @@ GO
 
 CREATE TABLE tblMessages
 (
-    Id              INT 
-                    NOT NULL,
+	---------------------
+	--		PROPS      --
+	---------------------
+    Id              INT				NOT NULL,
 
-    Content			NVARCHAR(512) 
-                    NOT NULL,
+    Content			NVARCHAR(512)	NOT NULL,
 
-	[Name]          NVARCHAR(128) 
-					NOT NULL 
-					DEFAULT 'anonymous',
+	[Name]          NVARCHAR(128)	NOT NULL	DEFAULT 'anonymous',
 
-	Email			NVARCHAR(128) 
-					NOT NULL 
-					DEFAULT 'na',
+	Email			NVARCHAR(128)	NOT NULL	DEFAULT 'na',
 
+    Topic           NVARCHAR(128)	NOT NULL	DEFAULT 'general',
 
-    Topic           NVARCHAR(128) 
-                    NOT NULL 
-                    DEFAULT 'general',
+    Origin          NVARCHAR(256)	NOT NULL	DEFAULT '/',
 
-    Origin          NVARCHAR(256) 
-                    NOT NULL 
-                    DEFAULT '/',
+    DateAdded       DATETIME		NOT NULL	DEFAULT GETDATE(),
 
-    DateAdded       DATETIME 
-                    NOT NULL 
-                    DEFAULT GETDATE(),
+	---------------------
+	--   CONSTRAINTS   --
+	---------------------
 
-    CONSTRAINT      PK_MessageTable 
-                    PRIMARY KEY (Id),
+    CONSTRAINT      PK_MessageTable		PRIMARY KEY (Id),
 
-    CONSTRAINT      UQ_MessageContent 
-                    UNIQUE (Content)
+    CONSTRAINT      UQ_MessageContent	UNIQUE (Content)
 );
 GO
 
-CREATE TABLE tblArtifactTypes
-(
-    Id			INT 
-				PRIMARY KEY,
 
-    TypeName	NVARCHAR(128)
-				NOT NULL,
-
-	Slug		NVARCHAR(128)
-				NOT NULL,
-
-    DateAdded	DATETIME 
-				NOT NULL 
-				DEFAULT GETDATE(),
-);
-
-
-CREATE TABLE tblArtifactCategories
+CREATE TABLE tblBlogCategories
 (
     Id				INT 
 					PRIMARY KEY,
@@ -120,46 +93,68 @@ CREATE TABLE tblArtifactCategories
 					DEFAULT GETDATE(),
 );
 
-CREATE TABLE tblArtifactSeries
+
+CREATE TABLE tblBlogSeries
 (
-    Id				INT 
-					PRIMARY KEY,
+    Id				INT				PRIMARY KEY,
 
-    SeriesName		NVARCHAR(128)
-					NOT NULL,
+    SeriesName		NVARCHAR(128)	NOT NULL,
 
-	Slug			NVARCHAR(128)
-					NOT NULL,
+	Slug			NVARCHAR(128)	NOT NULL,
 
-    DateAdded		DATETIME 
-					NOT NULL 
-					DEFAULT GETDATE(),
+    DateAdded		DATETIME		NOT NULL	DEFAULT GETDATE(),
 );
 
-CREATE TABLE tblArtifacts
+CREATE TABLE tblBlogs
 (
-    Id              INT PRIMARY KEY,
-    ArtifactName    NVARCHAR(256)   NOT NULL,
+    Id              INT				PRIMARY KEY,
+
+    BlogName		NVARCHAR(256)   NOT NULL,
+
+	[Description]	NVARCHAR(512)	NOT NULL,
+
     Slug            NVARCHAR(128)   NOT NULL,
+
     Tags            NVARCHAR(128)   NOT NULL,
-    TypeId          INT             NOT NULL    FOREIGN KEY REFERENCES tblArtifactTypes(Id),
-    CategoryId      INT             NOT NULL    FOREIGN KEY REFERENCES tblArtifactCategories(Id),
-    SeriesId        INT             NOT NULL    FOREIGN KEY REFERENCES tblArtifactSeries(Id),
+
+    CategoryId      INT             NOT NULL    FOREIGN KEY REFERENCES tblBlogCategories(Id),
+
     DateAdded       DATETIME        NOT NULL    DEFAULT GETDATE(),
+
     IsActive        BIT             NOT NULL    DEFAULT 1
 );
 
 go
 
-CREATE TABLE tblArtifactAuthorMap
+CREATE TABLE tblBlogAuthorMap
 (
     Id          INT     NOT NULL,
-    ArtifactId      INT     NOT NULL,
+
+    BlogId      INT     NOT NULL,
+
     UserId      INT     NOT NULL,
     
-    CONSTRAINT FK_ArtifactAuthorMap_ArtifactId FOREIGN KEY (ArtifactId) REFERENCES tblArtifacts(Id),
-    CONSTRAINT FK_ArtifactAuthorMap_UserId FOREIGN KEY (UserId) REFERENCES tblUsers(Id),
-    CONSTRAINT PK_ArtifactAuthorMap PRIMARY KEY (Id)
+    CONSTRAINT FK_BlogAuthorMap_BlogId FOREIGN KEY (BlogId) REFERENCES tblBlogs(Id),
+
+    CONSTRAINT FK_BlogAuthorMap_UserId FOREIGN KEY (UserId) REFERENCES tblUsers(Id),
+
+    CONSTRAINT PK_BlogAuthorMap PRIMARY KEY (Id)
+);
+GO
+
+CREATE TABLE tblBlogSeriesMap
+(
+    Id          INT     NOT NULL,
+
+    BlogId      INT     NOT NULL,
+
+    SeriesId    INT     NOT NULL,
+    
+    CONSTRAINT FK_BlogSeriesMap_BlogId FOREIGN KEY (BlogId) REFERENCES tblBlogs(Id),
+
+    CONSTRAINT FK_BlogSeriesMap_UserId FOREIGN KEY (SeriesId) REFERENCES tblBlogSeries(Id),
+
+    CONSTRAINT PK_BlogSeriesMap PRIMARY KEY (Id)
 );
 GO
 
@@ -199,18 +194,17 @@ END;
 GO
 USE [almondcove_db]
 GO
-/****** Object:  StoredProcedure [dbo].[sproc_GetPaginatedArtifacts]    Script Date: 15-08-2024 10.16.07 PM ******/
+/****** Object:  StoredProcedure [dbo].[sproc_GetPaginatedBlogs]    Script Date: 15-08-2024 10.16.07 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 
 -- Create the stored procedure
-ALTER PROCEDURE [dbo].[sproc_GetPaginatedArtifacts]
+CREATE OR ALTER PROCEDURE [dbo].[sproc_GetPaginatedBlogs]
     @PageNumber INT,
     @PageSize INT,
     @SearchString NVARCHAR(128) = NULL,
-    @Type NVARCHAR(128) = NULL,
     @Category NVARCHAR(128) = NULL,
     @Tag NVARCHAR(128) = NULL,
     @Year INT = NULL,
@@ -237,24 +231,13 @@ BEGIN
     DECLARE @SQL NVARCHAR(MAX);
     SET @SQL = '
     SELECT @TotalRecords = COUNT(*)
-    FROM tblArtifacts
+    FROM tblBlogs
     WHERE 1 = 1';
 
     -- SearchString condition
     IF @SearchString IS NOT NULL OR @SearchString != ''
     BEGIN
-        SET @SQL = @SQL + ' AND ArtifactName LIKE ''%'' + @SearchString + ''%''';
-    END
-
-    -- Type condition
-    IF @Type IS NOT NULL AND @Type != ''
-    BEGIN
-        SET @SQL = @SQL + ' AND EXISTS (
-            SELECT 1
-            FROM tblArtifactTypes
-            WHERE Id = TypeId
-            AND TypeName = @Type
-        )';
+        SET @SQL = @SQL + ' AND BlogName LIKE ''%'' + @SearchString + ''%''';
     END
 
     -- Category condition
@@ -262,7 +245,7 @@ BEGIN
     BEGIN
         SET @SQL = @SQL + ' AND EXISTS (
             SELECT 1
-            FROM tblArtifactCategories
+            FROM tblBlogCategories
             WHERE Id = CategoryId
             AND CategoryName = @Category
         )';
@@ -292,8 +275,8 @@ BEGIN
 
     -- Calculate total record count
     EXEC sp_executesql @SQL, 
-        N'@SearchString NVARCHAR(128), @Type NVARCHAR(128), @Category NVARCHAR(128), @Tag NVARCHAR(128), @Year INT, @FromDate DATETIME, @ToDate DATETIME, @TotalRecords INT OUTPUT',
-        @SearchString, @Type, @Category, @Tag, @Year, @FromDate, @ToDate, @TotalRecords OUTPUT;
+        N'@SearchString NVARCHAR(128), @Category NVARCHAR(128), @Tag NVARCHAR(128), @Year INT, @FromDate DATETIME, @ToDate DATETIME, @TotalRecords INT OUTPUT',
+        @SearchString, @Category, @Tag, @Year, @FromDate, @ToDate, @TotalRecords OUTPUT;
 
     -- Calculate total pages
     SET @TotalPages = CASE 
@@ -305,41 +288,29 @@ BEGIN
     SET @SQL = '
  SELECT 
     a.Id,
-    a.ArtifactName,
+    a.BlogName,
     a.Slug,
     a.Tags,
-    a.TypeId,
     a.CategoryId,
     ac.CategoryName,
-    a.SeriesId,
     a.DateAdded,
     @PageNumber AS CurrentPage,
     @TotalPages AS TotalPages
-FROM tblArtifacts a
-LEFT JOIN tblArtifactCategories ac ON a.CategoryId = ac.Id
+FROM tblBlogs a
+LEFT JOIN tblBlogCategories ac ON a.CategoryId = ac.Id
     WHERE 1 = 1 AND IsActive = 1';
 
     -- Add conditions as before
     IF @SearchString IS NOT NULL AND @SearchString != ''
     BEGIN
-        SET @SQL = @SQL + ' AND ArtifactName LIKE ''%'' + @SearchString + ''%''';
-    END
-
-    IF @Type IS NOT NULL AND @Type != ''
-    BEGIN
-        SET @SQL = @SQL + ' AND EXISTS (
-            SELECT 1
-            FROM tblArtifactTypes
-            WHERE Id = TypeId
-            AND TypeName = @Type
-        )';
+        SET @SQL = @SQL + ' AND BlogName LIKE ''%'' + @SearchString + ''%''';
     END
 
     IF @Category IS NOT NULL AND @Category != ''
     BEGIN
         SET @SQL = @SQL + ' AND EXISTS (
             SELECT 1
-            FROM tblArtifactCategories
+            FROM tblBlogCategories
             WHERE Id = CategoryId
             AND CategoryName = @Category
         )';
@@ -372,8 +343,8 @@ LEFT JOIN tblArtifactCategories ac ON a.CategoryId = ac.Id
 
     -- Execute the paginated query
     EXEC sp_executesql @SQL, 
-        N'@SearchString NVARCHAR(128), @Type NVARCHAR(128), @Category NVARCHAR(128), @Tag NVARCHAR(128), @Year INT, @FromDate DATETIME, @ToDate DATETIME, @PageNumber INT, @PageSize INT, @TotalPages INT',
-        @SearchString, @Type, @Category, @Tag, @Year, @FromDate, @ToDate, @PageNumber, @PageSize, @TotalPages;
+        N'@SearchString NVARCHAR(128), @Category NVARCHAR(128), @Tag NVARCHAR(128), @Year INT, @FromDate DATETIME, @ToDate DATETIME, @PageNumber INT, @PageSize INT, @TotalPages INT',
+        @SearchString, @Category, @Tag, @Year, @FromDate, @ToDate, @PageNumber, @PageSize, @TotalPages;
 
     -- Output pagination information
     SELECT 
@@ -382,39 +353,25 @@ LEFT JOIN tblArtifactCategories ac ON a.CategoryId = ac.Id
         @TotalPages AS TotalPages,
         @PageSize AS PageSize;
 END;
-delete from tblArtifacts
-delete from tblArtifactTypes
-delete from tblArtifactSeries
-delete from tblArtifactCategories
 
--- Insert into tblArtifactTypes
-INSERT INTO tblArtifactTypes (Id, TypeName, Slug, DateAdded)
-VALUES 
-(1, 'Blog', 'blog', GETDATE()),
-(2, 'Studio', 'studio', GETDATE()),
-(3, 'Gallery', 'gallery', GETDATE()),
-(4, 'Asset', 'asset', GETDATE());
+GO
 
--- Insert into tblArtifactCategories
-INSERT INTO tblArtifactCategories (Id, CategoryName, Slug, DateAdded)
-VALUES
-(1, 'Entertainment', 'entertainment', GETDATE()),
-(2, 'History', 'history', GETDATE()),
-(3, 'Tech', 'tech', GETDATE()),
-(4, 'Music', 'music', GETDATE());
+CREATE OR ALTER  PROCEDURE [sproc_GetBlogAuthorsByBlogId]
+    @BlogId INT
+AS
+BEGIN
+    SET NOCOUNT ON;
 
--- Insert into tblArtifactSeries
-INSERT INTO tblArtifactSeries (Id, SeriesName, Slug, DateAdded)
-VALUES 
-(1, 'Uncategorized', 'uncategorized', GETDATE()),
-(2, 'Music Production', 'music_production', GETDATE()),
-(3, 'Garden State', 'garden_state', GETDATE());
-
-INSERT INTO tblArtifacts (Id, ArtifactName, Slug, Tags, TypeId, CategoryId, SeriesId, DateAdded)
-VALUES 
-(1, 'Top 5 must watch K-Drama series for beginners', 'top-5-must-watch-series-for-beginners', 'asiandrama,kdrama,binge', 1, 1, 1, '2023-04-20'),
-
-(2, 'Decayed Elegance: The Orient Paper Mills', 'decayed-elegance-the-orient-paper-mills', 'dnb,urbex', 1, 2, 1, '2023-09-20'),
-
-(3, 'From Radiance to Ruination', 'from-radiance-to-ruination', 'incidents,morbid,history', 1, 2, 1, '2023-12-20');
-
+    SELECT 
+        u.Id AS Id,
+        u.FirstName + ' ' + u.LastName as Name,
+        u.Username,
+        u.Email,
+        u.Avatar
+    FROM 
+        tblBlogAuthorMap aam
+    INNER JOIN 
+        tblUsers u ON aam.UserId = u.Id
+    WHERE 
+        aam.BlogId = @BlogId;
+END;

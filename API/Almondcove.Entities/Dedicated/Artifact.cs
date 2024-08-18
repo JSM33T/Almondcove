@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Almondcove.Entities.Dedicated
 {
-    public class Artifact
+    public class Blog
     {
         public int Id { get; set; }
-        public string ArtifactName { get; set; }
+        public string BlogName { get; set; }
+        public string Description { get; set; }
         public string Slug { get; set; }
-        public int TypeId { get; set; }
         public int CategoryId { get; set; }
-        public IEnumerable<ArtifactAuthor> Authors { get; set; }
+        public IEnumerable<BlogAuthor> Authors { get; set; }
         public DateTime DateAdded { get; set; } = DateTime.Now;
     } 
 }

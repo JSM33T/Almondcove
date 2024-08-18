@@ -10,14 +10,14 @@ using System.Data;
 
 namespace Almondcove.Repositories
 {
-    public class ArtifactRepository : IArtifactRepository
+    public class BlogRepository : IBlogRepository
     {
         protected readonly IOptionsMonitor<AlmondcoveConfig> _config;
         private readonly IDbConnection _dbConnection;
         protected readonly ILogger _logger;
         private string _conStr;
 
-        public ArtifactRepository(IOptionsMonitor<AlmondcoveConfig> config, ILogger<ArtifactRepository> logger, IDbConnection dbConnection)
+        public BlogRepository(IOptionsMonitor<AlmondcoveConfig> config, ILogger<BlogRepository> logger, IDbConnection dbConnection)
         {
             _config = config;
             _logger = logger;
@@ -25,7 +25,7 @@ namespace Almondcove.Repositories
             _dbConnection = dbConnection;
         }
 
-        public async Task<PaginatedResult<Artifact_GetArtifacts>> GetPaginatedArtifactsAsync(Artifact_GetRequest request)
+        public async Task<PaginatedResult<Blog_GetBlogs>> GetPaginatedBlogsAsync(Blog_GetRequest request)
         {
             using IDbConnection dbConnection = new SqlConnection(_conStr);
 
@@ -34,7 +34,6 @@ namespace Almondcove.Repositories
                 request.PageNumber,
                 request.PageSize,
                 SearchString = string.IsNullOrEmpty(request.SearchString) ? string.Empty : request.SearchString,
-                Type = string.IsNullOrEmpty(request.Type) ? null : request.Type,
                 Category = string.IsNullOrEmpty(request.Category) ? null : request.Category,
                 Tag = string.IsNullOrEmpty(request.Tag) ? null : request.Tag,
                 Year = request.Year ?? null,
@@ -42,14 +41,14 @@ namespace Almondcove.Repositories
                 ToDate = request.ToDate ?? null
             };
 
-            var results = await dbConnection.QueryMultipleAsync("sproc_GetPaginatedArtifacts", parameters, commandType: CommandType.StoredProcedure);
+            var results = await dbConnection.QueryMultipleAsync("sproc_GetPaginatedBlogs", parameters, commandType: CommandType.StoredProcedure);
 
-            var artifacts = results.Read<Artifact_GetArtifacts>().ToList();
+            var Blogs = results.Read<Blog_GetBlogs>().ToList();
             var paginationInfo = results.ReadSingle<dynamic>();
 
-            return new PaginatedResult<Artifact_GetArtifacts>
+            return new PaginatedResult<Blog_GetBlogs>
             {
-                Items = artifacts,
+                Items = Blogs,
                 TotalRecords = (int)paginationInfo.TotalRecords,
                 CurrentPage = (int)paginationInfo.CurrentPage,
                 TotalPages = (int)paginationInfo.TotalPages
@@ -57,36 +56,36 @@ namespace Almondcove.Repositories
         }
 
 
-        public async Task<List<ArtifactCategory>> GetCategories()
+        public async Task<List<BlogCategory>> GetCategories()
         {
             using IDbConnection dbConnection = new SqlConnection(_conStr);
-            var query = "SELECT Id, CategoryName, Slug, DateAdded FROM tblArtifactCategories";
+            var query = "SELECT Id, CategoryName, Slug, DateAdded FROM tblBlogCategories";
 
-            var categories = await dbConnection.QueryAsync<ArtifactCategory>(query);
+            var categories = await dbConnection.QueryAsync<BlogCategory>(query);
             return categories.ToList();
         }
 
-        public async Task<Artifact> GetArtifactDetailsBySlug(string Slug)
+        public async Task<Blog> GetBlogDetailsBySlug(string Slug)
         {
             using IDbConnection dbConnection = new SqlConnection(_conStr);
-            var query = $"SELECT * FROM tblArtifacts where Slug = '{Slug}'";
+            var query = $"SELECT * FROM tblBlogs where Slug = '{Slug}'";
 
-            Artifact artifact = await dbConnection.QuerySingleAsync<Artifact>(query, new { Slug = Slug });
+            Blog Blog = await dbConnection.QuerySingleAsync<Blog>(query, new { Slug = Slug });
 
-            artifact.Authors = await GetArtifactAuthorsByArtifactId(artifact.Id);
+            Blog.Authors = await GetBlogAuthorsByBlogId(Blog.Id);
 
-            return artifact;
+            return Blog;
         }
 
 
-        public async Task<IEnumerable<ArtifactAuthor>> GetArtifactAuthorsByArtifactId(int artifactId)
+        public async Task<IEnumerable<BlogAuthor>> GetBlogAuthorsByBlogId(int BlogId)
         {
             using IDbConnection dbConnection = new SqlConnection(_conStr);
 
             // Stored procedure call with Dapper
-            var authors = await dbConnection.QueryAsync<ArtifactAuthor>(
-                "sproc_GetArtifactAuthorsByArtifactId",
-                new { ArtifactId = artifactId },
+            var authors = await dbConnection.QueryAsync<BlogAuthor>(
+                "sproc_GetBlogAuthorsByBlogId",
+                new { BlogId = BlogId },
                 commandType: CommandType.StoredProcedure
             );
 

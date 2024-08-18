@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Almondcove.Entities.Dedicated
 {
-    public class ArtifactAuthor
+    public class BlogAuthor
     {
         public int Id { get; set; }
         public string Name { get; set; }

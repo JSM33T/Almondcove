@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace Almondcove.Entities.DTO
 {
-    public class Artifact_GetArtifacts
+    public class Blog_GetBlogs
     {
         public int Id { get; set; }
-        public string ArtifactName { get; set; }
+        public string BlogName { get; set; }
         public string Slug { get; set; }
         public string Tags { get; set; }
         public string Type { get; set; }

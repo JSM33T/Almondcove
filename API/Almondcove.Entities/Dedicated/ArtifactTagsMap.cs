@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Almondcove.Entities.Dedicated
 {
-    public class ArtifactTagsMap
+    public class BlogTagsMap
     {
         public int Id { get; set; }
-        public int ArtifactId { get; set; }
+        public int BlogId { get; set; }
         public int TagId { get; set; }
         public DateTime DateAdded { get; set; } = DateTime.Now;
     }

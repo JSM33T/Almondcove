@@ -71,7 +71,7 @@ builder.Services.AddScoped<IDataService>(provider =>
 
 //Register repositories
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
-builder.Services.AddScoped<IArtifactRepository, ArtifactRepository>();
+builder.Services.AddScoped<IBlogRepository, BlogRepository>();
 
 
 

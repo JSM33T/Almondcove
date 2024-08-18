@@ -1,6 +1,6 @@
 ﻿namespace Almondcove.Entities.DTO
 {
-    public class Artifact_GetRequest
+    public class Blog_GetRequest
     {
         public int PageNumber { get; set; } = 1;
         public int PageSize { get; set; } = 10;

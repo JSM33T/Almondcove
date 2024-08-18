@@ -1,12 +1,12 @@
 USE [almondcove_db]
 GO
-/****** Object:  StoredProcedure [dbo].[sproc_GetArtifactAuthorsByArtifactId]    Script Date: 16-08-2024 11.12.50 PM ******/
+/****** Object:  StoredProcedure [dbo].[sproc_GetBlogAuthorsByBlogId]    Script Date: 16-08-2024 11.12.50 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-ALTER   PROCEDURE [dbo].[sproc_GetArtifactAuthorsByArtifactId]
-    @ArtifactId INT
+ALTER   PROCEDURE [dbo].[sproc_GetBlogAuthorsByBlogId]
+    @BlogId INT
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -18,9 +18,9 @@ BEGIN
         u.Email,
         u.Avatar
     FROM 
-        tblArtifactAuthorMap aam
+        tblBlogAuthorMap aam
     INNER JOIN 
         tblUsers u ON aam.UserId = u.Id
     WHERE 
-        aam.ArtifactId = @ArtifactId;
+        aam.BlogId = @BlogId;
 END;

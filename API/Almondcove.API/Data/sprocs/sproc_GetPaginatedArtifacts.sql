@@ -1,13 +1,13 @@
 USE [almondcove_db]
 GO
-/****** Object:  StoredProcedure [dbo].[sproc_GetPaginatedArtifacts]    Script Date: 15-08-2024 10.16.07 PM ******/
+/****** Object:  StoredProcedure [dbo].[sproc_GetPaginatedBlogs]    Script Date: 15-08-2024 10.16.07 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 
 -- Create the stored procedure
-ALTER PROCEDURE [dbo].[sproc_GetPaginatedArtifacts]
+ALTER PROCEDURE [dbo].[sproc_GetPaginatedBlogs]
     @PageNumber INT,
     @PageSize INT,
     @SearchString NVARCHAR(128) = NULL,
@@ -38,13 +38,13 @@ BEGIN
     DECLARE @SQL NVARCHAR(MAX);
     SET @SQL = '
     SELECT @TotalRecords = COUNT(*)
-    FROM tblArtifacts
+    FROM tblBlogs
     WHERE 1 = 1';
 
     -- SearchString condition
     IF @SearchString IS NOT NULL OR @SearchString != ''
     BEGIN
-        SET @SQL = @SQL + ' AND ArtifactName LIKE ''%'' + @SearchString + ''%''';
+        SET @SQL = @SQL + ' AND BlogName LIKE ''%'' + @SearchString + ''%''';
     END
 
     -- Type condition
@@ -52,7 +52,7 @@ BEGIN
     BEGIN
         SET @SQL = @SQL + ' AND EXISTS (
             SELECT 1
-            FROM tblArtifactTypes
+            FROM tblBlogTypes
             WHERE Id = TypeId
             AND TypeName = @Type
         )';
@@ -63,7 +63,7 @@ BEGIN
     BEGIN
         SET @SQL = @SQL + ' AND EXISTS (
             SELECT 1
-            FROM tblArtifactCategories
+            FROM tblBlogCategories
             WHERE Id = CategoryId
             AND CategoryName = @Category
         )';
@@ -106,7 +106,7 @@ BEGIN
     SET @SQL = '
  SELECT 
     a.Id,
-    a.ArtifactName,
+    a.BlogName,
     a.Slug,
     a.Tags,
     a.TypeId,
@@ -116,21 +116,21 @@ BEGIN
     a.DateAdded,
     @PageNumber AS CurrentPage,
     @TotalPages AS TotalPages
-FROM tblArtifacts a
-LEFT JOIN tblArtifactCategories ac ON a.CategoryId = ac.Id
+FROM tblBlogs a
+LEFT JOIN tblBlogCategories ac ON a.CategoryId = ac.Id
     WHERE 1 = 1 AND IsActive = 1';
 
     -- Add conditions as before
     IF @SearchString IS NOT NULL AND @SearchString != ''
     BEGIN
-        SET @SQL = @SQL + ' AND ArtifactName LIKE ''%'' + @SearchString + ''%''';
+        SET @SQL = @SQL + ' AND BlogName LIKE ''%'' + @SearchString + ''%''';
     END
 
     IF @Type IS NOT NULL AND @Type != ''
     BEGIN
         SET @SQL = @SQL + ' AND EXISTS (
             SELECT 1
-            FROM tblArtifactTypes
+            FROM tblBlogTypes
             WHERE Id = TypeId
             AND TypeName = @Type
         )';
@@ -140,7 +140,7 @@ LEFT JOIN tblArtifactCategories ac ON a.CategoryId = ac.Id
     BEGIN
         SET @SQL = @SQL + ' AND EXISTS (
             SELECT 1
-            FROM tblArtifactCategories
+            FROM tblBlogCategories
             WHERE Id = CategoryId
             AND CategoryName = @Category
         )';
