@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { InitMasonryGrid } from '../../library/invokers/masonry_grid';
 import { JsonPipe, NgFor } from '@angular/common';
+import Initswiper from '../../library/invokers/swiper';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class StudioComponent implements OnInit,OnDestroy,AfterViewInit {
   }
 
   ngOnInit(): void {
+    Initswiper();
   }
 
   private cleanupFn?: () => void;

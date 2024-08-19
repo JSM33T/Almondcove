@@ -10,42 +10,33 @@ import { inject } from '@vercel/analytics';
 import { injectSpeedInsights } from '@vercel/speed-insights';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import setTheme from './library/invokers/settheme';
+import rotateText from './library/helpers/well-hello';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [
-    RouterModule,
-    RouterOutlet,
-    BackToTopComponent,
-    FooterComponent,
-    NavbarComponent,
-    SidePanelComponent,
-    LoadingBarRouterModule,
-    LoadingBarHttpClientModule
-  ],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+	selector: 'app-root',
+	standalone: true,
+	imports: [RouterModule, RouterOutlet, BackToTopComponent, FooterComponent, NavbarComponent, SidePanelComponent, LoadingBarRouterModule, LoadingBarHttpClientModule],
+	templateUrl: './app.component.html',
+	styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit {
-  constructor(
-    private routeMetaService: RouteSwitchService
-  ) {
-   
-  }
-// 
-  ngOnInit(): void {
-    this.completeLoading();
-    initBackToTop();
-    inject();
-    injectSpeedInsights();
-  }
+	constructor(private routeMetaService: RouteSwitchService) {}
 
-  completeLoading() {
-    const preloader = document.querySelector('.page-loading') as HTMLDivElement;
-    preloader.classList.remove('active');
-    setTimeout(function () {
+	ngOnInit(): void {
+		setTheme();
+		this.completeLoading();
+		initBackToTop();
+		inject();
+		injectSpeedInsights();
+    setInterval(rotateText, 100);
+	}
+
+	completeLoading() {
+		setTimeout(function () {
+			const preloader = document.querySelector('.page-loading') as HTMLDivElement;
+			preloader.classList.remove('active');
       preloader.remove();
-    }, 1500);
-  }
+		}, 2500);
+	}
 }

@@ -1,0 +1,13 @@
+{
+  "title": "Blogs | Almondcove",
+  "description": "Browse through blogs and articles",
+  "keywords": "portfolio,website,blogs,apps,webspace,almondcove",
+  "og:title": "Blogs - Almondcove",
+  "og:description": "Learn more about Your App Name and what we do.",
+  "og:image": "URL_to_about_image",
+  "og:url": "https://almondcove.in/blogs",
+  "twitter:card": "summary_large_image",
+  "twitter:title": "About Us - Your App Name",
+  "twitter:description": "Learn more about Your App Name and what we do.",
+  "twitter:image": "URL_to_about_image"
+}

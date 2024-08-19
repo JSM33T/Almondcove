@@ -1,5 +1,5 @@
 // @ts-nocheck
-// import Swiper from 'swiper';
+import Swiper from 'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs' 
 
 export default function Initswiper() {
     const forEach = (array, callback, scope) => {
@@ -99,7 +99,7 @@ forEach(carousels, (index, value) => {
     }
 
     // Binded content
-    if (options.bindedContent) {
+    //if (options.bindedContent) {
         swiper.on('activeIndexChange', (e) => {
             const targetItem = document.querySelector(e.slides[e.activeIndex].dataset.swiperBinded);
             const previousItem = document.querySelector(e.slides[e.previousIndex].dataset.swiperBinded);
@@ -107,5 +107,5 @@ forEach(carousels, (index, value) => {
             previousItem.classList.remove('active');
             targetItem.classList.add('active');
         });
-    }
+    //}
 });

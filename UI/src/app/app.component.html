@@ -1,5 +1,11 @@
 <main class="page-wrapper">
   <ngx-loading-bar></ngx-loading-bar>
+  <div class="page-loading active">
+    <div class="page-loading-inner">
+      <div class="page-spinner"></div>
+      <span id="rotateText">Loading...</span>
+    </div>
+  </div>
   <app-navbar></app-navbar>
   <router-outlet />
   <app-side-panel></app-side-panel>

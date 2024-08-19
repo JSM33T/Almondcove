@@ -26,6 +26,7 @@ export class BlogComponent implements OnInit, OnDestroy {
 	currentTag: string | null = null;
 	currentYear: number | null = null;
 	searchTerm: string = '';
+	loadingStat = 'loading...'
 
 	constructor(private httpService: HttpService, private route: ActivatedRoute, private responseHandler: ResponseHandlerService, private datePipe: DatePipe) {}
 
@@ -79,13 +80,20 @@ export class BlogComponent implements OnInit, OnDestroy {
 				this.isLoading = false;
 				if (response.status == 200) {
 					this.blogs = response.data.items;
-				} else {
+				}
+				else if(response.status == 404){
 					this.blogs = [];
+					this.loadingStat = 'no blogs found with this criteria';
+				} 
+				else {
+					this.blogs = [];
+					this.loadingStat = 'error loading blogs';
 				}
 			},
 			error: () => {
 				this.isLoading = false;
 				this.blogs = [];
+				this.loadingStat = 'error loading blogs';
 			},
 		});
 	}
