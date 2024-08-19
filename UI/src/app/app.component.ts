@@ -12,6 +12,7 @@ import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import setTheme from './library/invokers/settheme';
 import rotateText from './library/helpers/well-hello';
+import { environment } from '../environment/environment';
 
 @Component({
 	selector: 'app-root',
@@ -37,6 +38,6 @@ export class AppComponent implements OnInit {
 			const preloader = document.querySelector('.page-loading') as HTMLDivElement;
 			preloader.classList.remove('active');
       preloader.remove();
-		}, 2500);
+		}, environment.loaderWait);
 	}
 }

@@ -48,8 +48,8 @@
             </div>
 
             <!-- Post content -->
-            <div class="blogContainer" id="blogContainer">
-                <div data-aos="fade-in" data-aos-duration="500" *ngIf="!isLoading; else contentPlaceholder" [innerHTML]="content"></div>
+            <div class="blogContainer" id="blogContent">
+                <div  data-aos="fade-in" data-aos-duration="500" *ngIf="!isLoading; else contentPlaceholder" [innerHTML]="content" ></div>
                 <ng-template #contentPlaceholder>
                     <div class="card " aria-hidden="true">
                         <div class="card-body">

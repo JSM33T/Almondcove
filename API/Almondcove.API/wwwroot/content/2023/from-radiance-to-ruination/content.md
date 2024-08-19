@@ -8,7 +8,7 @@ Their journey, marked by bravery and determination, is a testament to the streng
 
 &emsp;Come with us on a journey through time as we explore the sad yet inspiring story of the Radium Girls, who exposed corporate neglect and forever changed workplace safety rules.
 
-![Radium girls' cover image](https://almondcove.in/content/blogs/2024/from-radiance-to-ruination/assets/header.webp)
+![Radium girls' cover image](https://api.almondcove.in/content/2023/from-radiance-to-ruination/cover.webp)
 **Image**: [Bing Create](https://www.bing.com/images/create)
 
 ## Historical Overview

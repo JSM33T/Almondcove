@@ -25,7 +25,7 @@ export class StudioComponent implements OnInit,OnDestroy,AfterViewInit {
 
   items = [
     {
-      imgSrc: 'assets/img/portfolio/grid/07.jpg',
+      imgSrc: 'https://images.pexels.com/photos/63703/pexels-photo-63703.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       title: 'Melancholy',
       link: '#',
       categories: ['branding'],
@@ -33,7 +33,7 @@ export class StudioComponent implements OnInit,OnDestroy,AfterViewInit {
       group : ['singles']
     },
     {
-      imgSrc: 'assets/img/portfolio/grid/07.jpg',
+      imgSrc: 'https://images.pexels.com/photos/63703/pexels-photo-63703.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       title: 'Singularity',
       link: '#',
       categories: ['web'],
@@ -41,7 +41,7 @@ export class StudioComponent implements OnInit,OnDestroy,AfterViewInit {
       group :['singles']
     },
     {
-      imgSrc: 'assets/img/portfolio/grid/07.jpg',
+      imgSrc: 'https://images.pexels.com/photos/63703/pexels-photo-63703.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       title: 'Titli -(DnB Bootleg)',
       link: '#',
       categories: ['web'],
@@ -49,7 +49,7 @@ export class StudioComponent implements OnInit,OnDestroy,AfterViewInit {
       group :['singles']
     },
     {
-      imgSrc: 'assets/img/portfolio/grid/07.jpg',
+      imgSrc: 'https://images.pexels.com/photos/63703/pexels-photo-63703.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       title: 'Bulleya -(DnB Bootleg)',
       link: '#',
       categories: ['web'],
@@ -57,7 +57,7 @@ export class StudioComponent implements OnInit,OnDestroy,AfterViewInit {
       group :['singles']
     },
     {
-      imgSrc: 'assets/img/portfolio/grid/07.jpg',
+      imgSrc: 'https://images.pexels.com/photos/63703/pexels-photo-63703.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       title: 'Recuerdos 1',
       link: '#',
       categories: ['web'],
@@ -65,7 +65,7 @@ export class StudioComponent implements OnInit,OnDestroy,AfterViewInit {
       group :['albums']
     },
     {
-      imgSrc: 'assets/img/portfolio/grid/07.jpg',
+      imgSrc: 'https://images.pexels.com/photos/63703/pexels-photo-63703.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       title: 'Recuerdos 2',
       link: '#',
       categories: ['web'],

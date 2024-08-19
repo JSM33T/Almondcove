@@ -500,7 +500,7 @@ body::-webkit-scrollbar {
   --ar-warning: #c4a945;
   --ar-border-radius:0rem
   --ar-warning-rgb: 196, 169, 69;
-  --ar-body-font-family: "Poppins", sans-serif;
+  --ar-body-font-family:"Courier New",Calibri,serif;
   --ar-info: #497ebc;
   --ar-info-rgb: 73, 126, 188;
   --ar-danger: #c54949;

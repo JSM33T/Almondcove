@@ -12,7 +12,7 @@
     {
       "files": "*.ts",
       "options": {
-        "printWidth": 512,
+        "printWidth": 128,
         "tabWidth": 4,
         "useTabs": true,
         "htmlWhitespaceSensitivity": "ignore"
