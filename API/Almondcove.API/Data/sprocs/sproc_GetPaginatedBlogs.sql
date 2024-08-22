@@ -1,17 +1,16 @@
 USE [almondcove_db]
 GO
-/****** Object:  StoredProcedure [dbo].[sproc_GetPaginatedBlogs]    Script Date: 15-08-2024 10.16.07 PM ******/
+/****** Object:  StoredProcedure [dbo].[sproc_GetPaginatedBlogs]    Script Date: 22-08-2024 8.39.57 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 
 -- Create the stored procedure
-ALTER PROCEDURE [dbo].[sproc_GetPaginatedBlogs]
+ALTER   PROCEDURE [dbo].[sproc_GetPaginatedBlogs]
     @PageNumber INT,
     @PageSize INT,
     @SearchString NVARCHAR(128) = NULL,
-    @Type NVARCHAR(128) = NULL,
     @Category NVARCHAR(128) = NULL,
     @Tag NVARCHAR(128) = NULL,
     @Year INT = NULL,
@@ -45,17 +44,6 @@ BEGIN
     IF @SearchString IS NOT NULL OR @SearchString != ''
     BEGIN
         SET @SQL = @SQL + ' AND BlogName LIKE ''%'' + @SearchString + ''%''';
-    END
-
-    -- Type condition
-    IF @Type IS NOT NULL AND @Type != ''
-    BEGIN
-        SET @SQL = @SQL + ' AND EXISTS (
-            SELECT 1
-            FROM tblBlogTypes
-            WHERE Id = TypeId
-            AND TypeName = @Type
-        )';
     END
 
     -- Category condition
@@ -93,8 +81,8 @@ BEGIN
 
     -- Calculate total record count
     EXEC sp_executesql @SQL, 
-        N'@SearchString NVARCHAR(128), @Type NVARCHAR(128), @Category NVARCHAR(128), @Tag NVARCHAR(128), @Year INT, @FromDate DATETIME, @ToDate DATETIME, @TotalRecords INT OUTPUT',
-        @SearchString, @Type, @Category, @Tag, @Year, @FromDate, @ToDate, @TotalRecords OUTPUT;
+        N'@SearchString NVARCHAR(128), @Category NVARCHAR(128), @Tag NVARCHAR(128), @Year INT, @FromDate DATETIME, @ToDate DATETIME, @TotalRecords INT OUTPUT',
+        @SearchString, @Category, @Tag, @Year, @FromDate, @ToDate, @TotalRecords OUTPUT;
 
     -- Calculate total pages
     SET @TotalPages = CASE 
@@ -109,10 +97,9 @@ BEGIN
     a.BlogName,
     a.Slug,
     a.Tags,
-    a.TypeId,
     a.CategoryId,
+	a.Description,
     ac.CategoryName,
-    a.SeriesId,
     a.DateAdded,
     @PageNumber AS CurrentPage,
     @TotalPages AS TotalPages
@@ -124,16 +111,6 @@ LEFT JOIN tblBlogCategories ac ON a.CategoryId = ac.Id
     IF @SearchString IS NOT NULL AND @SearchString != ''
     BEGIN
         SET @SQL = @SQL + ' AND BlogName LIKE ''%'' + @SearchString + ''%''';
-    END
-
-    IF @Type IS NOT NULL AND @Type != ''
-    BEGIN
-        SET @SQL = @SQL + ' AND EXISTS (
-            SELECT 1
-            FROM tblBlogTypes
-            WHERE Id = TypeId
-            AND TypeName = @Type
-        )';
     END
 
     IF @Category IS NOT NULL AND @Category != ''
@@ -173,8 +150,8 @@ LEFT JOIN tblBlogCategories ac ON a.CategoryId = ac.Id
 
     -- Execute the paginated query
     EXEC sp_executesql @SQL, 
-        N'@SearchString NVARCHAR(128), @Type NVARCHAR(128), @Category NVARCHAR(128), @Tag NVARCHAR(128), @Year INT, @FromDate DATETIME, @ToDate DATETIME, @PageNumber INT, @PageSize INT, @TotalPages INT',
-        @SearchString, @Type, @Category, @Tag, @Year, @FromDate, @ToDate, @PageNumber, @PageSize, @TotalPages;
+        N'@SearchString NVARCHAR(128), @Category NVARCHAR(128), @Tag NVARCHAR(128), @Year INT, @FromDate DATETIME, @ToDate DATETIME, @PageNumber INT, @PageSize INT, @TotalPages INT',
+        @SearchString, @Category, @Tag, @Year, @FromDate, @ToDate, @PageNumber, @PageSize, @TotalPages;
 
     -- Output pagination information
     SELECT 
@@ -183,3 +160,4 @@ LEFT JOIN tblBlogCategories ac ON a.CategoryId = ac.Id
         @TotalPages AS TotalPages,
         @PageSize AS PageSize;
 END;
+

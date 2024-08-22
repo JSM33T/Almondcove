@@ -59,7 +59,15 @@ namespace Almondcove.Repositories
         public async Task<List<BlogCategory>> GetCategories()
         {
             using IDbConnection dbConnection = new SqlConnection(_conStr);
-            var query = "SELECT Id, CategoryName, Slug, DateAdded FROM tblBlogCategories";
+            var query = @" SELECT 
+            c.Id, 
+            c.CategoryName, 
+            c.Slug, 
+            c.DateAdded,
+            (SELECT COUNT(*) FROM tblBlogs bm WHERE bm.CategoryId = c.Id) AS BlogCount
+            FROM 
+            tblBlogCategories c
+";
 
             var categories = await dbConnection.QueryAsync<BlogCategory>(query);
             return categories.ToList();

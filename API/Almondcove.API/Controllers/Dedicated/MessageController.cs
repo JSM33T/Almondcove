@@ -1,5 +1,4 @@
-﻿using Almondcove.Entities.Dedicated;
-using Almondcove.Entities.DTO;
+﻿using Almondcove.Entities.DTO;
 using Almondcove.Entities.Enums;
 using Almondcove.Entities.Shared;
 using Almondcove.Repositories;
