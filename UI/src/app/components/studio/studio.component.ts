@@ -2,12 +2,13 @@ import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { InitMasonryGrid } from '../../library/invokers/masonry_grid';
 import { JsonPipe, NgFor } from '@angular/common';
 import Initswiper from '../../library/invokers/swiper';
+import { RouterLink } from '@angular/router';
 
 
 @Component({
 	selector: 'app-studio',
 	standalone: true,
-	imports: [NgFor],
+	imports: [NgFor,RouterLink],
 	templateUrl: './studio.component.html',
 	styleUrl: './studio.component.css',
   providers:[]
@@ -27,18 +28,18 @@ export class StudioComponent implements OnInit,OnDestroy,AfterViewInit {
     {
       imgSrc: 'https://images.pexels.com/photos/63703/pexels-photo-63703.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
       title: 'Melancholy',
-      link: '#',
+      link: 'melancholy',
       categories: ['branding'],
       year: 2022,
       group : ['singles']
     },
     {
       imgSrc: 'https://images.pexels.com/photos/63703/pexels-photo-63703.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-      title: 'Singularity',
-      link: '#',
+      title: 'The Coffeeroom Bootleg',
+      link: 'the-coffeeroom-bootleg',
       categories: ['web'],
       year: 2022,
-      group :['singles']
+      group :['albums']
     },
     {
       imgSrc: 'https://images.pexels.com/photos/63703/pexels-photo-63703.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',

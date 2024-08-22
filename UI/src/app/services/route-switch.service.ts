@@ -3,6 +3,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 import { MetaTagsService } from './meta-tags.service';
 import { filter } from 'rxjs/operators';
+import { cleanAOS } from '../library/invokers/animate-on-scroll';
 
 @Injectable({
   providedIn: 'root',

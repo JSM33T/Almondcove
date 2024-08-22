@@ -71,6 +71,13 @@ export const routes: Route[] = [
         (m) => m.StudioComponent
       ),
   },
+  {
+    path: 'studio/:slug',
+    loadComponent: () =>
+      import('./components/studio/view/view.component').then(
+        (m) => m.ViewComponent
+      ),
+  },
 
   { path: '**', redirectTo: '/' },
 ];

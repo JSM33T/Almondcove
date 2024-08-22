@@ -38,7 +38,7 @@
 					</div>
 					<div class="pt-4 mt-lg-2">
 						<h2 class="h4 mb-2">
-							<a class="stretched-link" [href]="item.link">{{ item.title }}</a>
+							<a class="stretched-link" [routerLink]="['/studio', item.link]">{{ item.title }}</a>
 						</h2>
 						<div class="d-flex justify-content-between fs-lg text-body-secondary">
 							<span>{{ item.categories.join(", ") }}</span>

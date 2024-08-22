@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { disableAOS } from '../../../library/invokers/animate-on-scroll';
 
 @Component({
   selector: 'app-side-panel',
@@ -9,4 +10,9 @@ import { Component } from '@angular/core';
 })
 export class SidePanelComponent {
 
+
+  disableAnimations()
+  {
+    disableAOS();
+  }
 }
