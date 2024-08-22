@@ -26,14 +26,22 @@ export class BlogComponent implements OnInit, OnDestroy {
 	currentTag: string | null = null;
 	currentYear: number | null = null;
 	searchTerm: string = '';
-	loadingStat = 'loading...'
+	loadingStat = 'loading...';
+	pageNo: number = 1;
+	pageSize: number = 10;
+	totalPages: number = 0;
+	totalRecords: number = 0;
 
-	constructor(private httpService: HttpService, private route: ActivatedRoute, private responseHandler: ResponseHandlerService, private datePipe: DatePipe) {}
+	constructor(
+		private httpService: HttpService,
+		private route: ActivatedRoute,
+		private responseHandler: ResponseHandlerService,
+		private datePipe: DatePipe
+	) {}
 
-  
 	blogRequest = {
-		pageNumber: 1,
-		pageSize: 10,
+		pageNumber: this.pageNo,
+		pageSize: this.pageSize,
 		searchString: '',
 		category: '',
 		tag: '',
@@ -69,7 +77,11 @@ export class BlogComponent implements OnInit, OnDestroy {
 		return formattedDate ? formattedDate.substring(0, 4) : '';
 	}
 
-
+	resetPagination() {
+		this.pageNo = 0;
+		this.totalRecords = 0;
+		this.totalPages = 0;
+	}
 	loadBlogs() {
 		this.isLoading = true;
 
@@ -80,12 +92,14 @@ export class BlogComponent implements OnInit, OnDestroy {
 				this.isLoading = false;
 				if (response.status == 200) {
 					this.blogs = response.data.items;
-				}
-				else if(response.status == 404){
+					this.pageNo = response.data.currentPage;
+					this.totalRecords = response.data.totalRecords;
+					this.totalPages = response.data.totalPages;
+				} else if (response.status == 404) {
 					this.blogs = [];
 					this.loadingStat = 'no blogs found with this criteria';
-				} 
-				else {
+					this.resetPagination();
+				} else {
 					this.blogs = [];
 					this.loadingStat = 'error loading blogs';
 				}

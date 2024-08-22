@@ -13,7 +13,7 @@
 	<div class="row mb-md-2 mb-xl-4">
 		<!-- Blog posts -->
 		<div class="col-lg-9 pe-lg-4 pe-xl-5">
-			<h1 class="pb-3 pb-lg-4" data-aos="fade-in" data-aos-duration="900">blogs (ID)</h1>
+			<h1 class="pb-3 pb-lg-2" data-aos="fade-in" data-aos-duration="900">blogs</h1><small class="pb-2">page {{pageNo}} of {{totalPages}} total records:{{totalRecords}}</small>
 			<div *ngIf="blogs.length === 0" class="alert alert-secondary" role="alert">
 				{{ loadingStat }}
 			</div>

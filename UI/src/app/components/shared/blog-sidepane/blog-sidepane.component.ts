@@ -16,6 +16,7 @@ import { CommonModule } from '@angular/common';
 })
 export class BlogSidepaneComponent implements OnInit {
     isLoading = true;
+    totalBlogCount: number = 0;
     searchForm: FormGroup;
     blogCategories: any = [];
     years: number[] = [2023, 2024];
@@ -43,6 +44,7 @@ export class BlogSidepaneComponent implements OnInit {
                 this.isLoading = false;
                 if (response.status === 200) {
                     this.blogCategories = response.data;
+                    this.totalBlogCount = this.blogCategories.reduce((sum : number, category : any) => sum + category.blogCount, 0);
                 }
             },
             error: () => {
