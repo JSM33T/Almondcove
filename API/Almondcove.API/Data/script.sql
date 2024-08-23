@@ -15,7 +15,9 @@ CREATE TABLE [dbo].[tblUsers]
 
 	Email			NVARCHAR(256)		NOT NULL,
 
-	Avatar			NVARCHAR(256)		NOT NULL,
+	Avatar			NVARCHAR(256)		NOT NULL DEFAULT 'default',
+
+    [Role]			NVARCHAR(64)		NOT NULL DEFAULT 'member',
 	
 	GoogleId		NVARCHAR(128)		NULL,
 

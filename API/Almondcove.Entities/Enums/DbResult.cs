@@ -11,7 +11,6 @@ namespace Almondcove.Entities.Enums
         Success = 0,
         Conflict = -1,
         NotFound = -2,
-
         Conflict_B = -11,
 
 

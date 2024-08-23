@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Almondcove.Entities\Almondcove.Entities.csproj" />
+    <ProjectReference Include="..\Almondcove.Library\Almondcove.Library.csproj" />
   </ItemGroup>
 
 </Project>

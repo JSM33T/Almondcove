@@ -16,7 +16,6 @@ namespace Almondcove.API.Controllers.Dedicated
     public class MessageController(IOptionsMonitor<AlmondcoveConfig> config, ILogger<FoundationController> logger, IHttpContextAccessor httpContextAccessor, ITelegramService telegramService, IMessageRepository messageRepository) : FoundationController(config, logger, httpContextAccessor, telegramService)
     {
         private readonly IMessageRepository _messageRepo = messageRepository;
-        private readonly ITelegramService _telegramService = telegramService;
 
         [HttpPost("send")]
         [EnableRateLimiting("api/messages/send")]
@@ -31,7 +30,7 @@ namespace Almondcove.API.Controllers.Dedicated
 
                 DbResult result = await _messageRepo.CheckAndAddMessage(messageRequest);
 
-                await _telegramService.SendMessageAsync($"new message received from {messageRequest.Name}: \n {messageRequest.Content} on route {messageRequest.Origin}");
+                await telegramService.SendMessageAsync($"new message received from {messageRequest.Name}: \n {messageRequest.Content} on route {messageRequest.Origin}");
 
                 switch (result)
                 {

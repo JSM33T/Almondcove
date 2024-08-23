@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Almondcove.Entities.DTO
+﻿namespace Almondcove.Entities.DTO
 {
     public class Message_AddRequest
     {

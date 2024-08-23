@@ -7,14 +7,11 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Data;
-using System.Data.Common;
 using System.Reflection;
 using System.Security.Claims;
 using System.Text;
@@ -72,6 +69,7 @@ builder.Services.AddScoped<IDataService>(provider =>
 //Register repositories
 builder.Services.AddScoped<IMessageRepository, MessageRepository>();
 builder.Services.AddScoped<IBlogRepository, BlogRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 
 
@@ -79,6 +77,7 @@ builder.Services.AddScoped<IBlogRepository, BlogRepository>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<IMailService, MailService>();
 builder.Services.AddScoped<ITelegramService, TelegramService>();
+
 
 builder.Services.AddScoped<IDbConnection>(sp => new SqlConnection(almondcoveConfig.ConnectionString));
 
@@ -175,16 +174,21 @@ var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
+    //app.UseDeveloperExceptionPage();
+    //app.UseSwagger();
+    //app.UseSwaggerUI(c =>
+    //{
+    //    c.SwaggerEndpoint("/swagger/v1/swagger.json", "ALmondcove API V1");
+    //});
+}
+else
+{
     app.UseDeveloperExceptionPage();
     app.UseSwagger();
     app.UseSwaggerUI(c =>
     {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "ALmondcove API V1");
     });
-}
-else
-{
-
 }
 
 app.UseCors("OpenPolicy");
