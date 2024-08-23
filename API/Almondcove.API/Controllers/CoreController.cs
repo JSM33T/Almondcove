@@ -38,12 +38,8 @@ namespace Almondcove.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Hello()
+        public async Task<IActionResult> HeartBeat()
         {
-            _ = Task.Run(async () =>
-            {
-                await _notificationService.SendNotificationAsync("hey there did the noti came?");
-            });
             return Ok("hello form the server");
         }
 
