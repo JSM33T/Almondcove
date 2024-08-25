@@ -3,6 +3,8 @@ import { InitMasonryGrid } from '../../library/invokers/masonry_grid';
 import { JsonPipe, NgFor } from '@angular/common';
 import Initswiper from '../../library/invokers/swiper';
 import { RouterLink } from '@angular/router';
+import initAOS, { cleanAOS } from '../../library/invokers/animate-on-scroll';
+import { environment } from '../../../environment/environment';
 
 
 @Component({
@@ -14,19 +16,23 @@ import { RouterLink } from '@angular/router';
   providers:[]
 })
 export class StudioComponent implements OnInit,OnDestroy,AfterViewInit {
+
+  
   ngAfterViewInit(): void {
     this.cleanupFn = InitMasonryGrid();
   }
 
   ngOnInit(): void {
     Initswiper();
+    initAOS();
   }
 
   private cleanupFn?: () => void;
+  assetLocation : string = environment.apiUrl + "/content/studio/"
 
   items = [
     {
-      imgSrc: 'https://images.pexels.com/photos/63703/pexels-photo-63703.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      imgSrc: 'singles/melancholy/assets/cover_thumb.jpg',
       title: 'Melancholy',
       link: 'melancholy',
       categories: ['branding'],
@@ -34,7 +40,15 @@ export class StudioComponent implements OnInit,OnDestroy,AfterViewInit {
       group : ['singles']
     },
     {
-      imgSrc: 'https://images.pexels.com/photos/63703/pexels-photo-63703.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      imgSrc: 'singles/singularity/assets/cover_thumb.jpg',
+      title: 'Singularity',
+      link: 'singularity',
+      categories: ['branding'],
+      year: 2022,
+      group : ['singles']
+    },
+    {
+      imgSrc: 'albums/tcr-bootleg-compilation-2023/assets/cover_thumb.png',
       title: 'The Coffeeroom Bootleg',
       link: 'the-coffeeroom-bootleg',
       categories: ['web'],
@@ -42,23 +56,7 @@ export class StudioComponent implements OnInit,OnDestroy,AfterViewInit {
       group :['albums']
     },
     {
-      imgSrc: 'https://images.pexels.com/photos/63703/pexels-photo-63703.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-      title: 'Titli -(DnB Bootleg)',
-      link: '#',
-      categories: ['web'],
-      year: 2022,
-      group :['singles']
-    },
-    {
-      imgSrc: 'https://images.pexels.com/photos/63703/pexels-photo-63703.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
-      title: 'Bulleya -(DnB Bootleg)',
-      link: '#',
-      categories: ['web'],
-      year: 2022,
-      group :['singles']
-    },
-    {
-      imgSrc: 'https://images.pexels.com/photos/63703/pexels-photo-63703.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      imgSrc: 'albums/recuerdos-1/assets/cover_thumb.jpg',
       title: 'Recuerdos 1',
       link: '#',
       categories: ['web'],
@@ -66,7 +64,7 @@ export class StudioComponent implements OnInit,OnDestroy,AfterViewInit {
       group :['albums']
     },
     {
-      imgSrc: 'https://images.pexels.com/photos/63703/pexels-photo-63703.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+      imgSrc: 'albums/recuerdos-2/assets/cover_thumb.jpg',
       title: 'Recuerdos 2',
       link: '#',
       categories: ['web'],
@@ -79,6 +77,7 @@ export class StudioComponent implements OnInit,OnDestroy,AfterViewInit {
     if (this.cleanupFn) {
       this.cleanupFn();
     }
+    cleanAOS();
   }
   getGroupsJson(groups: string[]): string {
     return JSON.stringify(groups);

@@ -1,0 +1,44 @@
+{
+  "Album": [
+    {
+      "Album_id": 1,
+      "Album_name": "Recuerdos ep 1",
+      "Album_desc": "Collection of bootlegs from 2016-2018",
+      "Year": "2017",
+      "Artists": "Jass",
+      "Category": "album",
+      "IsActive": true,
+      "Slug": "recuerdos-1"
+    },
+    {
+      "Album_id": 2,
+      "Album_name": "Recuerdos ep 2",
+      "Album_desc": "Collection of bootlegs from 2019-2020",
+      "Year": "2019",
+      "Artists": "Jass",
+      "Category": "album",
+      "IsActive": true,
+      "Slug": "recuerdos-1"
+
+    },
+    {
+      "Album_id": 3,
+      "Album_name": "Coffeeroom Bootlegs",
+      "Album_desc": "2023",
+      "Year": "2023",
+      "Artists": "Various",
+      "Category": "album",
+      "IsActive": false
+    },
+    {
+      "Album_id": 4,
+      "Album_name": "Melancholy",
+      "Album_desc": "2023",
+      "Year": "2023",
+      "Artists": "Jass",
+      "Category": "single",
+      "IsActive": false,
+      "Slug": "melancholy"
+    }
+  ]
+}

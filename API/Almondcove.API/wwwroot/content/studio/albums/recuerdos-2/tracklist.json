@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "name": "01. Kabhi Jo Baadal Barse (Orchestral)",
+    "artist": "JSM33T",
+    "artistUsername": "",
+    "link": {
+      "stream": "https://www.youtube.com/watch?v=kqu1FTHRG-U",
+      "mp3": "https://www.mediafire.com/file/bdk43aei7rck6n1/01._KABHI_JO_BADAL_BARSE_%2528REMIX%2529_-_JSM33T.mp3/file"
+    }
+  },
+  {
+    "id": 2,
+    "name": "02. Humnava Mere (Future Bass)",
+    "artist": "JSM33T",
+    "artistUsername": "",
+    "link": {
+      "stream": "https://www.youtube.com/watch?v=_6VRsfKML2Q",
+      "mp3": "https://www.mediafire.com/file/ee369k3qpbx0ixy/02._HUMNAVA_MERE_%2528REMIX%2529_-_JSM33T.mp3/file"
+    }
+  },
+  {
+    "id": 3,
+    "name": "03. Tumse Mil Ke (Future Bass)",
+    "artist": "Zayn Jamil",
+    "artistUsername": "",
+    "link": {
+      "stream": "https://www.youtube.com/watch?v=Eolxl6rLs3c",
+      "mp3": "https://www.mediafire.com/file/z83yso1k8j1i6fz/03._TUMSE_MIL_KE%2528REMIX%2529_-_ZAYN_JAMIL.mp3/file"
+    }
+  },
+  {
+    "id": 4,
+    "name": "04. Aapke Pyaar Me (Future Bass)",
+    "artist": "Dj Rivu",
+    "artistUsername": "",
+    "link": {
+      "stream": "https://www.youtube.com/watch?v=XWD8ZJh8Qmc",
+      "mp3": "https://www.mediafire.com/file/jujohii3ffpko13/04._AAPKE_PYAAR_ME_%2528REMIX%2529_-_RIVU.mp3/file"
+    }
+  },
+  {
+    "id": 5,
+    "name": "05. Feel Good (Haamiah Remix)",
+    "artist": "Haamiah",
+    "artistUsername": "",
+    "link": {
+      "stream": "https://spinninrecords.com/talentpool/artist/haamiah/track/2018-10-gryffin-illenium-ft-daya-feel-good-haamiah-remix-1",
+      "mp3": "https://www.mediafire.com/file/ihwdve75o7040kb/05._FEEL_GOOD__%2528REMIX%2529_-_HAAMIAH.mp3/file"
+    }
+  },
+  {
+    "id": 6,
+    "name": "06. Tu Hai Ki Nahi (Progressive)",
+    "artist": "JSM33T",
+    "artistUsername": "",
+    "link": {
+      "stream": "https://www.youtube.com/watch?v=xVpLGjIA-pg",
+      "mp3": "https://www.mediafire.com/file/gwonl56xdhug444/06._TU_HAI_KI_NAHI_%2528REMIX%2529_-_JSM33T_AND_SAI_SUNDAR.mp3/file"
+    }
+  },
+  {
+    "id": 7,
+    "name": "07. Tera Zikr (Future Bass)",
+    "artist": "JSM33T",
+    "artistUsername": "",
+    "link": {
+      "stream": "https://www.youtube.com/watch?v=zEkSy_htfZg",
+      "mp3": "https://www.mediafire.com/file/ogwk0iq52gty52s/07._TERA_ZIKR_%2528REMIX%2529_-_JSM33T.mp3/file"
+    }
+  }
+
+
+]

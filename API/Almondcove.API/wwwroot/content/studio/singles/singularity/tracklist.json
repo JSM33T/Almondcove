@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "name": "Spotify",
+    "description": "Stream on spotify",
+    "artistUsername": "",
+    "link": {
+      "stream": "https://open.spotify.com/track/2LlXsMXbXJiFjPxniFA1aB",
+      "buy": ""
+    }
+  },
+  {
+    "id": 2,
+    "name": "Youtube Music",
+    "description": "Strem on Youtube Music",
+    "artistUsername": "",
+    "link": {
+      "stream": "https://music.youtube.com/watch?v=6fO-OaYfAyM",
+      "buy": ""
+    }
+  },
+  {
+    "id": 3,
+    "name": "Soundcloud",
+    "description": "Stream on Soundcloud",
+    "artistUsername": "",
+    "link": {
+      "stream": "https://soundcloud.com/jsm33t/melancholy",
+      "buy": ""
+    }
+  },
+  {
+    "id": 4,
+    "name": "Amazon Music",
+    "description": "Purchase/Stream from amazon music()",
+    "artistUsername": "",
+    "link": {
+      "stream": "https://music.amazon.in/albums/B08F74JGRW",
+      "buy": "https://www.amazon.com/dp/B08F74JGRW/ref=sr_1_2?crid=ZWPNG9LKA078&keywords=jsm33t+melancholy&qid=1695563915&sprefix=jsm33t+melancho%2Caps%2C469&sr=8-2"
+    }
+  },
+  {
+    "id": 5,
+    "name": "Anghami (Middle East)",
+    "description": "Stream in Anghami (for middle east regions)",
+    "artistUsername": "",
+    "link": {
+      "stream": "https://play.anghami.com/song/82671066",
+      "buy": ""
+    }
+  },
+  {
+    "id": 6,
+    "name": "Jio Saavn",
+    "description": "Stream on Saavn",
+    "artistUsername": "",
+    "link": {
+      "stream": "https://www.jiosaavn.com/description/jsm33t-songs/MMw0jvBAy7Q_",
+      "buy": ""
+    }
+  },
+  {
+    "id": 7,
+    "name": "BandCamp",
+    "description": "Stream/Purchase from bandcamp",
+    "artistUsername": "",
+    "link": {
+      "stream": "https://jsm33t.bandcamp.com/track/melancholy",
+      "buy": "https://jsm33t.bandcamp.com/track/melancholy"
+    }
+  }
+]

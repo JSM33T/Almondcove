@@ -1,0 +1,59 @@
+[
+  {
+    "id": 1,
+    "name": "01. Ab Phirse Jab Baarish Hogi (Future Bass)",
+    "artist": "S.O.U.V.I.K",
+    "artistUsername": "S.O.U.V.I.K",
+    "link": {
+      "stream": "https://soundcloud.com/souvikch1/afjb-demo-souvik",
+      "mp3": "https://www.mediafire.com/file/80s468g6o9k8bdz/01._Ab_Firse_Jab_Baarish_Hogi_%2528Future_Bass%2529_-_Souvik.mp3/file",
+      "flac": "https://www.mediafire.com/file/dp57tfjzr4hev27/01._Ab_Firse_Jab_Baarish_Hogi_%2528Future_Bass%2529_-_Souvik.flac/file"
+    }
+  },
+  {
+    "id": 2,
+    "name": "02. Titli (Drum n Bass)",
+    "artist": "JSM33T",
+    "artistUsername": "JSM33T",
+    "link": {
+      "stream": "https://www.youtube.com/watch?v=9dIvUjxmZNo",
+      "mp3": "https://www.mediafire.com/file/n3qzsb4vknyk1yu/02._Titli_%2528DnB%2529_-_Jsm33t.mp3/file",
+      "flac": "https://www.mediafire.com/file/xg8aprvd8bak7ie/02._Titli_%2528DnB%2529_-_Jsm33t.flac/file"
+    }
+  },
+  {
+    "id": 3,
+    "name": "03. Zara Zara (Future Bass)",
+    "artist": "A-Shay",
+    "artistUsername": "A-Shay",
+    "link": {
+      "stream": "https://soundcloud.com/deejay-a-shay/zara-zara-2021",
+      "mp3": "https://www.mediafire.com/file/g6ttjg3eezocnpe/03._Zara_Zara_%2528Future_Bass%2529_-_A-Shay.mp3/file",
+      "flac": "https://www.mediafire.com/file/0iw33gw7473rpp9/03._Zara_Zara_%2528Future_Bass%2529_-_A-Shay.flac/file"
+    }
+  },
+  {
+    "id": 4,
+    "name": "04. Le Dooba (Future Bass)",
+    "artist": "S.O.U.V.I.K",
+    "artistUsername": "S.O.U.V.I.K",
+    "link": {
+      "stream": "",
+      "mp3": "https://www.mediafire.com/file/v0x2btd7imf22tf/04._Le_Dooba_%2528Future_Bass%2529_-_Souvik.mp3/file",
+      "flac": "https://www.mediafire.com/file/n8zxdcn7gdhh62v/04._Le_Dooba_%2528Future_Bass%2529_-_Souvik.flac/file"
+    }
+  },
+  {
+    "id": 5,
+    "name": "05. Bulleya (Drum n Bass)",
+    "artist": "JSM33T",
+    "artistUsername": "JSM33T",
+    "link": {
+      "stream": "https://www.youtube.com/watch?v=_Dar77yim4c",
+      "mp3": "https://www.mediafire.com/file/zwvwiflaw1l3nf2/05._Bulleya_%2528DnB%2529_-_Jsm33t.mp3/file",
+      "flac": "https://www.mediafire.com/file/hdm3pyxogphq063/05._Bulleya_%2528DnB%2529_-_Jsm33t.flac/file"
+    }
+  }
+
+
+]
