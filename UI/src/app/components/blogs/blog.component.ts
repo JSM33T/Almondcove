@@ -91,6 +91,7 @@ export class BlogComponent implements OnInit, OnDestroy {
 			next: (response) => {
 				this.isLoading = false;
 				if (response.status == 200) {
+					console.log(response.data);
 					this.blogs = response.data.items;
 					this.pageNo = response.data.currentPage;
 					this.totalRecords = response.data.totalRecords;

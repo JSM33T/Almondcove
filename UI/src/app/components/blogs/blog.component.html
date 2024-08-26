@@ -32,9 +32,9 @@
 							</h3>
 							<p class="d-sm-none d-md-block">{{ blog.description }}</p>
 							<div class="d-flex flex-wrap align-items-center mt-n2">
-								<a class="nav-link text-body-secondary fs-sm fw-normal p-0 mt-2 me-3" href="#">
+								<a class="nav-link text-body-secondary fs-sm fw-normal p-0 mt-2 me-3" routerLink="/blogs" [queryParams]="{ category: blog.categoryName}">
 									<i class="ai-share fs-lg ms-1"></i>
-
+									&nbsp;&nbsp;
 									{{ blog.categoryName }}
 								</a>
 								<a class="nav-link text-body-secondary fs-sm fw-normal d-flex align-items-end p-0 mt-2" href="#">
@@ -44,7 +44,7 @@
 								<span class="fs-xs opacity-20 mt-2 mx-3">|</span>
 								<span class="fs-sm text-body-secondary mt-2">{{ blog.timeAgo }}</span>
 								<span class="fs-xs opacity-20 mt-2 mx-3">|</span>
-								<a class="badge text-nav fs-xs border mt-2" href="#">{{ blog.category }}</a>
+							
 							</div>
 						</div>
 					</div>
