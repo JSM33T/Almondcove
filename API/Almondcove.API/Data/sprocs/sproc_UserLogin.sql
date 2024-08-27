@@ -4,8 +4,6 @@ CREATE OR ALTER PROCEDURE dbo.sproc_UserLogin
 AS
 BEGIN
     SET NOCOUNT ON;
-
-
     BEGIN
         SELECT *
         FROM tblUsers 

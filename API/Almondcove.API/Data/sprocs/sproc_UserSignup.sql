@@ -11,19 +11,17 @@ BEGIN
 
     DECLARE @NextUserId INT;
 
-    -- Get the next available UserId
     SELECT @NextUserId = ISNULL(MAX(Id), 0) + 1 FROM tblUsers;
 
-    -- Check if the username already exists
     IF EXISTS (SELECT 1 FROM tblUsers WHERE Username = @Username)
     BEGIN
-        SET @Result = 1; -- Username already exists
+        SET @Result = 1; -- duplicate username
     END
     ELSE
     BEGIN
         INSERT INTO tblUsers(Id, Firstname, Lastname, Username, Password,Email)
         VALUES (@NextUserId, @Firstname, @Lastname, @Username, @Password,@Email);
 
-        SET @Result = 0; -- User signup successful
+        SET @Result = 0;
     END
 END
