@@ -25,6 +25,8 @@ CREATE TABLE [dbo].[tblUsers]
 
 	[Key]			UNIQUEIDENTIFIER	NOT NULL  DEFAULT NEWID(),
 
+    OTP             NVARCHAR(6)         NOT NULL,
+
 	IsActive		BIT					NOT NULL DEFAULT 1,
 
 	IsVerified		BIT					NOT NULL DEFAULT 0,

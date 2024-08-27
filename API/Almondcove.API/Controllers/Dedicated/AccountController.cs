@@ -79,11 +79,26 @@ namespace Almondcove.API.Controllers.Dedicated
             {
 
                 int statCode = StatusCodes.Status400BadRequest;
-                string message = "";
+                string message = "Something went wrong";
                 List<string> errors = [];
                 User_ClaimsResponse userClaims = null;
+                DbResult result = 0;
 
-                userClaims = await _userRepo.UserSignup(request);
+                (result, userClaims) = await _userRepo.UserSignup(request);
+
+                if (result == DbResult.Conflict)
+                {
+                    message = "Username occupied";
+                    statCode = StatusCodes.Status409Conflict;
+                    errors.Add("Username not available");
+                }
+                else
+                {
+                    message = "Signed up";
+                    statCode = StatusCodes.Status200OK;
+                    errors.Add("");
+                }
+
                 //if (userClaims != null)
                 //{
                 //    statCode = StatusCodes.Status200OK;
