@@ -12,6 +12,7 @@ import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import setTheme from './library/invokers/settheme';
 import { LoaderComponent } from "./components/shared/loader/loader.component";
+import { MetaTagManagerService } from './services/metaservice.service';
 @Component({
 	selector: 'app-root',
 	standalone: true,
@@ -30,11 +31,11 @@ import { LoaderComponent } from "./components/shared/loader/loader.component";
 	styleUrl: './app.component.css',
 })
 export class AppComponent implements OnInit{
-	constructor(private routeMetaService: RouteSwitchService) {}
+	constructor(private routeMetaService: RouteSwitchService,private metaTagManagerService: MetaTagManagerService) {}
 
 	ngOnInit(): void {
 		//setTheme();
-
+		this.metaTagManagerService.initializeMetaTags();
 
 		initBackToTop();
 		// inject();
