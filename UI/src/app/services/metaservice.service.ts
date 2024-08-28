@@ -4,7 +4,7 @@ import { ActivatedRoute, Router, NavigationEnd, ActivatedRouteSnapshot, RouterSt
 import { filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { IMetaTags } from '../library/interfaces/MetaTags';
+import { IMetaTags } from '../library/interfaces/metatags';
 
 @Injectable({
   providedIn: 'root',
