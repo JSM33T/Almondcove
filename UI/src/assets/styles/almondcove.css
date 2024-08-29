@@ -185,11 +185,11 @@ button .ripple {
 DISABLED SCROLLBAR
 =============================== */
 body::-webkit-scrollbar {
-  width: 5px;
+  width: 0px;
 }
 
 *::-webkit-scrollbar {
-  width: 5px;
+  width: 0px;
 }
 
 *::-webkit-scrollbar-track {
