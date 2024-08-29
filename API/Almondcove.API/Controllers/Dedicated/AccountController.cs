@@ -45,6 +45,7 @@ namespace Almondcove.API.Controllers.Dedicated
                             new Claim(ClaimTypes.Email, userClaims.Email),
                             new Claim(ClaimTypes.Role, userClaims.Role),
                             new Claim("UserName", userClaims.FirstName),
+                            new Claim("Role", userClaims.Role),
                             new Claim("FirstName", userClaims.FirstName),
                             new Claim("LastName", userClaims.LastName),
                             new Claim("Avatar", userClaims.Avatar),

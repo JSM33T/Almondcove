@@ -52,19 +52,30 @@ namespace Almondcove.API.Controllers.Dedicated
 
                 var filePath = Path.Combine("wwwroot", "content", year, slug, $"content.md");
                 Blog = await _BlogRepo.GetBlogDetailsBySlug(slug);
-
-                BlogDetails.Slug = Blog.Slug;
-                BlogDetails.Name = Blog.BlogName;
-                BlogDetails.DateAdded = Blog.DateAdded;
-                BlogDetails.Id = Blog.Id;
-
-                if (System.IO.File.Exists(filePath))
+                if (Blog != null)
                 {
-                    BlogDetails.Content = await System.IO.File.ReadAllTextAsync(filePath);
-                    statusCode = StatusCodes.Status200OK;
-                    BlogDetails.Authors = await _BlogRepo.GetBlogAuthorsByBlogId(BlogDetails.Id);
-                    message = "Retrieved";
+                    BlogDetails.Slug = Blog.Slug;
+                    BlogDetails.Name = Blog.BlogName;
+                    BlogDetails.DateAdded = Blog.DateAdded;
+                    BlogDetails.Id = Blog.Id;
+
+                    if (System.IO.File.Exists(filePath))
+                    {
+                        BlogDetails.Content = await System.IO.File.ReadAllTextAsync(filePath);
+                        statusCode = StatusCodes.Status200OK;
+                        BlogDetails.Authors = await _BlogRepo.GetBlogAuthorsByBlogId(BlogDetails.Id);
+                        message = "Retrieved";
+                    }
                 }
+                else
+                {
+                    message = "not found";
+                    statusCode = StatusCodes.Status404NotFound;
+                    hints.Add("NO blog found with this criteria");
+                    BlogDetails = null;
+                    
+                }
+               
 
                 return (statusCode, BlogDetails, message, hints);
             }, MethodBase.GetCurrentMethod().Name);
@@ -86,6 +97,10 @@ namespace Almondcove.API.Controllers.Dedicated
                 {
                     message = "retrieved";
                     statusCode = StatusCodes.Status200OK;
+                }
+                else
+                {
+                    hints.Add("No blog found with this criteria");
                 }
 
                 return (statusCode, Blog, message, hints);

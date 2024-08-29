@@ -7,6 +7,6 @@ BEGIN
     BEGIN
         SELECT *
         FROM tblUsers 
-        WHERE Username = @Username AND [Password] = @Password;
+        WHERE Username = @Username AND [Password] = @Password and IsVerified = 1;
     END
 END
