@@ -1,13 +1,13 @@
 {
   "title": "Studio | Almondcove",
-  "description": "A digital santuary by Jass",
+  "description": "Almondcove Studio : Music |  Bootlegs ,Originals, Podcast features and much more",
   "keywords": "portfolio,website,blogs,apps,webspace",
   "og:title": "About Us - Your App Name",
-  "og:description": "Learn more about Your App Name and what we do.",
+  "og:description": "Almondcove Studio : Music |  Bootlegs ,Originals, Podcast features and much more",
   "og:image": "URL_to_about_image",
-  "og:url": "https://almondcove.in/about",
+  "og:url": "https://almondcove.in/studio",
   "twitter:card": "summary_large_image",
-  "twitter:title": "About Us - Your App Name",
+  "twitter:title": "Studio - Almondcove",
   "twitter:description": "Learn more about Your App Name and what we do.",
   "twitter:image": "URL_to_about_image"
 }

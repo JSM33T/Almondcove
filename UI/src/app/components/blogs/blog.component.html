@@ -30,7 +30,8 @@
 									{{ blog.blogName }}
 								</a>
 							</h3>
-							<p class="d-sm-none d-md-block">{{ blog.description }}</p>
+							<!-- <p class="d-sm-none d-md-block">{{ blog.description }}</p> -->
+							<p class="d-sm-none d-md-block" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-trigger="hover" [title]="blog.description" data-bs-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus ornare.">{{ blog.description.length > 128 ? blog.description.substring(0, 128) + '...' : blog.description }}</p>
 							<div class="d-flex flex-wrap align-items-center mt-n2">
 								<a class="nav-link text-body-secondary fs-sm fw-normal p-0 mt-2 me-3" routerLink="/blogs" [queryParams]="{ category: blog.categoryName}">
 									<i class="ai-share fs-lg ms-1"></i>
