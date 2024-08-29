@@ -30,7 +30,7 @@ export class ContactComponent implements OnInit,OnDestroy {
       this.messageForm = this.fb.group({
         name: new FormControl(''),
         email: new FormControl(''),
-        topic: new FormControl(''),
+        topic: new FormControl('general'),
         origin: new FormControl(''),
         content: new FormControl(''),
       });
@@ -38,6 +38,7 @@ export class ContactComponent implements OnInit,OnDestroy {
 
     ngOnInit(): void {
        initAOS()
+       
     }
 
     ngOnDestroy(): void {
