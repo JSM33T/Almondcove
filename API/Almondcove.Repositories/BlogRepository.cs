@@ -76,14 +76,23 @@ namespace Almondcove.Repositories
         public async Task<Blog> GetBlogDetailsBySlug(string Slug)
         {
             using IDbConnection dbConnection = new SqlConnection(_conStr);
-            var query = $"SELECT * FROM tblBlogs where Slug = '{Slug}'";
+            var query = $"SELECT * FROM tblBlogs WHERE Slug = '{Slug}'";
 
-            Blog Blog = await dbConnection.QuerySingleAsync<Blog>(query, new { Slug = Slug });
+            Blog Blog = await dbConnection.QuerySingleOrDefaultAsync<Blog>(query, new { Slug = Slug });
 
-            Blog.Authors = await GetBlogAuthorsByBlogId(Blog.Id);
+            if (Blog != null)
+            {
+                Blog.Authors = await GetBlogAuthorsByBlogId(Blog.Id);
+            }
+            else
+            {
+                // Optionally handle the case where no data is found
+                // For example, you can log a message or perform any other specific handling here
+            }
 
             return Blog;
         }
+
 
 
         public async Task<IEnumerable<BlogAuthor>> GetBlogAuthorsByBlogId(int BlogId)
