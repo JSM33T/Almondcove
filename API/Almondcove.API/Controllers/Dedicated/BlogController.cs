@@ -20,11 +20,10 @@ namespace Almondcove.API.Controllers.Dedicated
         {
             return await ExecuteActionAsync(async () =>
             {
-                int statusCode = 200;
-                string message = "Blogs retrieved";
+                int statusCode = default;
+                string message = string.Empty;
                 List<string> hints = [];
-                PaginatedResult<Blog_GetBlogs> result = null;
-
+                PaginatedResult<Blog_GetBlogs> result;
 
                 result = await _BlogRepo.GetPaginatedBlogsAsync(request);
 
@@ -44,7 +43,7 @@ namespace Almondcove.API.Controllers.Dedicated
         {
             return await ExecuteActionAsync(async () =>
             {
-                int statusCode = StatusCodes.Status404NotFound;
+                int statusCode = default;
                 string message = "No Blog found";
                 List<string> hints = [];
                 Blog_GetDetails BlogDetails = new();
@@ -87,13 +86,13 @@ namespace Almondcove.API.Controllers.Dedicated
         {
             return await ExecuteActionAsync(async () =>
             {
-                int statusCode = StatusCodes.Status404NotFound;
-                string message = "No Blog found";
+                int statusCode = default;
+                string message = string.Empty;
                 List<string> hints = [];
-                Blog Blog = new();
+                Blog blog;
 
-                Blog = await _BlogRepo.GetBlogDetailsBySlug(slug);
-                if (Blog  != null)
+                blog = await _BlogRepo.GetBlogDetailsBySlug(slug);
+                if (blog  != null)
                 {
                     message = "retrieved";
                     statusCode = StatusCodes.Status200OK;
@@ -103,7 +102,7 @@ namespace Almondcove.API.Controllers.Dedicated
                     hints.Add("No blog found with this criteria");
                 }
 
-                return (statusCode, Blog, message, hints);
+                return (statusCode, blog, message, hints);
             }, MethodBase.GetCurrentMethod().Name);
         }
 
@@ -113,10 +112,10 @@ namespace Almondcove.API.Controllers.Dedicated
         {
             return await ExecuteActionAsync(async () =>
             {
-                int statusCode = StatusCodes.Status404NotFound;
-                string message = "No Blog found";
+                int statusCode = default;
+                string message = string.Empty;
                 List<string> hints = [];
-                List<BlogCategory> categories = [];
+                List<BlogCategory> categories;
 
                 categories = await _BlogRepo.GetCategories();
                 if (categories.Count > 0)

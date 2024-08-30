@@ -24,7 +24,7 @@ namespace Almondcove.API.Controllers.Dedicated
         {
             return await ExecuteActionAsync(async () =>
             {
-                int statusCode = StatusCodes.Status400BadRequest;
+                int statusCode = default;
                 string message = string.Empty;
                 List<string> hints = [];
 

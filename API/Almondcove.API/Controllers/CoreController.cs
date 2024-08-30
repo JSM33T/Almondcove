@@ -16,8 +16,11 @@ namespace Almondcove.API.Controllers
         private readonly IMailService _mailService = mailService;
         private readonly ITelegramService _telegramService = telegramService;
 
+        [HttpGet]
+        public IActionResult HeartBeat() => Ok("hello form the server");
+
+        [HttpPost("kill")]
         [Authorize(Roles = "admin")]
-        [HttpPost("restart")]
         public IActionResult Restart()
         {
             string appPath = _hostingEnvironment.ContentRootPath;
@@ -33,12 +36,6 @@ namespace Almondcove.API.Controllers
             Environment.Exit(0);
 
             return Ok("Restarting the application");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> HeartBeat()
-        {
-            return Ok("hello form the server");
         }
 
         [HttpPost("sendEmail")]

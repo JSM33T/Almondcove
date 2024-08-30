@@ -30,10 +30,10 @@ namespace Almondcove.API.Controllers.Dedicated
             return await ExecuteActionAsync(async () =>
             {
 
-                int statCode = StatusCodes.Status400BadRequest;
-                string message = "";
+                int statCode = default;
+                string message = string.Empty;
                 List<string> errors = [];
-                User_ClaimsResponse userClaims = null;
+                User_ClaimsResponse userClaims;
 
                 userClaims = await _userRepo.UserLogin(request);
 
@@ -79,11 +79,11 @@ namespace Almondcove.API.Controllers.Dedicated
             return await ExecuteActionAsync(async () =>
             {
 
-                int statCode = StatusCodes.Status400BadRequest;
-                string message = "Something went wrong";
+                int statCode = default;
+                string message = string.Empty;
                 List<string> errors = [];
-                User_ClaimsResponse userClaims = null;
-                DbResult result = 0;
+                User_ClaimsResponse userClaims;
+                DbResult result;
 
                 (result, userClaims) = await _userRepo.UserSignup(request);
 
@@ -99,34 +99,6 @@ namespace Almondcove.API.Controllers.Dedicated
                     statCode = StatusCodes.Status200OK;
                     errors.Add("");
                 }
-
-                //if (userClaims != null)
-                //{
-                //    statCode = StatusCodes.Status200OK;
-                //    var claims = new[]
-                //       {
-                //            new Claim(ClaimTypes.Email, userClaims.Email),
-                //            new Claim(ClaimTypes.Role, userClaims.Role),
-                //            new Claim("UserName", userClaims.FirstName),
-                //            new Claim("FirstName", userClaims.FirstName),
-                //            new Claim("LastName", userClaims.LastName),
-                //            new Claim("Avatar", userClaims.Avatar),
-                //            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-                //        };
-
-                //    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.CurrentValue.JwtSettings.IssuerSigningKey));
-                //    var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-                //    var token = new JwtSecurityToken(
-                //        issuer: _config.CurrentValue.JwtSettings.ValidIssuer,
-                //        audience: _config.CurrentValue.JwtSettings.ValidAudience,
-                //        claims: claims,
-                //        expires: DateTime.Now.AddDays(7),
-                //        signingCredentials: creds);
-
-                //    userClaims.Token = new JwtSecurityTokenHandler().WriteToken(token);
-                //}
-
 
                 return (statCode, userClaims, message, errors);
             }, MethodBase.GetCurrentMethod().Name);

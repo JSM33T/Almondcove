@@ -40,14 +40,14 @@ namespace Almondcove.API.Controllers
             {
                 _logger.LogError(ex, "An error occurred in {MethodName}. User: {User}. URL: {Url}. Query: {Query} UserAgent: {UserAgent}", methodName, user, request.Path, request.QueryString, request.Headers.UserAgent);
 
-                await _telegramService.SendMessageAsync(
-                           $"<b>An error occurred in:</b> {methodName}\n" +
-                           $"<b>User:</b> {user}\n" +
-                           $"<b>URL:</b> {request.Path}\n" +
-                           $"<b>Query:</b> {request.QueryString}\n" +
-                           $"<b>UserAgent:</b> {request.Headers.UserAgent}\n" +
-                           $"<b>Exception:</b> {ex.Message}"
-                       );
+                //await _telegramService.SendMessageAsync(
+                           //$"<b>An error occurred in:</b> {methodName}\n" +
+                           //$"<b>User:</b> {user}\n" +
+                           //$"<b>URL:</b> {request.Path}\n" +
+                           //$"<b>Query:</b> {request.QueryString}\n" +
+                           //$"<b>UserAgent:</b> {request.Headers.UserAgent}\n" +
+                           //$"<b>Exception:</b> {ex.Message}"
+                       //);
                 return AcResponse(500, "An error occurred while processing your request.", default(T), ["Something went wrong", "Error has been logged"]);
             }
             finally
