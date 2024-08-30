@@ -1,13 +1,7 @@
 USE [almondcove_db]
 GO
-/****** Object:  StoredProcedure [dbo].[sproc_GetPaginatedBlogs]    Script Date: 29-08-2024 10.32.43 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
 
--- Create the stored procedure
-ALTER   PROCEDURE [dbo].[sproc_GetPaginatedBlogs]
+CREATE OR ALTER PROCEDURE [dbo].[sproc_GetPaginatedBlogs]
     @PageNumber INT,
     @PageSize INT,
     @SearchString NVARCHAR(128) = NULL,
