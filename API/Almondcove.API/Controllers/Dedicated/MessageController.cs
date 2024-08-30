@@ -20,6 +20,7 @@ namespace Almondcove.API.Controllers.Dedicated
         [HttpPost("send")]
         [EnableRateLimiting("api/messages/send")]
         [AllowAnonymous]
+        #region Send message
         public async Task<IActionResult> SendMessage([FromBody] Message_AddRequest messageRequest)
         {
             return await ExecuteActionAsync(async () =>
@@ -51,5 +52,6 @@ namespace Almondcove.API.Controllers.Dedicated
                 return (statusCode, 0, message, hints);
             }, MethodBase.GetCurrentMethod().Name);
         }
+        #endregion
     }
 }

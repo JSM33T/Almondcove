@@ -16,6 +16,7 @@ namespace Almondcove.API.Controllers.Dedicated
         private readonly IBlogRepository _BlogRepo = BlogRepository;
 
         [HttpPost("search")]
+        #region Paginated blogs with search criteria
         public async Task<IActionResult> GetBlogsByPagination([FromBody] Blog_GetRequest request)
         {
             return await ExecuteActionAsync(async () =>
@@ -38,13 +39,16 @@ namespace Almondcove.API.Controllers.Dedicated
             }, MethodBase.GetCurrentMethod().Name);
         }
 
+        #endregion
+
         [HttpGet("load/{year}/{slug}")]
+        #region load blog by slug
         public async Task<IActionResult> GetStuff(string slug, string year)
         {
             return await ExecuteActionAsync(async () =>
             {
                 int statusCode = default;
-                string message = "No Blog found";
+                string message = string.Empty;
                 List<string> hints = [];
                 Blog_GetDetails BlogDetails = new();
                 Blog Blog = new();
@@ -80,8 +84,10 @@ namespace Almondcove.API.Controllers.Dedicated
             }, MethodBase.GetCurrentMethod().Name);
         }
 
+        #endregion
 
         [HttpGet("details/{slug}")]
+        #region Get blog details post loading
         public async Task<IActionResult> GetCategoryStuff(string slug)
         {
             return await ExecuteActionAsync(async () =>
@@ -105,9 +111,10 @@ namespace Almondcove.API.Controllers.Dedicated
                 return (statusCode, blog, message, hints);
             }, MethodBase.GetCurrentMethod().Name);
         }
-
+        #endregion
 
         [HttpGet("getcategories")]
+        #region Get categories on side pane
         public async Task<IActionResult> GetCategoryStuff()
         {
             return await ExecuteActionAsync(async () =>
@@ -127,5 +134,7 @@ namespace Almondcove.API.Controllers.Dedicated
                 return (statusCode, categories, message, hints);
             }, MethodBase.GetCurrentMethod().Name);
         }
+
+        #endregion
     }
 }

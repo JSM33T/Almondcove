@@ -22,9 +22,9 @@ namespace Almondcove.API.Controllers.Dedicated
     {
         private readonly IUserRepository _userRepo = userRepository;
 
-        #region LOGIN CONTROLLER
         [HttpPost("login")]
         [AllowAnonymous]
+        #region User Login
         public async Task<IActionResult> Login([FromBody] User_LoginRequest request)
         {
             return await ExecuteActionAsync(async () =>
@@ -71,9 +71,9 @@ namespace Almondcove.API.Controllers.Dedicated
         }
         #endregion
 
-        #region SIGNUP CONTROLLER
         [HttpPost("signup")]
         [AllowAnonymous]
+        #region User signup
         public async Task<IActionResult> Signup([FromBody] User_SignupRequest request)
         {
             return await ExecuteActionAsync(async () =>
